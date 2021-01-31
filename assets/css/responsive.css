@@ -1,0 +1,121 @@
+/* XL (laptop) Device :1200px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+    
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
+   
+}
+/* LG Device :992px. */
+@media (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
+
+/* MD Device :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    
+
+}
+
+
+@media (max-width: 767px) {
+}
+
+/*-- Phone Landscape --*/
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    #header_search_area .header_search_area_container form {
+        width: 97%;
+    }
+
+
+
+
+}
+
+
+
+/* Extra small Device. */
+@media (max-width: 575px) {
+    #header_top,
+    #header_search_area,
+    #filter_name,
+    #music_list_main_area,
+    #footer_top,
+    #footer
+    {
+        overflow-x: hidden !important;
+    }
+    .container{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    #header_top .header_top_container .right_style_chose ul li {
+        margin-left: 17px;
+    }
+    #header_search_area .header_search_area_container form {
+        width: 100%;
+    }
+    #header_search_area .header_search_area_container {
+        padding: 13px 17px;
+    }
+    #header_search_area .header_search_area_container h3 {
+        font-size: 17px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
+        height: 104px;
+    }
+    #music_list_main_area .music_list_main_area_container {
+        padding: 10px 10px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
+        font-size: 15px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners {
+        margin-top: 0px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p {
+        font-size: 12px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p span {
+        margin-left: 4px;
+        font-size: 10px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
+        font-size: 12px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .saong_main_language h4 {
+        font-size: 14px;
+    }
+    #filter_name .filter_name_container p {
+        font-size: 14px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li {
+        margin-bottom: 9px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
