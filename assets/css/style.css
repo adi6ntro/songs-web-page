@@ -249,6 +249,8 @@
   }
   
   #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
+	object-fit: cover;
+    object-position: 100% 0;
 	height: 100px;
 	width: 80px;
   }
