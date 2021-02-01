@@ -56,25 +56,25 @@
         width: 100%;
     }
     #header_search_area .header_search_area_container {
-        padding: 13px 17px;
+        padding: 12px 60px;
     }
     #header_search_area .header_search_area_container h3 {
-        font-size: 17px;
+        font-size: 15px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
-        height: 104px;
+        height: 80px;
     }
     #music_list_main_area .music_list_main_area_container {
         padding: 10px 10px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
-        font-size: 15px;
+        font-size: 18px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners {
         margin-top: 0px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p {
-        font-size: 12px;
+        font-size: 18px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p span {
         margin-left: 4px;
