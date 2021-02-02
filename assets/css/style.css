@@ -68,10 +68,11 @@
 	font-size: 20px;
   }
   
-  #header_top .header_top_container .right_style_chose ul .active {
-	color: #DDD9C4;
+  #header_top .header_top_container .right_style_chose ul .active a {
+	color: #DDD9C4 !important;
+	text-decoration: none;
   }
-  
+	
   #header_top.fix {
 	position: fixed;
 	top: 0;
