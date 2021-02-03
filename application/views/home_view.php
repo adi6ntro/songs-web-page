@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 	<style>
 		.swiper-wrapper {
-			width: 100px;
+			width: 77px;
 		}
 	</style>
 	<!-- start header top area -->
@@ -37,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-xl-9 col-lg-10 col-md-11 mx-auto">
 					<div class="header_top_container">
 						<div class="row">
-							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" style="padding-left: 10px;align-self: center;">
+							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" style="padding-left: 15px;align-self: center;">
 								<div class="logoarea">
 									<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="24" width="27">
 								</div>
