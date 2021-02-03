@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8">
 								<div class="right_style_chose text-right">
 									<ul>
-										<li class="active">Popular</li>
+										<li class="active"><a href="<?php echo base_url();?>">Popular</a></li>
 										<li>C</li>
 										<li>F</li>
 										<li>M</li>
