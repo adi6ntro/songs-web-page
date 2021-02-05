@@ -50,7 +50,7 @@
   
   #header_top .header_top_container {
 		background: #4F6228;
-		padding: 9px 19px;
+		padding: 7px 19px;
     height: 42px;
   }
   
@@ -65,7 +65,8 @@
 	font-weight: 600;
 	margin-left: 20px;
 	cursor: pointer;
-	font-size: 20px;
+  font-size: 19px;
+  vertical-align: -4px;
   }
   
   #header_top .header_top_container .right_style_chose ul .active a {
@@ -143,9 +144,9 @@
   }
   
   #header_search_area .header_search_area_container .style_name p {
-	font-weight: 400;
+	font-weight: 600;
 	font-size: 14px;
-	color: #D5D5CA;
+	color: #E3E7E9;
   }
   
   #simpleSearch {
@@ -247,7 +248,7 @@
 	display: flex;
 	justify-content: flex-start;
 	border-bottom: 1px solid #dadada;
-    padding: 8px 8px;
+    padding: 8px 8px 9px;
   }
   
   #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
@@ -260,13 +261,14 @@
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box {
   padding-left: 12px;
   padding-right: 30px;
+  line-height: 1.22;
 	position: relative;
 	flex: 1;
   }
   
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
 	font-weight: 600;
-	font-size: 20px;
+	font-size: 17px;
 	color: #000000;
   }
   
@@ -277,7 +279,8 @@
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
 	display: inline-block;
 	font-weight: 700;
-	font-size: 11.5px;
+  font-size: 11.5px;
+  vertical-align: 1px;
 	color: #000000;
 	margin-right: 5px;
   }
@@ -291,7 +294,8 @@
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p span {
 	font-weight: 600;
 	text-transform: uppercase;
-	margin-left: 7px;
+  margin-left: 2px;
+  font-size: 11px;
 	color: #5E6851;
   }
   
@@ -313,7 +317,12 @@
   }
   
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .instoment_song {
-	color: #E0650F;
+  color: white;
+  background-color: salmon;
+  font-size: 11px;
+  width: 35px;
+  vertical-align: 1px;
+  text-indent: 3px;
   }
   
   #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language {
@@ -388,7 +397,7 @@
   #footer_top .footer_top_container .footer_top_content h3 {
 	color: #fff;
 	font-weight: 600;
-	font-size: 20px;
+	font-size: 18px;
 	letter-spacing: 1px;
   }
   

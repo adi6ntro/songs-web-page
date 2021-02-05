@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 	<style>
 		.swiper-wrapper {
-			width: 77px;
+			width: 80px;
+			padding-top: 1px;
 		}
 	</style>
 	<!-- start header top area -->
@@ -39,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="row">
 							<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4" style="padding-left: 15px;align-self: center;">
 								<div class="logoarea">
-									<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="24" width="27">
+									<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="25" width="27">
 								</div>
 							</div>
 							<div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8">
@@ -185,9 +186,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-xl-9 col-lg-10 col-md-11 mx-auto">
 					<div class="footer_container text-center">
-						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="24" width="27" style="margin: 0px -3px;">
-						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="24" width="27" style="margin: 0px -3px;">
-						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="24" width="27" style="margin: 0px -3px;">
+						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="25" width="27" style="margin: 0px -3px;">
+						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="25" width="27" style="margin: 0px -3px;">
+						<img src="<?php echo base_url();?>assets/img/logo.svg" alt="Logo" height="25" width="27" style="margin: 0px -3px;">
 					</div>
 				</div>
 			</div>
