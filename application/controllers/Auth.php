@@ -10,22 +10,44 @@ class Auth extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('auth/login');
-		$this->load->view('footer');
+		if ($this->session->userdata('logged_in')) {
+			redirect('/', 'refresh');
+		}
+		$data[] = '';
+		// $data['csrf'] = array(
+		// 	'name' => $this->security->get_csrf_token_name(),
+		// 	'hash' => $this->security->get_csrf_hash()
+		// );
+		$this->load->view('header',$data);
+		$this->load->view('auth/login',$data);
+		$this->load->view('footer',$data);
 	}
 	
 	public function signup($cek=null)
 	{
+		if ($this->session->userdata('logged_in')) {
+			redirect('/', 'refresh');
+		}
 		$data['cek'] = $cek;
-		$this->load->view('header');
+		$data['csrf'] = array(
+			'name' => $this->security->get_csrf_token_name(),
+			'hash' => $this->security->get_csrf_hash()
+		);
+		$this->load->view('header',$data);
 		$this->load->view('auth/signup',$data);
-		$this->load->view('footer');
+		$this->load->view('footer',$data);
 	}
 
 	public function myaccount()
 	{
+		if (!$this->session->userdata('logged_in')) {
+			redirect('login', 'refresh');
+		}
 		$data['username'] = $this->session->userdata('logged_in')['username'];
+		$data['csrf'] = array(
+			'name' => $this->security->get_csrf_token_name(),
+			'hash' => $this->security->get_csrf_hash()
+		);
 		$this->load->view('header',$data);
 		$this->load->view('auth/myaccount',$data);
 		$this->load->view('footer',$data);
@@ -51,7 +73,7 @@ class Auth extends CI_Controller {
 					'id' => $row->id,
 					'username' => $row->username,
 					'email' => $row->email,
-					'phone_number'=> $row->gid
+					'phone_number'=> ''
 				);
 				$this->session->set_userdata('logged_in', $sess_array);
 			}
@@ -60,6 +82,22 @@ class Auth extends CI_Controller {
 			$this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
 			return false;
 		}
+	}
+
+	function activate($link) {
+		$result = $this->auth_model->autologin($link);
+		if($result){
+			foreach($result as $row){
+				$sess_array = array(
+					'id' => $row->id,
+					'username' => $row->username,
+					'email' => $row->email,
+					'phone_number'=> ''
+				);
+				$this->session->set_userdata('logged_in', $sess_array);
+			}
+		}
+		redirect('/', 'refresh');
 	}
 
 	public function check_username(){
@@ -83,12 +121,13 @@ class Auth extends CI_Controller {
 	}
 
 	public function uname($id=0){
-		if($id!=0){$a='id !=';$b=$this->session->userdata('logged_in')['id'];}
-		else{$a='username';$b=$this->input->post('username');}
-		$uname=array('username' => $this->input->post('username'),$a => $b);
+		$uname=array('username' => $this->input->post('username'));
+		if($id!=0){
+			$uname['id !='] = $this->session->userdata('logged_in')['id'];
+		}
 		$queryr = $this->db->get_where('users', $uname);
 		if($queryr->num_rows() > 0){
-			if($this->username==$this->input->post('username')) echo 'true';
+			if($this->session->userdata('logged_in')['username']==$this->input->post('username')) echo 'true';
 			else echo 'false';
 		}else {
 			echo 'true';
@@ -125,22 +164,23 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
+			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->update_user('forgot');
 			$this->session->set_flashdata('result', $rr);
+			echo $rr;
 		}
-		redirect('login');
 	}
 
 	function change_password() {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
-			return validation_errors();
+			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->update_user('password');
 			$this->session->set_flashdata('result', $rr);
-			return $rr;
+			echo $rr;
 		}
 	}
 
@@ -148,11 +188,11 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'required|min_length[4]');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
-			return validation_errors();
+			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->update_user('username');
 			$this->session->set_flashdata('result', $rr);
-			return $rr;
+			echo $rr;
 		}
 	}
 
@@ -160,7 +200,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
-			return validation_errors();
+			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->update_user('deleted');
 			$this->session->set_flashdata('result', $rr);
@@ -168,7 +208,7 @@ class Auth extends CI_Controller {
 				$this->session->unset_userdata('logged_in');
 				$this->session->sess_destroy();
 			}
-			return $rr;
+			echo $rr;
 		}
 	}
 

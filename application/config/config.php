@@ -326,7 +326,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'WPqimdCYx94irZjOhwON';
+$config['encryption_key'] = hex2bin('17c12b5d1458ea4fd129a6c489fbc861');
 
 /*
 |--------------------------------------------------------------------------
@@ -455,7 +455,11 @@ $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array(
+	'language/autocomplete',
+	'loadmore',
+	'loadmore/(:any)'
+);
 
 /*
 |--------------------------------------------------------------------------

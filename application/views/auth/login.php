@@ -30,7 +30,7 @@
 								<input type="email" name="email" placeholder="Enter Email" id="email" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
-								<button type="submit" class="btn btn-swal2-confirm">SEND MY PASSWORD</button>
+								<button type="button" onclick="reset_password()" class="btn btn-swal2-confirm" id="forgotbtn">SEND MY PASSWORD</button>
 							</div>
 						</form>
 					</div>

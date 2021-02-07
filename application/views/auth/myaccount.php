@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="login_form_area_container">
-						<h3><?php echo $username; ?></h3>
+						<h3 id="hisusername" style="text-transform:none"><?php echo $username; ?></h3>
 						<h5>ACCOUNT</h5>
 					</div>
 					<hr style="margin: 1rem 2rem;border-top: 3px solid rgba(0,0,0,.1);">
@@ -16,7 +16,7 @@
 								<input type="password" name="password" placeholder="Enter New Password" id="password" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
-								<button type="button" onclick="change_password()" class="btn btn-swal2-confirm">CHANGE</button>
+								<button type="button" onclick="change_password()" class="btn btn-swal2-confirm" id="chpassbtn">CHANGE</button>
 							</div>
 						</form>
 					</div>
@@ -28,7 +28,7 @@
 								<input type="text" name="username" placeholder="Enter New Username" id="username" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
-								<button type="button" onclick="change_username()" class="btn btn-swal2-confirm">CHANGE</button>
+								<button type="button" onclick="change_username()" class="btn btn-swal2-confirm" id="chuserbtn">CHANGE</button>
 							</div>
 						</form>
 					</div>
@@ -36,7 +36,7 @@
 					<div class="login_form_area_container">
 						<h3>DELETE ACCOUNT</h3>
 						<div style="text-align:center">
-							<button type="button" class="btn btn-swal2-confirm" onclick="delete_account()">CHANGE</button>
+							<button type="button" class="btn btn-swal2-confirm" onclick="delete_account()" id="deletebtn">CHANGE</button>
 						</div>
 					</div>
 					<hr style="margin: 1rem 2rem;border-top: 3px solid rgba(0,0,0,.1);">

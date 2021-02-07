@@ -141,10 +141,10 @@
 				},
 				messages:{
 					username:{
-						remote: jQuery.validator.format("username is unavailable")
+						remote: jQuery.validator.format("That username is taken. Try another.")
 					},
 					email:{
-						remote: jQuery.validator.format("email is unavailable")
+						remote: jQuery.validator.format("That email is taken. Try another.")
 					}
 				}
 			});
@@ -166,6 +166,36 @@
 						setTimeout(delay, 0);
 					}
 				},
+			});
+			$("#change_user").validate({
+				rules: {
+					username: {
+						noSpace: true,
+						regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
+						remote: {
+							url: "<?php echo site_url();?>auth/uname/1",
+							type: "post",
+							data: {
+								login: function(){
+								return $('#change_user :input[name="username"]').val();
+								}
+							}
+						}
+					},
+				},
+				onfocusout: function (element){
+					if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
+						var currentObj = this;
+						var currentElement = element;
+						var delay = function () { currentObj.element(currentElement); };
+						setTimeout(delay, 0);
+					}
+				},
+				messages:{
+					username:{
+						remote: jQuery.validator.format("That username is taken. Try another.")
+					}
+				}
 			});
 		});
 
@@ -194,13 +224,19 @@
 			});
 		}
 
+		// var csrfName = '<?php //echo $this->security->get_csrf_token_name(); ?>',
+		// 	csrfHash = '<?php //echo $this->security->get_csrf_hash(); ?>';
 		function change_username() {
+			$('#chuserbtn').attr('disabled','true');
 			$.ajax({
 				url:"<?php echo site_url('change/username');?>",
 				method:"POST",
 				data:$('#change_user').serialize(),
 				cache:false,
 				success:function(data){
+					$('#chuserbtn').removeAttr('disabled');
+					$('#hisusername').html($('#username').val());
+					$('#username').val('');
 					if (data) {
 						show_popup('username',"Your <b>username</b><br>has been successfully changed");
 					} else {
@@ -211,12 +247,15 @@
 		}
 
 		function change_password() {
+			$('#chpassbtn').attr('disabled','true');
 			$.ajax({
 				url:"<?php echo site_url('change/password');?>",
 				method:"POST",
 				data:$('#change_pass').serialize(),
 				cache:false,
 				success:function(data){
+					$('#chpassbtn').removeAttr('disabled');
+					$('#password').val('');
 					if (data) {
 						show_popup('password',"Your <b>password</b><br>has been successfully changed");
 					} else {
@@ -227,44 +266,22 @@
 		}
 
 		function reset_password() {
-			Swal.fire({
-				title: 'password',
-				html: "Your <b>password</b><br>has been successfully changed",
-				confirmButtonText: 'CLOSE',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
-				customClass: {
-					confirmButton: 'btn btn-swal2-confirm',
-					cancelButton: 'btn btn-swal2-cancel-darker'
-				},
-				buttonsStyling: false,
-				allowOutsideClick: false,
+			$('#forgotbtn').attr('disabled','true');
+			$.ajax({
+				url:"<?php echo site_url('forgot');?>",
+				method:"POST",
+				data:$('#forgot').serialize(),
+				cache:false,
+				success:function(data){
+					if (data) {
+						$('#email').val('');
+						$('#forgotbtn').removeAttr('disabled');
+						show_popup('reset password',data);
+					}
+				}
 			});
 		}
 
-		function register() {
-			Swal.fire({
-				title: 'password',
-				html: "Your <b>password</b><br>has been successfully changed",
-				confirmButtonText: 'CLOSE',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
-				customClass: {
-					confirmButton: 'btn btn-swal2-confirm',
-					cancelButton: 'btn btn-swal2-cancel-darker'
-				},
-				buttonsStyling: false,
-				allowOutsideClick: false,
-			});
-		}
 		var swiper = new Swiper('.swiper-container', {
 			spaceBetween: 0,
 			width: 100,
@@ -299,46 +316,50 @@
 				allowOutsideClick: false,
 			}).then((result) => {
 				if (result.isConfirmed) {
-					const { value: password } = await Swal.fire({
-						html: "Please enter your <b>password</b>",
-						input: 'password',
-						inputAttributes: {
-							autocapitalize: 'off'
-						},
-						showLoaderOnConfirm: true,
-						showCancelButton: true,
-						confirmButtonText: 'DELETE MY ACCOUNT',
-						cancelButtonText: 'CANCEL',
-						showClass: {
-							popup: 'animate__animated animate__fadeInDown'
-						},
-						hideClass: {
-							popup: 'animate__animated animate__fadeOutUp'
-						},
-						customClass: {
-							confirmButton: 'btn btn-swal2-confirm',
-							cancelButton: 'btn btn-swal2-cancel-dark'
-						},
-						buttonsStyling: false,
-						allowOutsideClick: false,
-					});
-					if (password) {
-						$.ajax({
-							url:"<?php echo site_url('delete-account');?>",
-							method:"POST",
-							data:{password:password},
-							cache:false,
-							success:function(data){
-								if (data) {
-									window.location = '<?php echo base_url(); ?>';
-								} else {
-									show_popup('password',data);
-								}
-							}
-						});
-					}
+					confirmdelete();
 				}
 			});
+		}
+
+		async function confirmdelete() {
+			const { value: password } = await Swal.fire({
+				html: "Please enter your <b>password</b>",
+				input: 'password',
+				inputAttributes: {
+					autocapitalize: 'off'
+				},
+				showLoaderOnConfirm: true,
+				showCancelButton: true,
+				confirmButtonText: 'DELETE MY ACCOUNT',
+				cancelButtonText: 'CANCEL',
+				showClass: {
+					popup: 'animate__animated animate__fadeInDown'
+				},
+				hideClass: {
+					popup: 'animate__animated animate__fadeOutUp'
+				},
+				customClass: {
+					confirmButton: 'btn btn-swal2-confirm',
+					cancelButton: 'btn btn-swal2-cancel-dark'
+				},
+				buttonsStyling: false,
+				allowOutsideClick: false,
+			});
+			if (password) {
+				$.ajax({
+					url:"<?php echo site_url('delete-account');?>",
+					method:"POST",
+					data:{password:password},
+					cache:false,
+					success:function(data){
+						if (data) {
+							window.location = '<?php echo base_url(); ?>';
+						} else {
+							show_popup('password',data);
+						}
+					}
+				});
+			}
 		}
 	</script>
 </body>

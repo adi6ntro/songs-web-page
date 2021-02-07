@@ -1,13 +1,19 @@
 /* XL (laptop) Device :1200px. */
 @media (min-width: 1200px) and (max-width: 1500px) {
-
+	.container {
+		max-width: 720px!important;
+	}
 }
 @media (min-width: 1200px) and (max-width: 1300px) {
-
+	.container {
+		max-width: 720px!important;
+	}
 }
 /* LG Device :992px. */
 @media (min-width: 992px) and (max-width: 1199px) {
-
+	.container {
+		max-width: 720px!important;
+	}
 }
 /* MD Device :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
