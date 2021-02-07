@@ -314,10 +314,10 @@ p {
 	text-transform: uppercase;
   margin-left: 2px;
   font-size: 11px;
-	color: #5E6851;
-}
-
-#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
+	color: #34640D;
+  }
+  
+  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
 	font-weight: 300;
 	font-size: 16px;
 	color: #F7CB4D;
@@ -331,7 +331,7 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .year_song {
-	color: #464444;
+	color: #8C919E;
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .instoment_song {
