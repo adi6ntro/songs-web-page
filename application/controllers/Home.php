@@ -12,11 +12,13 @@ class Home extends CI_Controller {
 	{
 		$limit = 10;
 		$data['songs']=$this->songs_model->get_all_songs($limit);
-		$data['lang']="-";
+		$data['lang']="ALL";
 		$data['lang_id']="";
 		$data['start_limit']=$limit;
 		$data['limit']=$limit;
+		$this->load->view('header',$data);
 		$this->load->view('home_view',$data);
+		$this->load->view('footer',$data);
 	}
 
 	public function example()
@@ -26,11 +28,13 @@ class Home extends CI_Controller {
 
 	function get_autocomplete(){
         if (isset($_GET['term'])) {
-            $result = $this->songs_model->search_language($_GET['term']);
+
+			$term = $this->db->escape_str(trim(str_replace(" ","%",preg_replace('/\s\s+/', ' ', $_GET['term']))));
+			$result = $this->songs_model->search_language($term);
             if (count($result) > 0) {
             foreach ($result as $row)
 				$arr_result[] = array(
-					"value"=>$row->language_name, "lang_id"=>$row->id, "lang_name"=>$row->language_name
+					"value"=>$row->name, "lang_id"=>$row->id, "lang_name"=>$row->name
 				);
                 echo json_encode($arr_result);
             }
@@ -44,12 +48,23 @@ class Home extends CI_Controller {
 			redirect('/', 'refresh');
 		}
 		$limit = 10;
-		$data['songs']=$this->songs_model->get_by_param($type,$this->input->post('lang_id'),$limit);
-		$data['lang']=$this->songs_model->get_by_id('language','id',$this->input->post('lang_id'))->name;
-		$data['lang_id']=$this->input->post('lang_id');
+		$term = $this->db->escape_str(trim(preg_replace('/\s\s+/', ' ', $this->input->post('search'))));
+		if (empty($_POST['lang_id'])) {
+			$lang = $term;
+			$data['lang']=$term;
+			$data['lang_id']=rawurlencode($term);
+			$type=$type.'.name';
+		} else {
+			$lang = $this->input->post('lang_id');
+			$data['lang']=$this->songs_model->get_by_id('language','id',$this->input->post('lang_id'))->name;
+			$data['lang_id']=$this->input->post('lang_id');
+		}
+		$data['songs']=$this->songs_model->get_by_param($type,$lang,$limit);
 		$data['start_limit']=$limit;
 		$data['limit']=$limit;
+		$this->load->view('header',$data);
 		$this->load->view('home_view',$data);
+		$this->load->view('footer',$data);
 	}
 
 	public function loadmore($type=null,$id=null)

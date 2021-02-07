@@ -1,65 +1,80 @@
+@import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
+
 * {
 	margin: 0;
 	padding: 0;
 	outline: 0;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  ul {
+}
+
+.row, .col-12 {
+	margin: unset;
+	padding: unset;
+}
+
+ul {
 	margin: 0;
 	padding: 0;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  ul li {
+}
+
+ul li {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  a {
+}
+
+a {
 	text-decoration: none;
 	color: #05386B;
 	transition: 0.4s;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  a:hover {
+}
+
+a:hover {
 	text-decoration: none;
 	color: #05386B;
-  }
-  
-  h1,h2,h3,h4,h5,h6 {
+}
+
+h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 	padding: 0;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  body {
+}
+
+body {
 	position: relative;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  p {
+}
+
+p {
 	margin: 0;
 	padding: 0;
 	color: #323232;
 	font-family: "Roboto",sans-serif;
-  }
-  
-  #header_top .header_top_container {
-		background: #4F6228;
-		padding: 7px 19px;
-    height: 42px;
-  }
-  
-  #header_top .header_top_container .logoarea i {
+}
+
+#header_top .header_top_container {
+	background: #4F6228;
+	height: 42px;
+}
+
+#header_top .header_top_container .logoarea {
+	padding: 7px 19px;
+	width: 70px;
+}
+
+#header_top .header_top_container .logoarea i {
 	color: #fff;
 	font-size: 25px;
-  }
-  
-  #header_top .header_top_container .right_style_chose ul li {
+}
+
+#header_top .header_top_container .right_style_chose {
+	padding: 7px 19px;
+}
+
+#header_top .header_top_container .right_style_chose ul li {
 	display: inline-block;
 	color: #fff;
 	font-weight: 600;
@@ -67,66 +82,66 @@
 	cursor: pointer;
   font-size: 19px;
   vertical-align: -4px;
-  }
-  
-  #header_top .header_top_container .right_style_chose ul .active a {
+}
+
+#header_top .header_top_container .right_style_chose ul .active a {
 	color: #DDD9C4 !important;
 	text-decoration: none;
-  }
-	
-  #header_top.fix {
+}
+
+#header_top.fix {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 99999999;
-  }
-  
-  #header_top.fix .header_top_container {
+}
+
+#header_top.fix .header_top_container {
 	box-shadow: 0px 3px 5px rgba(0,0,0,0.2);
-  }
-  
-  #header_search_area {
+}
+
+#header_search_area {
 	padding: 10px 0px 10px 0px;
 	background: #fff;
-  }
-  
-  #header_search_area .header_search_area_container {
+}
+
+#header_search_area .header_search_area_container {
 	padding: 13px 30px;
-  }
-  
-  #header_search_area .header_search_area_container h3 {
+}
+
+#header_search_area .header_search_area_container h3 {
 	font-weight: 700;
 	text-transform: uppercase;
-	font-size: 20px;
+	font-size: 21px;
 	text-align: center;
 	letter-spacing: 0.5px;
-  }
-  
-  #header_search_area .header_search_area_container form {
+}
+
+#header_search_area .header_search_area_container form {
 	margin: 0 auto;
 	margin-top: 13px;
 	width: 80%;
-  }
-  
-  #header_search_area .header_search_area_container form .input_box {
+}
+
+#header_search_area .header_search_area_container form .input_box {
 	position: relative;
-  }
-  
-  #header_search_area .header_search_area_container form .input_box input {
+}
+
+#header_search_area .header_search_area_container form .input_box input {
 	width: 100%;
 	border: 1px solid #ddd;
 	padding: 12px 55px 12px 15px;
 	font-weight: 500;
 	font-size: 14px;
 	border-radius: 2px;
-  }
-  
-  #header_search_area .header_search_area_container form .input_box input:focus::placeholder {
+}
+
+#header_search_area .header_search_area_container form .input_box input:focus::placeholder {
 	color: transparent;
-  }
-  
-  #header_search_area .header_search_area_container form .input_box button {
+}
+
+#header_search_area .header_search_area_container form .input_box button {
 	position: absolute;
 	height: 100%;
 	top: 0;
@@ -137,235 +152,241 @@
 	padding: 0px 15px;
 	border-radius: 0px 2px 2px 0px;
 	outline: none;
-  }
-  
-  #header_search_area .header_search_area_container .style_name {
+}
+
+#header_search_area .header_search_area_container .style_name {
 	margin-top: 5px;
-  }
-  
-  #header_search_area .header_search_area_container .style_name p {
-	font-weight: 600;
+}
+
+#header_search_area .header_search_area_container .style_name p {
+	font-weight: normal;
 	font-size: 14px;
 	color: #E3E7E9;
-  }
-  
-  #simpleSearch {
-    position: relative;
+	color: black;
+	opacity: .2;
+}
+
+#simpleSearch {
+	position: relative;
 	height: 100%;
+	margin: 0 30px;
 }
 
 #searchInput {
 	background-color: rgba(255,255,255,0.5);
-    color: #000000;
-    width: 100%;
-    height: 31px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 1px solid #a2a9b1;
-    border-radius: 2px;
-    padding: 5px 3.153846em 5px 0.4em;
-    -webkit-box-shadow: inset 0 0 0 1px transparent;
-    box-shadow: inset 0 0 0 1px transparent;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 300;
-    direction: ltr;
-    -webkit-transition: border-color 250ms,box-shadow 250ms;
-    -moz-transition: border-color 250ms,box-shadow 250ms;
-    transition: border-color 250ms,box-shadow 250ms;
-    -webkit-appearance: none;
+	color: grey;
+	width: 100%;
+	height: 35px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #a2a9b1;
+	border-radius: 2px;
+	padding: 8px 3.153846em 5px 0.4em;
+	-webkit-box-shadow: inset 0 0 0 1px transparent;
+	box-shadow: inset 0 0 0 1px transparent;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 300;
+	direction: ltr;
+	-webkit-transition: border-color 250ms,box-shadow 250ms;
+	-moz-transition: border-color 250ms,box-shadow 250ms;
+	transition: border-color 250ms,box-shadow 250ms;
+	-webkit-appearance: none;
 	-moz-appearance: textfield;
-  }
-  
-  #simpleSearch:hover #searchInput {
+}
+
+#simpleSearch:hover #searchInput {
 	border-color: #72777d;
-  }
-  
-  #searchInput:focus,#simpleSearch:hover #searchInput:focus {
+}
+
+#searchInput:focus,#simpleSearch:hover #searchInput:focus {
 	outline: 0;
 	border-color: #3366cc;
 	-webkit-box-shadow: inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff;
 	box-shadow: inset 0 0 0 1px #3366cc,inset 0 0 0 2px #ffffff;
-  }
-  
-  #searchInput::-webkit-input-placeholder,#searchInput:-ms-input-placeholder,
-  #searchInput::-moz-placeholder,#searchInput:-moz-placeholder,#searchInput::placeholder {
+}
+
+#searchInput::-webkit-input-placeholder,#searchInput:-ms-input-placeholder,
+#searchInput::-moz-placeholder,#searchInput:-moz-placeholder,#searchInput::placeholder {
 	color: #72777d;
 	opacity: 1;
-  }
-  
-  #searchInput::-webkit-search-decoration,#searchInput::-webkit-search-cancel-button,#searchInput::-webkit-search-results-button,#searchInput::-webkit-search-results-decoration {
+}
+
+#searchInput::-webkit-search-decoration,#searchInput::-webkit-search-cancel-button,#searchInput::-webkit-search-results-button,#searchInput::-webkit-search-results-decoration {
 	display: none;
-  }
-  
-  #searchButton,#mw-searchButton {
+}
+
+#searchButton,#mw-searchButton {
 	background-color: transparent;
-    position: absolute;
-    top: 1px;
-    bottom: 1px;
-    right: 1px;
-    min-width: 28px;
-    width: 2.153846em;
-    margin: 0;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    font-size: 15px;
-    direction: ltr;
-    text-indent: -99999px;
-    white-space: nowrap;
-    overflow: hidden;
-    z-index: 1;
-  }
-  
-  #searchButton {
+	position: absolute;
+	top: 1px;
+	bottom: 1px;
+	right: 1px;
+	min-width: 28px;
+	width: 2.153846em;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	font-size: 15px;
+	direction: ltr;
+	text-indent: -99999px;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
+}
+
+#searchButton {
 	background: no-repeat center / 1.23076923em url(../img/search.svg?cd2021);
 	opacity: 0.67;
-  }
+}
 
-  #filter_name .filter_name_container {
-	padding: 6px 30px 2px;
+#filter_name .filter_name_container {
+	padding: 6px 30px 3px;
 	background: #92D050;
-  }
-  
-  #filter_name .filter_name_container p {
+}
+
+#filter_name .filter_name_container p {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 21px;
 	color: rgba(255,255,255,0.973);
-  }
-  
-  #filter_name .filter_name_container p span {
-	text-transform: uppercase;
-  }
+}
 
-  #music_list_main_area .music_list_main_area_container {
+#filter_name .filter_name_container p span {
+	text-transform: uppercase;
+}
+
+#music_list_main_area .music_list_main_area_container {
 	padding: 10px 30px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item {
 	display: flex;
 	justify-content: flex-start;
 	border-bottom: 1px solid #dadada;
-    padding: 8px 8px 9px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
+	padding: 8px 8px 9px;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
 	object-fit: cover;
-    object-position: 100% 0;
+	object-position: 100% 0;
 	height: 77px;
 	width: 77px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box {
-  padding-left: 12px;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box {
+  padding-left: 10px;
   padding-right: 30px;
   line-height: 1.22;
 	position: relative;
 	flex: 1;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
-	font-weight: 600;
-	font-size: 17px;
-	color: #000000;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
-	font-size: 0;
-  }
+}
 
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
+	font-weight: 800;
+	font-size: 16px;
+	color: #000000;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
+	font-size: 0;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
 	display: inline-block;
 	font-weight: 700;
   font-size: 11.5px;
   vertical-align: 1px;
 	color: #000000;
 	margin-right: 5px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p {
 	font-size: 16px;
 	font-weight: 300;
 	letter-spacing: 0.5px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p span {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_details p span {
 	font-weight: 600;
 	text-transform: uppercase;
   margin-left: 2px;
   font-size: 11px;
 	color: #5E6851;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
 	font-weight: 300;
 	font-size: 16px;
 	color: #F7CB4D;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul li {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul li {
 	display: inline-block;
 	font-weight: 700;
 	font-size: 13px;
 	margin-right: 15px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .year_song {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .year_song {
 	color: #464444;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .instoment_song {
-  color: white;
-  background-color: salmon;
-  font-size: 11px;
-  width: 35px;
-  vertical-align: 1px;
-  text-indent: 3px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .instoment_song {
+	color: salmon;
+	font-size: 11.5px;
+	width: 35px;
+	/* vertical-align: 1px;
+	text-indent: 3px; */
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language {
 	position: absolute;
 	right: 0;
 	bottom: 0;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language h4 {
+	width: 20px;
+	height: 20px;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language h4 {
 	text-transform: uppercase;
-	font-weight: 600;
-	font-size: 17px;
+	font-weight: 700;
+	font-size: 15px;
 	color: #5B5E60;
-  }
+	text-align: center;
+}
 
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song {
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song {
 	position: absolute;
-	right: 7px;
+	right: 11px;
 	top: 0;
-  }
+}
 
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song .star {
-    visibility:hidden;
-    font-size:25px;
-    cursor:pointer;
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song .star {
+	visibility:hidden;
+	font-size:25px;
+	cursor:pointer;
 }
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song .star:before {
-   content: "\2606";
-   position: absolute;
-   visibility: visible;
-   color: gold;
+	content: "\2606";
+	position: absolute;
+	visibility: visible;
+	color: #a3a3a3;
+	font-weight: 900;
 }
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song .star:checked:before {
-   content: "\2605";
-   position: absolute;
-   color: gold;
+	content: "\2605";
+	position: absolute;
+	color: gold;
 }
 
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song {
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song {
 	margin-top: 13px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li {
 	display: inline-block;
 	background: #ddd;
 	font-weight: 500;
@@ -374,40 +395,162 @@
 	border-radius: 30px;
 	margin-right: 5px;
 	transition: 0.4s;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li:hover {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li:hover {
 	background: #92D050;
 	color: #fff;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artis_country h4 {
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artis_country h4 {
 	font-size: 14px;
-  }
-  
-  #music_list_main_area .music_list_main_area_container :last-child .single_music_item {
+}
+
+#music_list_main_area .music_list_main_area_container :last-child .single_music_item {
 	border: none;
-  }
-  
-  #footer_top .footer_top_container {
+}
+
+#footer_top .footer_top_container {
 	padding: 10px 30px;
 	background: #E26B0A;
-  }
-  
-  #footer_top .footer_top_container .footer_top_content h3 {
+}
+
+#footer_top .footer_top_container .footer_top_content h3 {
 	color: #fff;
 	font-weight: 600;
 	font-size: 18px;
 	letter-spacing: 1px;
-  }
-  
-  #footer .footer_container {
-	padding: 25px 30px;
+}
+
+#footer .footer_container {
+	padding: 33px 30px 25px;
 	background: #4F6228;
-  }
-  
-  #footer .footer_container i {
+}
+
+#footer .footer_container i {
 	font-size: 40px;
 	color: #fff;
-  }
-  
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .logoarea {
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #4F6228;
+  min-width: 160px;
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: white;
+	font-size: 17px;
+	font-weight: 600;
+	letter-spacing: 0.7px;
+	padding: 12px 20px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.swal2-popup {
+	border: 5px solid #7f7f7f !important;
+	border-radius: unset !important;
+	width: 15em !important;
+}
+
+.swal2-content {
+	padding: 0px 0.4em !important;
+}
+
+.swal2-actions {
+	padding: 0px 0.6em !important;
+}
+
+.btn-swal2-confirm {
+	background-color: #77923B;
+	color: white;
+	padding: 5px 20px;
+	font-weight: 600;
+}
+
+.btn-swal2-cancel {
+	background-color: #7f7f7f;
+	color: white;
+	padding: 5px 40px;
+	font-weight: 600;
+}
+.btn-swal2-cancel-light {
+	background-color: #A5A5A5;
+	color: white;
+	padding: 5px 40px;
+	font-weight: 600;
+}
+.btn-swal2-cancel-dark {
+	background-color: #595959;
+	color: white;
+	padding: 5px 40px;
+	font-weight: 600;
+}
+.btn-swal2-cancel-darker {
+	background-color: #3F3F3F;
+	color: white;
+	padding: 5px 20px;
+	font-weight: 600;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.btn-swal2-cancel:active,.btn-swal2-cancel:focus,.btn-swal2-cancel:hover,
+.btn-swal2-confirm:active,.btn-swal2-confirm:focus,.btn-swal2-confirm:hover {
+	color: white;
+	box-shadow: none;
+}
+
+#login_form_area {
+	padding: 10px 0px 10px 0px;
+	background: #fff;
+}
+
+#login_form_area .login_form_area_container {
+	padding: 13px 30px;
+}
+
+#login_form_area .login_form_area_container h3 {
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 21px;
+	text-align: center;
+	letter-spacing: 0.5px;
+}
+
+#login_form_area .login_form_area_container h4 {
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 17px;
+	text-align: center;
+	letter-spacing: 0.5px;
+}
+
+#login_form_area .login_form_area_container form {
+	margin: 0 auto;
+	margin-top: 13px;
+	width: 80%;
+}
