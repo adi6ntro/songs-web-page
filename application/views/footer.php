@@ -254,9 +254,9 @@
 				cache:false,
 				success:function(data){
 					$('#chuserbtn').removeAttr('disabled');
-					$('#hisusername').html($('#username').val());
-					$('#username').val('');
-					if (data) {
+					if (data == 'yes') {
+						$('#hisusername').html($('#username').val());
+						$('#username').val('');
 						show_popup('username',"Your <b>username</b><br>has been successfully changed");
 					} else {
 						show_popup('username',data);
@@ -275,8 +275,8 @@
 					cache:false,
 					success:function(data){
 						$('#chpassbtn').removeAttr('disabled');
-						$('#password').val('');
-						if (data) {
+						if (data=='yes') {
+							$('#password').val('');
 							show_popup('password',"Your <b>password</b><br>has been successfully changed");
 						} else {
 							show_popup('password',data);

@@ -213,14 +213,14 @@ class Auth_model extends CI_Model
 			);
 			$this->db->where('id', $this->session->userdata('logged_in')['id']);
 			$this->db->update('users', $insert_data);
-			return true;
+			return 'yes';
 		} else if ($type == 'username') {
 			$insert_data = array(
 				'username' => $this->db->escape_str($this->input->post('username'))
 			);
 			$this->db->where('id', $this->session->userdata('logged_in')['id']);
 			$this->db->update('users', $insert_data);
-			return true;
+			return 'yes';
 		} else if ($type == 'deleted') {
 			$que = "SELECT id,password FROM users WHERE id = ".$this->db->escape($this->session->userdata('logged_in')['id']);
 			$query = $this->db->query($que);
