@@ -67,8 +67,9 @@ class Auth_model extends CI_Model
 			// 		'mode' => 'ctr'
 			// 	)
 			// );
-			$plain_text = '1|#|'.$insert_id.'|#|'.$password.'|#|1';
-			$ciphertext = $this->encryption->encrypt($plain_text);
+			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$insert_id.'|#|'.$password.'|#|'.$currentTimestamp;
+			// $ciphertext = $this->encryption->encrypt($plain_text);
+			$ciphertext = base64_encode($plain_text);
 			$ciphertext = strtr(
 				$ciphertext,
 				array(
@@ -130,7 +131,8 @@ class Auth_model extends CI_Model
 		// 		'mode' => 'ctr'
 		// 	)
 		// );
-		$text = $this->encryption->decrypt($cipher);
+		// $text = $this->encryption->decrypt($cipher);
+		$text = base64_decode($cipher);
 		$id = explode("|#|",$text)[1];
 		$password = explode("|#|",$text)[2];
 		$que = "SELECT id, username, password, email, phone_number FROM users WHERE id = ".$this->db->escape($id);
@@ -165,8 +167,9 @@ class Auth_model extends CI_Model
 			// 		'mode' => 'ctr'
 			// 	)
 			// );
-			$plain_text = '1|#|'.$userInfo->id.'|#|'.$password.'|#|1';
-			$ciphertext = $this->encryption->encrypt($plain_text);
+			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$userInfo->id.'|#|'.$password.'|#|'.$currentTimestamp;
+			// $ciphertext = $this->encryption->encrypt($plain_text);
+			$ciphertext = base64_encode($plain_text);
 			$ciphertext = strtr(
 				$ciphertext,
 				array(
