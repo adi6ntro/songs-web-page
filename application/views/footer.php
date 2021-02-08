@@ -368,7 +368,7 @@
 		}
 		
 		<?php if($this->session->flashdata('result_signup')){ ?>
-			show_popup('show result','<?php echo $this->session->flashdata('result_signup');?>');
+			show_popup('show result',`<?php echo $this->session->flashdata('result_signup');?>`);
 		<?php } ?>
 
 		var swiper = new Swiper('.swiper-container', {
