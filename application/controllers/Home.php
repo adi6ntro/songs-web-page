@@ -30,6 +30,7 @@ class Home extends CI_Controller {
         if (isset($_GET['term'])) {
 
 			$term = $this->db->escape_str(trim(str_replace(" ","%",preg_replace('/\s\s+/', ' ', $_GET['term']))));
+			$term = implode('%',str_split($term));
 			$result = $this->songs_model->search_language($term);
             if (count($result) > 0) {
             foreach ($result as $row)

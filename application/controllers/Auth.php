@@ -79,7 +79,7 @@ class Auth extends CI_Controller {
 			}
 			return true;
 		}else{
-			$this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
+			$this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified.');
 			return false;
 		}
 	}
@@ -120,43 +120,31 @@ class Auth extends CI_Controller {
 		}
 	}
 
-	public function uname($id=0){
-		$uname=array('username' => $this->input->post('username'));
-		if($id!=0){
-			$uname['id !='] = $this->session->userdata('logged_in')['id'];
-		}
+	public function uname($username){
+		$uname=array('username' => $username, 'id !=' => $this->session->userdata('logged_in')['id'], 'user_status !=' => 'deleted');
 		$queryr = $this->db->get_where('users', $uname);
 		if($queryr->num_rows() > 0){
-			if($this->session->userdata('logged_in')['username']==$this->input->post('username')) echo 'true';
-			else echo 'false';
+			if ($this->session->userdata('logged_in')['username']==$username) {
+				$this->form_validation->set_message('username_check', 'That username is taken. Try another.');
+				return false;
+			} 
+			return true;
 		}else {
-			echo 'true';
-		}
-	}
-
-	public function umail($id=0){
-		if($id!=0){$a='id !=';$b=$this->session->userdata('logged_in')['id'];}
-		else{$a='email';$b=$this->input->post('email');}
-		$umail=array('email' => $this->input->post('email'));
-		$queryr = $this->db->get_where('users', $umail);
-		if($queryr->num_rows() > 0){
-			if($this->session->userdata('logged_in')['email']==$this->input->post('email')) echo 'true';
-			else echo 'false';
-		}else {
-			echo 'true';
+			return true;
 		}
 	}
 
 	function register() {
-		$this->form_validation->set_rules('username', 'Username', 'required|min_length[4]|is_unique[users.username]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules('username', 'Username', 'required|max_length[250]|is_unique[users.username]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|matches[reemail]');
+		$this->form_validation->set_rules('reemail', 'Rewrite Email', 'required|valid_email');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
-			redirect('signup');
+			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->register();
-			$this->session->set_flashdata('result', $rr);
-			redirect('/');
+			$this->session->set_flashdata('result_signup', $rr);
+			echo $rr;
 		}
 	}
 
@@ -173,7 +161,7 @@ class Auth extends CI_Controller {
 	}
 
 	function change_password() {
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required|callback_password_check_blank');
 		if ($this->form_validation->run() == FALSE){
 			$this->session->set_flashdata('result_error', validation_errors());
 			echo validation_errors();
@@ -185,8 +173,8 @@ class Auth extends CI_Controller {
 	}
 
 	function change_username() {
-		$this->form_validation->set_rules('username', 'Username', 'required|min_length[4]');
-		if ($this->form_validation->run() == FALSE){
+		$this->form_validation->set_rules('username', 'Username', 'required|max_length[250]|callback_uname');
+		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('result_error', validation_errors());
 			echo validation_errors();
 		}else{
@@ -196,6 +184,16 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	function password_check_blank($str) {
+		$pattern = '/ /';
+		$result = preg_match($pattern, $str);
+		if ($result) {
+			$this->form_validation->set_message('password_check', 'The %s can not have a space.');
+			return FALSE;
+		}
+		return TRUE;
+	}
+
 	function delete_account() {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		if ($this->form_validation->run() == FALSE){
@@ -203,12 +201,12 @@ class Auth extends CI_Controller {
 			echo validation_errors();
 		}else{
 			$rr = $this->auth_model->update_user('deleted');
-			$this->session->set_flashdata('result', $rr);
 			if ($rr) {
+				$this->session->set_flashdata('result_delete', '1');
 				$this->session->unset_userdata('logged_in');
 				$this->session->sess_destroy();
 			}
-			echo $rr;
+			echo 'Your password is uncorrect!';
 		}
 	}
 

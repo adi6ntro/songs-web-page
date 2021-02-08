@@ -8,7 +8,7 @@ class Auth_model extends CI_Model
     }
 
 	function login($username, $password){
-		$que = "SELECT * FROM users
+		$que = "SELECT id, username, password, email. phone_number FROM users
 				WHERE (username = ".$this->db->escape($username)." OR email = ".$this->db->escape($username).")
 				ORDER BY id DESC LIMIT 1";
 		$query = $this->db->query($que);
@@ -40,6 +40,12 @@ class Auth_model extends CI_Model
 	}
 
 	function register(){
+		$umail=array('email' => $this->input->post('email'), 'user_status !=' => 'deleted');
+		$queryr = $this->db->get_where('users', $umail);
+		if($queryr->num_rows() > 0){
+			return 'email';
+		} 
+
 		$options = ['cost' => 10];
 		$password = $this->generateRandomString();
 		$insert_data = array(
@@ -47,19 +53,20 @@ class Auth_model extends CI_Model
 			'password' => password_hash($password, PASSWORD_DEFAULT, $options),
 			'email' => $this->input->post('email'),
 			'phone_number' => '',
+			'last_code' => base64_encode($password)
 		);
 		if($this->db->insert('users',$insert_data)){
 			$insert_id = $this->db->insert_id();
 			$currentTimestamp = (new DateTime)->getTimestamp();
 			// $userLastActivity = date($date)->getTimestamp();
 			// $timeLapse = (($currentDate - $userLastActivity)/60);
-			$this->encryption->initialize(
-				array(
-					'driver' => 'openssl',
-					'cipher' => 'aes-256',
-					'mode' => 'ctr'
-				)
-			);
+			// $this->encryption->initialize(
+			// 	array(
+			// 		'driver' => 'openssl',
+			// 		'cipher' => 'aes-256',
+			// 		'mode' => 'ctr'
+			// 	)
+			// );
 			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$insert_id.'|#|'.$password.'|#|'.$currentTimestamp;
 			$ciphertext = $this->encryption->encrypt($plain_text);
 			$ciphertext = strtr(
@@ -72,8 +79,10 @@ class Auth_model extends CI_Model
 			);
 			$url = site_url() . 'activate/' . $ciphertext;
 			$link = '<a href="' . $url . '">' . $url . '</a>';
-			$message = '<strong>Here is your password:</strong><br><br>' . $password;
-			$message .= '<br><br><strong>Or click here to automatically sign in:</strong><br><br>'. $link;
+			$message = '<strong>Here is your account:</strong><br>';
+			$message .= '<strong>Username: </strong>'. $insert_data['username'].'<br>';
+			$message .= '<strong>Password: </strong>'. $password.'<br>';
+			$message .= '<br><br><strong>Or click here to automatically sign in:</strong><br>'. $link;
 			$fromemail="myappstesting8@gmail.com";
 			$fromname="Admin Song Web Page";
 			$subject="Request Account";
@@ -96,10 +105,12 @@ class Auth_model extends CI_Model
 			if(!$this->email->send()){
 				return "Mailer Error. Please click this link, ".base_url();
 			}else{
-				return "Account Registered successfully";
+				return "Your <b>account</b> has been successfully created.
+				<br>We have sent a <b>password</b> to your email<br>
+				<b style='color:darkred'>".$this->input->post('email')."</b><br>so you can use it to <b>log in</b>.";
 			}
 		}else{
-			return "Unable to register";
+			return "Unable to register.";
 		}
 	}
 	
@@ -112,17 +123,17 @@ class Auth_model extends CI_Model
 				'~' => '/'
 			)
 		);
-		$this->encryption->initialize(
-			array(
-				'driver' => 'openssl',
-				'cipher' => 'aes-256',
-				'mode' => 'ctr'
-			)
-		);
+		// $this->encryption->initialize(
+		// 	array(
+		// 		'driver' => 'openssl',
+		// 		'cipher' => 'aes-256',
+		// 		'mode' => 'ctr'
+		// 	)
+		// );
 		$text = $this->encryption->decrypt($cipher);
 		$id = explode("|#|",$text)[1];
 		$password = explode("|#|",$text)[2];
-		$que = "SELECT * FROM users WHERE id = ".$this->db->escape($id);
+		$que = "SELECT id, username, password, email, phone_number FROM users WHERE id = ".$this->db->escape($id);
 		$query = $this->db->query($que);
 		if (password_verify($password, $query->row()->password)) {
 			$this->db->where('id', $query->row()->id);
@@ -136,30 +147,25 @@ class Auth_model extends CI_Model
 	function update_user($type){
 		if($type == 'forgot'){
 			$this->db->where("email",$this->db->escape_str($this->input->post('email')));
+			$this->db->where("user_status !=","deleted");
 			$queryr=$this->db->get('users');
 			$userInfo = $queryr->row();
 			if($queryr->num_rows() != "1"){
-				return "Email doesn't exist!";
+				return "Email doesn't exist!".$this->input->post('email');
 			}
-			$options = ['cost' => 10];
-			$password = $this->generateRandomString();
-			$insert_data = array(
-				'password' => password_hash($password, PASSWORD_DEFAULT, $options)
-			);
-			$this->db->where('id', $userInfo->id);
-			$this->db->update('users', $insert_data);
+			$password = base64_decode($userInfo->last_code);
 
 			$currentTimestamp = (new DateTime)->getTimestamp();
 			// $userLastActivity = date($date)->getTimestamp();
 			// $timeLapse = (($currentDate - $userLastActivity)/60);
-			$this->encryption->initialize(
-				array(
-					'driver' => 'openssl',
-					'cipher' => 'aes-256',
-					'mode' => 'ctr'
-				)
-			);
-			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$userInfo->id.'|#|'.$password.'|#|'.$currentTimestamp;
+			// $this->encryption->initialize(
+			// 	array(
+			// 		'driver' => 'openssl',
+			// 		'cipher' => 'aes-256',
+			// 		'mode' => 'ctr'
+			// 	)
+			// );
+			$plain_text = '1|#|'.$userInfo->id.'|#|'.$password.'|#|1';
 			$ciphertext = $this->encryption->encrypt($plain_text);
 			$ciphertext = strtr(
 				$ciphertext,
@@ -171,8 +177,10 @@ class Auth_model extends CI_Model
 			);
 			$url = site_url() . 'activate/' . $ciphertext;
 			$link = '<a href="' . $url . '">' . $url . '</a>';
-			$message = '<strong>Here is your password:</strong><br><br><br>' . $password;
-			$message .= '<br><br><strong>Or click here to automatically sign in:</strong><br><br>'. $link;
+			$message = '<strong>Here is your account:</strong><br>';
+			$message .= '<strong>Username: </strong>'. $userInfo->username.'<br>';
+			$message .= '<strong>Password: </strong>'. $password.'<br>';
+			$message .= '<br><br><strong>Or click here to automatically sign in:</strong><br>'. $link;
 			$fromemail="myappstesting8@gmail.com";
 			$fromname="Admin Song Web Page";
 			$subject="Reset Password";
@@ -195,12 +203,13 @@ class Auth_model extends CI_Model
 			if(!$this->email->send()){
 				return "Mailer Error. Please click this link, ".base_url();
 			}else{
-				return "Password reset and an email sent with new password!";
+				return "yes";
 			}
 		} else if ($type == 'password') {
 			$options = ['cost' => 10];
 			$insert_data = array(
-				'password' => password_hash($this->db->escape_str($this->input->post('password')), PASSWORD_DEFAULT, $options)
+				'password' => password_hash($this->db->escape_str($this->input->post('password')), PASSWORD_DEFAULT, $options),
+				'last_code' => base64_encode($this->input->post('password'))
 			);
 			$this->db->where('id', $this->session->userdata('logged_in')['id']);
 			$this->db->update('users', $insert_data);

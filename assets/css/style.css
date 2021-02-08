@@ -314,10 +314,10 @@ p {
 	text-transform: uppercase;
   margin-left: 2px;
   font-size: 11px;
-	color: #34640D;
-  }
-  
-  #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
+	color: #5E6851;
+}
+
+#music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist p {
 	font-weight: 300;
 	font-size: 16px;
 	color: #F7CB4D;
@@ -331,7 +331,7 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .year_song {
-	color: #8C919E;
+	color: #464444;
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .year_instoment ul .instoment_song {
@@ -524,6 +524,14 @@ p {
 	box-shadow: none;
 }
 
+.swal2-validation-message {
+	margin: 0 0.3em!important;
+}
+
+.swal2-validation-message:before {
+	content: none!important;
+}
+
 #login_form_area {
 	padding: 10px 0px 10px 0px;
 	background: #fff;
@@ -554,3 +562,13 @@ p {
 	margin-top: 13px;
 	width: 80%;
 }
+
+.field-icon {
+	float: right;
+    margin-left: -25px;
+    margin-top: -27px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 2;
+}
+

@@ -79,123 +79,135 @@
 			});
 			<?php } ?>
 
-			jQuery.validator.addMethod("noSpace", function(value, element) {
-				return value.indexOf(" ") < 0 && value !== "";
-			}, "Space is not allowed");
-			jQuery.validator.addMethod("regex",function(value, element, regexp) {
-				var re = new RegExp(regexp);
-				return this.optional(element) || re.test(value);
-			}, "Please check your input");
-			$.validator.setDefaults({
-				highlight: function(element) {
-					$(element).closest('.form-group').addClass('has-error');
-				},
-				unhighlight: function(element) {
-					$(element).closest('.form-group').removeClass('has-error');
-					$(element).closest('.form-group').addClass('has-success');
-				},
-				errorElement: 'span',
-				errorClass: 'help-block',
-				errorPlacement: function(error, element) {
-					if(element.parent('.input-group').length) {
-					error.insertAfter(element.parent());
-					} else {
-					error.insertAfter(element);
-					}
+			// jQuery.validator.addMethod("noSpace", function(value, element) {
+			// 	return value.indexOf(" ") < 0 && value !== "";
+			// }, "Space is not allowed");
+			// jQuery.validator.addMethod("regex",function(value, element, regexp) {
+			// 	var re = new RegExp(regexp);
+			// 	return this.optional(element) || re.test(value);
+			// }, "Please check your input");
+			// $.validator.setDefaults({
+			// 	highlight: function(element) {
+			// 		$(element).closest('.form-group').addClass('has-error');
+			// 	},
+			// 	unhighlight: function(element) {
+			// 		$(element).closest('.form-group').removeClass('has-error');
+			// 		$(element).closest('.form-group').addClass('has-success');
+			// 	},
+			// 	errorElement: 'span',
+			// 	errorClass: 'help-block',
+			// 	errorPlacement: function(error, element) {
+			// 		if(element.parent('.input-group').length) {
+			// 		error.insertAfter(element.parent());
+			// 		} else {
+			// 		error.insertAfter(element);
+			// 		}
+			// 	}
+			// });
+			// $("#signup").validate({
+			// 	rules: {
+			// 		username: {
+			// 			noSpace: true,
+			// 			regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
+			// 			remote: {
+			// 				url: "<?php echo site_url();?>auth/check_username",
+			// 				type: "post",
+			// 				data: {
+			// 					login: function(){
+			// 					return $('#signup :input[name="username"]').val();
+			// 					}
+			// 				}
+			// 			}
+			// 		},
+			// 		email: {
+			// 			remote: {
+			// 				url: "<?php echo site_url();?>/auth/check_email",
+			// 				type: "post",
+			// 				data: {
+			// 					login: function(){
+			// 						return $('#signup :input[name="email"]').val();
+			// 					}
+			// 				}
+			// 			}
+			// 		},
+			// 	},
+			// 	onfocusout: function (element){
+			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
+			// 			var currentObj = this;
+			// 			var currentElement = element;
+			// 			var delay = function () { currentObj.element(currentElement); };
+			// 			setTimeout(delay, 0);
+			// 		}
+			// 	},
+			// 	messages:{
+			// 		username:{
+			// 			remote: jQuery.validator.format("That username is taken. Try another.")
+			// 		},
+			// 		email:{
+			// 			remote: jQuery.validator.format("That email is taken. Try another.")
+			// 		}
+			// 	}
+			// });
+			// $("#login").validate({
+			// 	rules: {
+			// 		username: {
+			// 			noSpace: true,
+			// 			required: true
+			// 		},
+			// 		password: {
+			// 			required: true
+			// 		},
+			// 	},
+			// 	onfocusout: function (element){
+			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
+			// 			var currentObj = this;
+			// 			var currentElement = element;
+			// 			var delay = function () { currentObj.element(currentElement); };
+			// 			setTimeout(delay, 0);
+			// 		}
+			// 	},
+			// });
+			// $("#change_user").validate({
+			// 	rules: {
+			// 		username: {
+			// 			noSpace: true,
+			// 			regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
+			// 			remote: {
+			// 				url: "<?php echo site_url();?>auth/uname/1",
+			// 				type: "post",
+			// 				data: {
+			// 					login: function(){
+			// 					return $('#change_user :input[name="username"]').val();
+			// 					}
+			// 				}
+			// 			}
+			// 		},
+			// 	},
+			// 	onfocusout: function (element){
+			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
+			// 			var currentObj = this;
+			// 			var currentElement = element;
+			// 			var delay = function () { currentObj.element(currentElement); };
+			// 			setTimeout(delay, 0);
+			// 		}
+			// 	},
+			// 	messages:{
+			// 		username:{
+			// 			remote: jQuery.validator.format("That username is taken. Try another.")
+			// 		}
+			// 	}
+			// });
+			$(".toggle-password").click(function() {
+				$(this).toggleClass("fa-eye fa-eye-slash");
+				var input = $($(this).attr("toggle"));
+				if (input.attr("type") == "password") {
+					input.attr("type", "text");
+				} else {
+					input.attr("type", "password");
 				}
 			});
-			$("#signup").validate({
-				rules: {
-					username: {
-						noSpace: true,
-						regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
-						remote: {
-							url: "<?php echo site_url();?>auth/check_username",
-							type: "post",
-							data: {
-								login: function(){
-								return $('#signup :input[name="username"]').val();
-								}
-							}
-						}
-					},
-					email: {
-						remote: {
-							url: "<?php echo site_url();?>/auth/check_email",
-							type: "post",
-							data: {
-								login: function(){
-									return $('#signup :input[name="email"]').val();
-								}
-							}
-						}
-					},
-				},
-				onfocusout: function (element){
-					if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-						var currentObj = this;
-						var currentElement = element;
-						var delay = function () { currentObj.element(currentElement); };
-						setTimeout(delay, 0);
-					}
-				},
-				messages:{
-					username:{
-						remote: jQuery.validator.format("That username is taken. Try another.")
-					},
-					email:{
-						remote: jQuery.validator.format("That email is taken. Try another.")
-					}
-				}
-			});
-			$("#login").validate({
-				rules: {
-					username: {
-						noSpace: true,
-						required: true
-					},
-					password: {
-						required: true
-					},
-				},
-				onfocusout: function (element){
-					if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-						var currentObj = this;
-						var currentElement = element;
-						var delay = function () { currentObj.element(currentElement); };
-						setTimeout(delay, 0);
-					}
-				},
-			});
-			$("#change_user").validate({
-				rules: {
-					username: {
-						noSpace: true,
-						regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
-						remote: {
-							url: "<?php echo site_url();?>auth/uname/1",
-							type: "post",
-							data: {
-								login: function(){
-								return $('#change_user :input[name="username"]').val();
-								}
-							}
-						}
-					},
-				},
-				onfocusout: function (element){
-					if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-						var currentObj = this;
-						var currentElement = element;
-						var delay = function () { currentObj.element(currentElement); };
-						setTimeout(delay, 0);
-					}
-				},
-				messages:{
-					username:{
-						remote: jQuery.validator.format("That username is taken. Try another.")
-					}
-				}
+			$('#email,#reemail').bind("cut copy paste",function(e) {
+				e.preventDefault();
 			});
 		});
 
@@ -205,7 +217,7 @@
 		}
 
 		function show_popup(type, msg) {
-			Swal.fire({
+			let bowal = Swal.fire({
 				// title: 'username',
 				html: msg,
 				confirmButtonText: 'CLOSE',
@@ -222,6 +234,13 @@
 				buttonsStyling: false,
 				allowOutsideClick: false,
 			});
+			if (type == 'register'){
+				bowal.then((result) => {
+					if (result.isConfirmed) {
+						window.location = '<?php echo base_url(); ?>';
+					}
+				});
+			}
 		}
 
 		// var csrfName = '<?php //echo $this->security->get_csrf_token_name(); ?>',
@@ -248,18 +267,81 @@
 
 		function change_password() {
 			$('#chpassbtn').attr('disabled','true');
+			if ($("#password").val().length >= 8) {
+				$.ajax({
+					url:"<?php echo site_url('change/password');?>",
+					method:"POST",
+					data:$('#change_pass').serialize(),
+					cache:false,
+					success:function(data){
+						$('#chpassbtn').removeAttr('disabled');
+						$('#password').val('');
+						if (data) {
+							show_popup('password',"Your <b>password</b><br>has been successfully changed");
+						} else {
+							show_popup('password',data);
+						}
+					}
+				});
+			} else {
+				$('#chpassbtn').removeAttr('disabled');
+				show_popup('password',"Password can be changed at least 8 characters");
+			}
+		}
+
+		function register() {
+			$('#send').attr('disabled','true');
 			$.ajax({
-				url:"<?php echo site_url('change/password');?>",
+				url:"<?php echo site_url('register');?>",
 				method:"POST",
-				data:$('#change_pass').serialize(),
+				data:$('#signup').serialize(),
 				cache:false,
 				success:function(data){
-					$('#chpassbtn').removeAttr('disabled');
-					$('#password').val('');
-					if (data) {
-						show_popup('password',"Your <b>password</b><br>has been successfully changed");
+					$('#send').removeAttr('disabled');
+					if (data == 'email') {
+						Swal.fire({
+							html: 'The email <b>'+$('#email').val()+'</b> is already being used in an account.<br><br>'+
+								'If the account and email are yours, we can send you your password to this same email.',
+							showCancelButton: true,
+							confirmButtonText: 'YES, SEND MY PASSWORD',
+							cancelButtonText: 'CANCEL',
+							showClass: {
+								popup: 'animate__animated animate__fadeInDown'
+							},
+							hideClass: {
+								popup: 'animate__animated animate__fadeOutUp'
+							},
+							customClass: {
+								confirmButton: 'btn btn-swal2-confirm',
+								cancelButton: 'btn btn-swal2-cancel-dark'
+							},
+							buttonsStyling: false,
+							allowOutsideClick: false,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								$.ajax({
+									url:"<?php echo site_url('forgot');?>",
+									method:"POST",
+									data:{email:$('#email').val()},
+									cache:false,
+									success:function(data){
+										if (data == 'yes') {
+											show_popup('register','We have sent your last <b>password</b> to your email<br>'+
+												'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
+										} else {
+											show_popup('reset password',data);
+										}
+									}
+								});
+							}
+						});
+					} else if (data.includes("successfully")) {
+						$('#username').val('');
+						$('#email').val('');
+						$('#reemail').val('');
+						show_popup('register',data);
 					} else {
-						show_popup('password',data);
+						show_popup('register not',data);
 					}
 				}
 			});
@@ -273,14 +355,23 @@
 				data:$('#forgot').serialize(),
 				cache:false,
 				success:function(data){
-					if (data) {
+					$('#forgotbtn').removeAttr('disabled');
+					if (data == 'yes') {
+						show_popup('reset password','We have sent your last <b>password</b> to your email<br>'+
+				'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
 						$('#email').val('');
-						$('#forgotbtn').removeAttr('disabled');
+					} else {
 						show_popup('reset password',data);
 					}
 				}
 			});
 		}
+		
+		<?php if($this->session->flashdata('result_delete')){ ?>
+			show_popup('delete account','Your Account has been deleted!<br>You cannot access your account anymore!');
+		<?php } if($this->session->flashdata('result_signup')){ ?>
+			show_popup('delete account','<?php echo $this->session->flashdata('result_signup');?>');
+		<?php } ?>
 
 		var swiper = new Swiper('.swiper-container', {
 			spaceBetween: 0,
@@ -292,8 +383,6 @@
 			},
 		});
 
-		// $(".delete-account").click(function(){
-		// });
 		function delete_account(){
 			Swal.fire({
 				html: "Are you sure you want to <b>delete</b> your account?<br>"+
@@ -332,6 +421,11 @@
 				showCancelButton: true,
 				confirmButtonText: 'DELETE MY ACCOUNT',
 				cancelButtonText: 'CANCEL',
+				inputValidator: (value) => {
+					if (!value) {
+						return 'You need to write something!'
+					}
+				},
 				showClass: {
 					popup: 'animate__animated animate__fadeInDown'
 				},
@@ -359,6 +453,8 @@
 						}
 					}
 				});
+			} else {
+				show_popup('password','data');
 			}
 		}
 	</script>

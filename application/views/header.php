@@ -27,11 +27,16 @@
 </head>
 
 <body>
-<style>
+	<style>
 		.swiper-wrapper {
 			width: 80px;
 			padding-top: 1px;
 		}
+		<?php if ($this->uri->segment(1) == 'signup') { ?>
+		.swal2-popup {
+			width: 25em !important;
+		}
+		<?php } ?>
 	</style>
 	<!-- start header top area -->
 	<header id="header_top">

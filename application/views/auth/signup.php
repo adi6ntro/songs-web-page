@@ -14,7 +14,7 @@
 							a username and an email<br>
 							to send you a password:
 						</h3>
-						<form method="post" action="<?php echo site_url('register');?>" id="signup">
+						<form method="post" id="signup">
 							<div class="form-group">
 								<label for="username">USERNAME</label>
 								<input type="text" name="username" placeholder="Enter Username" id="username" class="form-control" autocomplete="off">
@@ -23,8 +23,12 @@
 								<label for="email">EMAIL</label>
 								<input type="email" name="email" placeholder="Enter Email" id="email" class="form-control" autocomplete="off">
 							</div>
+							<div class="form-group">
+								<label for="reemail">REWRITE EMAIL</label>
+								<input type="email" name="reemail" placeholder="Enter Rewrite Email" id="reemail" class="form-control" autocomplete="off">
+							</div>
 							<div style="text-align:center">
-								<button type="submit" class="btn btn-swal2-confirm">SEND</button><br><br>
+								<button type="button" onclick="register()" id="send" class="btn btn-swal2-confirm">SEND</button><br><br>
 								<a href="<?php echo base_url();?>" class="btn btn-swal2-cancel-light">CANCEL</a>
 							</div>
 						</form>
