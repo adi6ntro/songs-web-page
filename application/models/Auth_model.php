@@ -8,14 +8,14 @@ class Auth_model extends CI_Model
     }
 
 	function login($username, $password){
-		$que = "SELECT id, username, password, email. phone_number FROM users
+		$que = "SELECT id, username, password, email, phone_number, user_status FROM users
 				WHERE (username = ".$this->db->escape($username)." OR email = ".$this->db->escape($username).")
 				ORDER BY id DESC LIMIT 1";
 		$query = $this->db->query($que);
 		// print_r($query);
 		if($query -> num_rows() == 1){
 			if ($query->row()->user_status == 'deleted') {
-				return false;
+				return 'deleted';
 			}
 			if (password_verify($password, $query->row()->password)) {
 				$this->db->where('id', $query->row()->id);
@@ -67,7 +67,8 @@ class Auth_model extends CI_Model
 			// 		'mode' => 'ctr'
 			// 	)
 			// );
-			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$insert_id.'|#|'.$password.'|#|'.$currentTimestamp;
+			$plain_text = base64_encode($insert_data['username']).'|#|'
+				.base64_encode($insert_id).'|#|'.$insert_data['password'];
 			// $ciphertext = $this->encryption->encrypt($plain_text);
 			$ciphertext = base64_encode($plain_text);
 			$ciphertext = strtr(
@@ -133,16 +134,26 @@ class Auth_model extends CI_Model
 		// );
 		// $text = $this->encryption->decrypt($cipher);
 		$text = base64_decode($cipher);
-		$id = explode("|#|",$text)[1];
-		$password = explode("|#|",$text)[2];
-		$que = "SELECT id, username, password, email, phone_number FROM users WHERE id = ".$this->db->escape($id);
+		$data = explode("|#|",$text);
+		$username = base64_decode($data[0]);
+		$id = base64_decode($data[1]);
+		$password = $data[2];
+		$que = "SELECT id, username, password, email, phone_number, user_status FROM users WHERE id = ".$this->db->escape($id);
 		$query = $this->db->query($que);
-		if (password_verify($password, $query->row()->password)) {
-			$this->db->where('id', $query->row()->id);
-			$this->db->update('users', array('last_login' => date('Y-m-d H:i:s'),'user_status' => 'active'));
-			return $query->result();
-		} else {
-			return false;
+		if($query->num_rows() > 0){
+			if ($query->row()->user_status == 'deleted') {
+				return 'deleted';
+			}
+			if ($query->row()->username != $username) {
+				return 'user_change';
+			}
+			if ($query->row()->password == $password) {
+				$this->db->where('id', $query->row()->id);
+				$this->db->update('users', array('last_login' => date('Y-m-d H:i:s'),'user_status' => 'active'));
+				return $query->result();
+			} else {
+				return 'pass_change';
+			}
 		}
 	}
 
@@ -153,7 +164,7 @@ class Auth_model extends CI_Model
 			$queryr=$this->db->get('users');
 			$userInfo = $queryr->row();
 			if($queryr->num_rows() != "1"){
-				return "Email doesn't exist!".$this->input->post('email');
+				return "Email doesn't exist!";
 			}
 			$password = base64_decode($userInfo->last_code);
 
@@ -167,7 +178,9 @@ class Auth_model extends CI_Model
 			// 		'mode' => 'ctr'
 			// 	)
 			// );
-			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$userInfo->id.'|#|'.$password.'|#|'.$currentTimestamp;
+			// $plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$userInfo->id.'|#|'.$password.'|#|'.$currentTimestamp;
+			$plain_text = base64_encode($userInfo->username).'|#|'
+				.base64_encode($userInfo->id).'|#|'.$userInfo->password;
 			// $ciphertext = $this->encryption->encrypt($plain_text);
 			$ciphertext = base64_encode($plain_text);
 			$ciphertext = strtr(

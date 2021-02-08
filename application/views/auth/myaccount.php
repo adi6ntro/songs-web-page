@@ -14,7 +14,7 @@
 						<form id="change_pass">
 							<div class="form-group">
 								<input type="password" name="password" placeholder="Enter New Password" minlength="8" id="password" class="form-control" autocomplete="off">
-								<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+								<span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
 							</div>
 							<div style="text-align:center">
 								<button type="button" onclick="change_password()" class="btn btn-swal2-confirm" id="chpassbtn">CHANGE</button>

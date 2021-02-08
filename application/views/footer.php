@@ -234,10 +234,10 @@
 				buttonsStyling: false,
 				allowOutsideClick: false,
 			});
-			if (type == 'register'){
+			if (type == 'register' || type == 'delete-account'){
 				bowal.then((result) => {
 					if (result.isConfirmed) {
-						window.location = '<?php echo base_url(); ?>';
+						window.location = (type == 'delete-account')?'<?php echo base_url().'logout'; ?>':'<?php echo base_url(); ?>';
 					}
 				});
 			}
@@ -367,10 +367,8 @@
 			});
 		}
 		
-		<?php if($this->session->flashdata('result_delete')){ ?>
-			show_popup('delete account','Your Account has been deleted!<br>You cannot access your account anymore!');
-		<?php } if($this->session->flashdata('result_signup')){ ?>
-			show_popup('delete account','<?php echo $this->session->flashdata('result_signup');?>');
+		<?php if($this->session->flashdata('result_signup')){ ?>
+			show_popup('show result','<?php echo $this->session->flashdata('result_signup');?>');
 		<?php } ?>
 
 		var swiper = new Swiper('.swiper-container', {
@@ -423,7 +421,7 @@
 				cancelButtonText: 'CANCEL',
 				inputValidator: (value) => {
 					if (!value) {
-						return 'You need to write something!'
+						return 'You need to input your password!'
 					}
 				},
 				showClass: {
@@ -446,15 +444,13 @@
 					data:{password:password},
 					cache:false,
 					success:function(data){
-						if (data) {
-							window.location = '<?php echo base_url(); ?>';
+						if (data == 'yes') {
+							show_popup('delete-account','Your Account has been deleted!<br>You cannot access your account anymore!');
 						} else {
 							show_popup('password',data);
 						}
 					}
 				});
-			} else {
-				show_popup('password','data');
 			}
 		}
 	</script>

@@ -29,10 +29,10 @@ class Auth extends CI_Controller {
 			redirect('/', 'refresh');
 		}
 		$data['cek'] = $cek;
-		$data['csrf'] = array(
-			'name' => $this->security->get_csrf_token_name(),
-			'hash' => $this->security->get_csrf_hash()
-		);
+		// $data['csrf'] = array(
+		// 	'name' => $this->security->get_csrf_token_name(),
+		// 	'hash' => $this->security->get_csrf_hash()
+		// );
 		$this->load->view('header',$data);
 		$this->load->view('auth/signup',$data);
 		$this->load->view('footer',$data);
@@ -44,10 +44,10 @@ class Auth extends CI_Controller {
 			redirect('login', 'refresh');
 		}
 		$data['username'] = $this->session->userdata('logged_in')['username'];
-		$data['csrf'] = array(
-			'name' => $this->security->get_csrf_token_name(),
-			'hash' => $this->security->get_csrf_hash()
-		);
+		// $data['csrf'] = array(
+		// 	'name' => $this->security->get_csrf_token_name(),
+		// 	'hash' => $this->security->get_csrf_hash()
+		// );
 		$this->load->view('header',$data);
 		$this->load->view('auth/myaccount',$data);
 		$this->load->view('footer',$data);
@@ -57,6 +57,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 		if($this->form_validation->run() == FALSE){
+			$this->session->set_flashdata('result_signup', validation_errors());
 			$this->index();
 		}else{
 			redirect('/', 'refresh');
@@ -68,6 +69,10 @@ class Auth extends CI_Controller {
 		// print_r($this->input->post('username'));
 		$result = $this->auth_model->login($username, $password);
 		if($result){
+			if ($result == 'deleted') {
+				$this->form_validation->set_message('check_database', 'This account has been deleted.');
+				return false;
+			}
 			foreach($result as $row){
 				$sess_array = array(
 					'id' => $row->id,
@@ -87,15 +92,25 @@ class Auth extends CI_Controller {
 	function activate($link) {
 		$result = $this->auth_model->autologin($link);
 		if($result){
-			foreach($result as $row){
-				$sess_array = array(
-					'id' => $row->id,
-					'username' => $row->username,
-					'email' => $row->email,
-					'phone_number'=> ''
-				);
-				$this->session->set_userdata('logged_in', $sess_array);
+			if ($result == 'pass_change') {
+				$this->session->set_flashdata('result_signup', 'This link is no longer working because you changed your password.');
+			} else if ($result == 'user_change') {
+				$this->session->set_flashdata('result_signup', 'This link is no longer working because you changed your username.');
+			} else if ($result == 'deleted') {
+				$this->session->set_flashdata('result_signup', 'This link is no longer working because the account has been deleted.');
+			} else {
+				foreach($result as $row){
+					$sess_array = array(
+						'id' => $row->id,
+						'username' => $row->username,
+						'email' => $row->email,
+						'phone_number'=> ''
+					);
+					$this->session->set_userdata('logged_in', $sess_array);
+				}
 			}
+		} else {
+			$this->session->set_flashdata('result_signup', 'This link is no longer working.');
 		}
 		redirect('/', 'refresh');
 	}
@@ -121,7 +136,10 @@ class Auth extends CI_Controller {
 	}
 
 	public function uname($username){
-		$uname=array('username' => $username, 'id !=' => $this->session->userdata('logged_in')['id'], 'user_status !=' => 'deleted');
+		$uname=array('username' => $username, 'user_status !=' => 'deleted');
+		if ($this->session->userdata('logged_in')) {
+			$uname['id !='] = $this->session->userdata('logged_in')['id'];
+		}
 		$queryr = $this->db->get_where('users', $uname);
 		// print_r($this->db->last_query());
 		if($queryr->num_rows() > 0){
@@ -129,7 +147,7 @@ class Auth extends CI_Controller {
 				// print_r('oke');
 				return true;
 			} else {
-				$this->form_validation->set_message('username_check', 'That username is taken. Try another.');
+				$this->form_validation->set_message('uname', 'That username is taken. Try another.');
 				// print_r('salah');
 				return false;
 			}
@@ -140,7 +158,7 @@ class Auth extends CI_Controller {
 	}
 
 	function register() {
-		$this->form_validation->set_rules('username', 'Username', 'required|max_length[250]|is_unique[users.username]');
+		$this->form_validation->set_rules('username', 'Username', 'required|max_length[250]|callback_uname');
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|matches[reemail]');
 		$this->form_validation->set_rules('reemail', 'Rewrite Email', 'required|valid_email');
 		if ($this->form_validation->run() == FALSE){
@@ -195,10 +213,10 @@ class Auth extends CI_Controller {
 		$pattern = '/ /';
 		$result = preg_match($pattern, $str);
 		if ($result) {
-			$this->form_validation->set_message('password_check', 'The %s can not have a space.');
-			return FALSE;
+			$this->form_validation->set_message('password_check_blank', 'The password can not have a space.');
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	function delete_account() {
@@ -209,11 +227,10 @@ class Auth extends CI_Controller {
 		}else{
 			$rr = $this->auth_model->update_user('deleted');
 			if ($rr) {
-				$this->session->set_flashdata('result_delete', '1');
-				$this->session->unset_userdata('logged_in');
-				$this->session->sess_destroy();
+				echo 'yes';
+			} else {
+				echo 'Your password is uncorrect!';
 			}
-			echo 'Your password is uncorrect!';
 		}
 	}
 
