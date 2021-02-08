@@ -326,7 +326,8 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = hex2bin('17c12b5d1458ea4fd129a6c489fbc861');
+// $config['encryption_key'] = hex2bin('17c12b5d1458ea4fd129a6c489fbc861');
+$config['encryption_key'] = 'airtable12345';
 
 /*
 |--------------------------------------------------------------------------

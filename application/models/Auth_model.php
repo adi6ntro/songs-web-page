@@ -67,7 +67,7 @@ class Auth_model extends CI_Model
 			// 		'mode' => 'ctr'
 			// 	)
 			// );
-			$plain_text = bin2hex($this->encryption->create_key(16)).'|#|'.$insert_id.'|#|'.$password.'|#|'.$currentTimestamp;
+			$plain_text = '1|#|'.$insert_id.'|#|'.$password.'|#|1';
 			$ciphertext = $this->encryption->encrypt($plain_text);
 			$ciphertext = strtr(
 				$ciphertext,
