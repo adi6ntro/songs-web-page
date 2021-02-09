@@ -28,17 +28,19 @@ class Home extends CI_Controller {
 
 	function get_autocomplete(){
         if (isset($_GET['term'])) {
-
 			$term = $this->db->escape_str(trim(str_replace(" ","%",preg_replace('/\s\s+/', ' ', $_GET['term']))));
-			$term = implode('%',str_split($term));
+			$results = array();
+			preg_match_all('/./u', $term, $results);
+			$term = implode('%',$results[0]);
 			$result = $this->songs_model->search_language($term);
             if (count($result) > 0) {
-            foreach ($result as $row)
-				$arr_result[] = array(
-					"value"=>$row->name, "lang_id"=>$row->id, "lang_name"=>$row->name
-				);
-                echo json_encode($arr_result);
-            }
+				foreach ($result as $row) {
+					$arr_result[] = array(
+						"value"=>$row->name, "lang_id"=>$row->id, "lang_name"=>$row->name
+					);
+				}
+				echo json_encode($arr_result);
+			}
         }
 	}
 

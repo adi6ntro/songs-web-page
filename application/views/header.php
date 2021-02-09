@@ -1,9 +1,18 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+$this->output->set_header('HTTP/1.0 200 OK');
+$this->output->set_header('HTTP/1.1 200 OK');
+$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+$this->output->set_header('Cache-Control: post-check=0, pre-check=0');
+$this->output->set_header('Pragma: no-cache');
+$this->output->set_header('Pragma: no-cache');
+header('Content-Type: text/html; charset=utf-8');
+
+?>
 <!doctype html>
 <html class="no-js" lang="">
 
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<title>Music Libery App</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
