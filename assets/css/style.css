@@ -56,7 +56,7 @@ p {
 }
 
 #header_top .header_top_container {
-	background: #4F6228;
+	background: #594769;
 	height: 42px;
 }
 
@@ -244,7 +244,7 @@ p {
 
 #filter_name .filter_name_container {
 	padding: 6px 30px 3px;
-	background: #92D050;
+	background: #C4D79B;
 }
 
 #filter_name .filter_name_container p {
@@ -398,7 +398,7 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li:hover {
-	background: #92D050;
+	background: #C4D79B;
 	color: #fff;
 }
 
@@ -424,7 +424,7 @@ p {
 
 #footer .footer_container {
 	padding: 33px 30px 25px;
-	background: #4F6228;
+	background: #594769;
 }
 
 #footer .footer_container i {
@@ -444,15 +444,15 @@ p {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #4F6228;
+  background-color: #F4F7ED;
   min-width: 160px;
-  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  box-shadow: 0px 2px 16px 7px rgba(0,0,0,0.4);
   z-index: 1;
 }
 
 .dropdown-content a {
 	float: none;
-	color: white;
+	color: grey;
 	font-size: 17px;
 	font-weight: 600;
 	letter-spacing: 0.7px;
