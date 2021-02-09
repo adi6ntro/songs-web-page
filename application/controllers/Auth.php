@@ -84,7 +84,7 @@ class Auth extends CI_Controller {
 			}
 			return true;
 		}else{
-			$this->form_validation->set_message('check_database', 'You entered a wrong or non-existent username, email or password. Please try again.');
+			$this->form_validation->set_message('check_database', 'You entered a wrong or non-existent email or password. Please try again.');
 			return false;
 		}
 	}

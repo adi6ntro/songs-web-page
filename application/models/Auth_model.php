@@ -9,7 +9,7 @@ class Auth_model extends CI_Model
 
 	function login($username, $password){
 		$que = "SELECT id, username, password, email, phone_number, user_status FROM users
-				WHERE (username = ".$this->db->escape($username)." OR email = ".$this->db->escape($username).")
+				WHERE (email = ".$this->db->escape($username).")
 				ORDER BY id DESC LIMIT 1";
 		$query = $this->db->query($que);
 		// print_r($query);

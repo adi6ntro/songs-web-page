@@ -8,8 +8,8 @@
 						<h3>SIGN IN</h3>
 						<form method="post" action="<?php echo site_url('verify');?>" id="login">
 							<div class="form-group">
-								<label for="username">USERNAME OR EMAIL</label>
-								<input type="text" name="username" placeholder="Enter Username or Email" id="username" class="form-control" autocomplete="off">
+								<label for="username">EMAIL</label>
+								<input type="text" name="username" placeholder="Enter Email" id="username" class="form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label for="password">PASSWORD</label>
