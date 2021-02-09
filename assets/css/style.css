@@ -360,8 +360,8 @@ p {
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song {
 	position: absolute;
-	right: 11px;
-	top: 0;
+	right: 8px;
+	top: -9px;
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song .star {
