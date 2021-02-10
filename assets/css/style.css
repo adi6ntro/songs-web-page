@@ -29,7 +29,8 @@ a {
 	text-decoration: none;
 	color: #05386B;
 	transition: 0.4s;
-	font-family: "Roboto",sans-serif;
+	font-family: "Hind", sans-serif;
+
 }
 
 a:hover {
@@ -56,7 +57,7 @@ p {
 }
 
 #header_top .header_top_container {
-	background: #594769;
+	background: #064F70;
 	height: 42px;
 }
 
@@ -71,17 +72,19 @@ p {
 }
 
 #header_top .header_top_container .right_style_chose {
-	padding: 7px 19px;
+	padding: 7px 24px 7px 9px;
 }
 
 #header_top .header_top_container .right_style_chose ul li {
 	display: inline-block;
 	color: #fff;
-	font-weight: 600;
+	font-weight: 700;
 	margin-left: 20px;
 	cursor: pointer;
-  font-size: 19px;
-  vertical-align: -4px;
+	font-size: 19px;
+	letter-spacing: 0.0001em;
+	font-family: "Hind", sans-serif;
+  	vertical-align: -4px;
 }
 
 #header_top .header_top_container .right_style_chose ul .active a {
@@ -244,7 +247,7 @@ p {
 
 #filter_name .filter_name_container {
 	padding: 6px 30px 3px;
-	background: #C4D79B;
+	background: #C3CEA4;
 }
 
 #filter_name .filter_name_container p {
@@ -398,7 +401,7 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .artist_song ul li:hover {
-	background: #C4D79B;
+	background: #C3CEA4;
 	color: #fff;
 }
 
@@ -412,7 +415,7 @@ p {
 
 #footer_top .footer_top_container {
 	padding: 10px 30px;
-	background: #E26B0A;
+	background: #85925C;
 }
 
 #footer_top .footer_top_container .footer_top_content h3 {
@@ -424,7 +427,7 @@ p {
 
 #footer .footer_container {
 	padding: 33px 30px 25px;
-	background: #594769;
+	background: #064F70;
 }
 
 #footer .footer_container i {
