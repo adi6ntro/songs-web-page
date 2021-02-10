@@ -452,6 +452,7 @@ p {
 	z-index: 5;
 	min-width: 160px;
 	box-shadow: 0px 2px 16px 7px rgba(0,0,0,0.4);
+	padding: 10px;
 }
 
 .dropdown-content a {
