@@ -159,8 +159,11 @@ class Auth_model extends CI_Model
 
 	function update_user($type){
 		if($type == 'forgot'){
-			$this->db->where("email",$this->db->escape_str($this->input->post('email')));
-			$this->db->where("user_status !=","deleted");
+			$array = array(
+				'email' => $this->db->escape_str($this->input->post('email')), 
+				'user_status !=' => "deleted"
+			);
+			$this->db->where($array);
 			$queryr=$this->db->get('users');
 			$userInfo = $queryr->row();
 			if($queryr->num_rows() != "1"){

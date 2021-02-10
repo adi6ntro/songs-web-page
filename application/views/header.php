@@ -25,6 +25,7 @@ header('Content-Type: text/html; charset=utf-8');
 	<link rel="icon" href="<?php echo base_url();?>assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/plugin/animate.min.css">
+	<!-- <script src="https://use.fontawesome.com/c2f2b417aa.js"></script> -->
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/fontawsome.css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/style.css?v=2021">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/responsive.css?v=2021">
@@ -73,16 +74,37 @@ header('Content-Type: text/html; charset=utf-8');
 					</div>
 					<div class="dropdown-content" id="myDropdown">
 						<?php if ($this->session->userdata('logged_in')) { ?>
+						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i> Hello, <?php echo $this->session->userdata('logged_in')['username'];?></a>
+						<hr style="margin: 0px 0 7px;">
+						<a href="<?php echo base_url();?>">Home</a>
 						<a href="<?php echo base_url();?>myaccount">My Account</a>
-						<a href="<?php echo base_url();?>logout">Logout</a>
+						<a href="<?php echo base_url();?>logout">Log out</a>
+						<hr style="margin: 0px 0 7px;">
+						<a href="<?php echo base_url();?>selected">Selected songs</a>
 						<?php } else { ?>
-						<a href="<?php echo base_url();?>signup">Sign Up</a>
-						<a href="<?php echo base_url();?>login">Login</a>
+						<a href="<?php echo base_url();?>">Home</a>
+						<hr style="margin: 0px 0 7px;">
 						<?php } ?>
+						<a href="<?php echo base_url();?>">Frequent Questions</a>
+						<a href="<?php echo base_url();?>">Contact us</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</header>
 	<!-- end header top area -->
-
+	<div class="open-menu">
+	<?php if (!$this->session->userdata('logged_in')) { ?>
+	<section id="header_menu_login_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mx-auto">
+					<div class="header_menu_login_area_container">
+						<a href="<?php echo base_url();?>login" class="btn btn-menu-login">Log in</a>
+						<a href="<?php echo base_url();?>signup" class="btn btn-menu-signup">Sign up</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<?php } ?>

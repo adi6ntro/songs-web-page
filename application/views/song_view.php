@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</ul>
 								</div>
 								<div class="favorite_song">
-									<input class="star" type="checkbox" title="bookmark page" onclick="set_favorite(this,<?php echo $row->id;?>)">
+									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>
 								<div class="song_main_language">
 									<h4><?php echo $row->language; ?></h4>
@@ -70,10 +70,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<a href="<?php echo base_url().'signup'?>">
+					<a href="<?php echo base_url().'signup'; ?>">
 						<div class="footer_top_container">
 							<div class="footer_top_content text-center">
 								<h3>Create Account</h3>
+							</div>
+						</div>
+					</a>
+					<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
+						<div class="footer_top_container" id="select-song-menu">
+							<div class="footer_top_content text-center">
+								<h3>Selected Songs</h3>
 							</div>
 						</div>
 					</a>
