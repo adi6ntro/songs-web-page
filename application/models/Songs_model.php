@@ -22,7 +22,7 @@ class Songs_model extends CI_Model
 		}
 		$this->db->order_by('songs.id', 'ASC');
 		if($limit != null)
-			$this->db->limit($limit, $offset);
+			$this->db->limit($limit+1, $offset);
 		$query=$this->db->get();
 
 		return $query->result();
@@ -57,7 +57,7 @@ class Songs_model extends CI_Model
 		$this->db->where($column,$value);
 		$this->db->order_by('songs.id', 'ASC');
 		if($limit != null)
-			$this->db->limit($limit, $offset);
+			$this->db->limit($limit+1, $offset);
 		$query=$this->db->get();
 
 		return $query->result();
@@ -75,7 +75,7 @@ class Songs_model extends CI_Model
 		$this->db->join('favorite', "songs_id = songs.id and user_id = ".$this->session->userdata('logged_in')['id']." and fav_status='active'");
 		$this->db->order_by('fav_date', 'DESC');
 		if($limit != null)
-			$this->db->limit($limit, $offset);
+			$this->db->limit($limit+1, $offset);
 		$query=$this->db->get();
 
 		return $query->result();

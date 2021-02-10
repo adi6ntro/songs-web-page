@@ -66,8 +66,9 @@
 					data:{limit:limit, start:start, selected:tipe},
 					cache:false,
 					success:function(data){
-						$('#load_data').append(data);
-						if(data == ''){
+						var res = data.split("|");
+						$('#load_data').append(res[1]);
+						if(res[0] == 'no'){
 							$('#load_data_message').css("display","none");
 						}else{
 							start = start + limit;
