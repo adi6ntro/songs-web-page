@@ -10,12 +10,16 @@ class Songs_model extends CI_Model
 	public  function get_all_songs($limit=null,$offset=0)
     {
 		$this->db->distinct();
-		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,country.name as country_name,year,style,instrument,language.name as language_name');
+		$fav_status = ($this->session->userdata('logged_in'))?',fav_status':'';
+		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,country.name as country_name,year,style,instrument,language.name as language_name'.$fav_status);
 		$this->db->from('songs');
 		$this->db->join('artist', 'songs.artist = artist.artist');
 		$this->db->join('genre', 'songs.genre = genre.name');
 		$this->db->join('country', 'artist.country = country.id');
 		$this->db->join('language', 'language.id = songs.language');
+		if ($this->session->userdata('logged_in')) {
+			$this->db->join('favorite', "songs_id = songs.id and user_id = ".$this->session->userdata('logged_in')['id'], 'left');
+		}
 		$this->db->order_by('songs.id', 'ASC');
 		if($limit != null)
 			$this->db->limit($limit, $offset);
@@ -40,12 +44,16 @@ class Songs_model extends CI_Model
 	public function get_by_param($column,$value,$limit=null,$offset=0)
     {
 		$this->db->distinct();
-		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,country.name as country_name,year,style,instrument,language.name as language_name');
+		$fav_status = ($this->session->userdata('logged_in'))?',fav_status':'';
+		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,country.name as country_name,year,style,instrument,language.name as language_name'.$fav_status);
 		$this->db->from('songs');
 		$this->db->join('artist', 'songs.artist = artist.artist');
 		$this->db->join('genre', 'songs.genre = genre.name');
 		$this->db->join('country', 'artist.country = country.id');
 		$this->db->join('language', 'language.id = songs.language');
+		if ($this->session->userdata('logged_in')) {
+			$this->db->join('favorite', 'songs_id = songs.id and user_id = '.$this->session->userdata('logged_in')['id'], 'left');
+		}
 		$this->db->where($column,$value);
 		$this->db->order_by('songs.id', 'ASC');
 		if($limit != null)
@@ -53,6 +61,48 @@ class Songs_model extends CI_Model
 		$query=$this->db->get();
 
 		return $query->result();
+	}
+
+	public function get_favorite($limit=null,$offset=0)
+    {
+		$this->db->distinct();
+		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,country.name as country_name,year,style,instrument,language.name as language_name,fav_status');
+		$this->db->from('songs');
+		$this->db->join('artist', 'songs.artist = artist.artist');
+		$this->db->join('genre', 'songs.genre = genre.name');
+		$this->db->join('country', 'artist.country = country.id');
+		$this->db->join('language', 'language.id = songs.language');
+		$this->db->join('favorite', "songs_id = songs.id and user_id = ".$this->session->userdata('logged_in')['id']." and fav_status='active'");
+		$this->db->order_by('fav_date', 'DESC');
+		if($limit != null)
+			$this->db->limit($limit, $offset);
+		$query=$this->db->get();
+
+		return $query->result();
+	}
+
+	function update_favorite($songs_id,$fav_status){
+		$array = array(
+			'user_id' => $this->session->userdata('logged_in')['id'], 
+			'songs_id' => $songs_id
+		);
+		$this->db->where($array);
+		$query=$this->db->get('favorite');
+		if($query->num_rows()==0){
+			$insert_data = array(
+				'user_id' => $this->session->userdata('logged_in')['id'],
+				'songs_id' => $songs_id,
+				'fav_status' => ($fav_status === 'true')?'active':'inactive'
+			);
+			$this->db->insert('favorite',$insert_data);
+		} else {
+			$insert_data = array(
+				'fav_status' => ($fav_status === 'true')?'active':'inactive'
+			);
+			$this->db->where($array);
+			$this->db->update('favorite', $insert_data);
+		}
+		return 'yes';
 	}
 
 	function search_language($title){

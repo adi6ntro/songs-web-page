@@ -7,38 +7,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="header_search_area_container">
-						<h3>Search language</h3>
-						<form method="post" action="<?php echo site_url('search/language/');?>" id>
-							<div id="simpleSearch">
-								<input type="hidden" name="lang_id" id="lang_id">
-								<input type="search" name="search" placeholder="Enter Language" autocapitalize="sentences" title="Cari di Wikipedia [ctrl-option-f]" accesskey="f" id="searchInput" autocomplete="off">
-								<input type="submit" name="go" value="Lanjut" title="Search by language" id="searchButton" class="searchButton">
-							</div>
-						</form>
-						<div class="style_name text-center">
-							<p>POPULAR</p>
-						</div>
+						<h3>SELECTED SONGS</h3>
 					</div>
+					<hr style="margin: .5rem 0 0;">
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- end header search area -->
-
-	<!-- start filter language name -->
-	<section id="filter_name">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 mx-auto">
-					<div class="filter_name_container text-center">
-						<p>LANGUAGE: <span><?php echo $lang; ?></span></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end filter language name -->
-
 	<!-- start music list main area -->
 	<section id="music_list_main_area">
 		<div class="container">
@@ -86,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</ul>
 									</div>
 									<div class="favorite_song">
-										<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
+										<input class="star" type="checkbox" title="bookmark page" checked onclick="set_favorite(this,<?php echo $row->id;?>)">
 									</div>
 									<div class="song_main_language">
 										<h4><?php echo $row->language; ?></h4>

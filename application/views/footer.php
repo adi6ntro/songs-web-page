@@ -13,6 +13,7 @@
 			</div>
 		</div>
 	</footer>
+</div> <!-- div open menu -->
 	<!-- start main footer -->
 	<!-- all javascript load here -->
 	<script src="<?php echo base_url();?>assets/js/vendor/jquery-3.3.1.min.js"></script>
@@ -41,162 +42,6 @@
 				}
             });
 
-			<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'search'){ ?>
-			var limit = <?php echo $limit; ?>;
-			var start = <?php echo $start_limit; ?>;
-			var action = 'inactive';
-			function load_more_songs(limit, start){
-				$.ajax({
-					url:"<?php echo ($lang_id=="")?site_url('loadmore'):site_url('loadmore/'.$lang_id);?>",
-					method:"POST",
-					data:{limit:limit, start:start},
-					cache:false,
-					success:function(data){
-						$('#load_data').append(data);
-						if(data == ''){
-							$('#load_data_message').css("display","none");
-							action = 'active';
-						}else{							
-							$('#load_data_message').html('<img src="<?php echo base_url();?>assets/img/Loading.gif" alt="Loading" height=100>');
-							action = "inactive";
-						}
-					}
-				});
-			}
-
-			if(action == 'inactive'){
-				action = 'active';
-				load_more_songs(limit, start);
-			}
-			$(window).scroll(function(){
-				if($(window).scrollTop() + $(window).height() > $("#load_data").height() && action == 'inactive'){
-					action = 'active';
-					start = start + limit;
-					setTimeout(function(){
-						load_more_songs(limit, start);
-					}, 1000);
-				}
-			});
-			<?php } ?>
-
-			// jQuery.validator.addMethod("noSpace", function(value, element) {
-			// 	return value.indexOf(" ") < 0 && value !== "";
-			// }, "Space is not allowed");
-			// jQuery.validator.addMethod("regex",function(value, element, regexp) {
-			// 	var re = new RegExp(regexp);
-			// 	return this.optional(element) || re.test(value);
-			// }, "Please check your input");
-			// $.validator.setDefaults({
-			// 	highlight: function(element) {
-			// 		$(element).closest('.form-group').addClass('has-error');
-			// 	},
-			// 	unhighlight: function(element) {
-			// 		$(element).closest('.form-group').removeClass('has-error');
-			// 		$(element).closest('.form-group').addClass('has-success');
-			// 	},
-			// 	errorElement: 'span',
-			// 	errorClass: 'help-block',
-			// 	errorPlacement: function(error, element) {
-			// 		if(element.parent('.input-group').length) {
-			// 		error.insertAfter(element.parent());
-			// 		} else {
-			// 		error.insertAfter(element);
-			// 		}
-			// 	}
-			// });
-			// $("#signup").validate({
-			// 	rules: {
-			// 		username: {
-			// 			noSpace: true,
-			// 			regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
-			// 			remote: {
-			// 				url: "<?php echo site_url();?>auth/check_username",
-			// 				type: "post",
-			// 				data: {
-			// 					login: function(){
-			// 					return $('#signup :input[name="username"]').val();
-			// 					}
-			// 				}
-			// 			}
-			// 		},
-			// 		email: {
-			// 			remote: {
-			// 				url: "<?php echo site_url();?>/auth/check_email",
-			// 				type: "post",
-			// 				data: {
-			// 					login: function(){
-			// 						return $('#signup :input[name="email"]').val();
-			// 					}
-			// 				}
-			// 			}
-			// 		},
-			// 	},
-			// 	onfocusout: function (element){
-			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-			// 			var currentObj = this;
-			// 			var currentElement = element;
-			// 			var delay = function () { currentObj.element(currentElement); };
-			// 			setTimeout(delay, 0);
-			// 		}
-			// 	},
-			// 	messages:{
-			// 		username:{
-			// 			remote: jQuery.validator.format("That username is taken. Try another.")
-			// 		},
-			// 		email:{
-			// 			remote: jQuery.validator.format("That email is taken. Try another.")
-			// 		}
-			// 	}
-			// });
-			// $("#login").validate({
-			// 	rules: {
-			// 		username: {
-			// 			noSpace: true,
-			// 			required: true
-			// 		},
-			// 		password: {
-			// 			required: true
-			// 		},
-			// 	},
-			// 	onfocusout: function (element){
-			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-			// 			var currentObj = this;
-			// 			var currentElement = element;
-			// 			var delay = function () { currentObj.element(currentElement); };
-			// 			setTimeout(delay, 0);
-			// 		}
-			// 	},
-			// });
-			// $("#change_user").validate({
-			// 	rules: {
-			// 		username: {
-			// 			noSpace: true,
-			// 			regex: "^[a-zA-Z0-9._-\\s]{1,40}$",
-			// 			remote: {
-			// 				url: "<?php echo site_url();?>auth/uname/1",
-			// 				type: "post",
-			// 				data: {
-			// 					login: function(){
-			// 					return $('#change_user :input[name="username"]').val();
-			// 					}
-			// 				}
-			// 			}
-			// 		},
-			// 	},
-			// 	onfocusout: function (element){
-			// 		if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))){
-			// 			var currentObj = this;
-			// 			var currentElement = element;
-			// 			var delay = function () { currentObj.element(currentElement); };
-			// 			setTimeout(delay, 0);
-			// 		}
-			// 	},
-			// 	messages:{
-			// 		username:{
-			// 			remote: jQuery.validator.format("That username is taken. Try another.")
-			// 		}
-			// 	}
-			// });
 			$(".toggle-password").click(function() {
 				$(this).toggleClass("fa-eye fa-eye-slash");
 				var input = $($(this).attr("toggle"));
@@ -211,9 +56,51 @@
 			});
 		});
 
+		<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'search'
+			|| $this->uri->segment(1) == 'selected'|| $this->uri->segment(1) == 'home'){ ?>
+		function load_more_songs(limit, start) {
+				$('#load_data_message').html('<img src="<?php echo base_url();?>assets/img/Loading.gif" alt="Loading" height=100>');
+				$.ajax({
+					url:"<?php echo ($lang_id=="")?site_url('loadmore'):site_url('loadmore/'.$lang_id);?>",
+					method:"POST",
+					data:{limit:limit, start:start},
+					cache:false,
+					success:function(data){
+						$('#load_data').append(data);
+						if(data == ''){
+							$('#load_data_message').css("display","none");
+						}else{
+							start = start + limit;
+							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
+						}
+					}
+				});
+		};
+		<?php } ?>
+
+
 		function set_favorite(elem,id) {
 			console.log(id);
-			window.location = '<?php echo base_url().'sign_up'; ?>';
+			console.log($(elem)[0].checked);
+			<?php if (!$this->session->userdata('logged_in')) { ?>
+				window.location = '<?php echo base_url().'sign_up'; ?>';
+			<?php } else { ?>
+				$.ajax({
+					url:"<?php echo site_url('selected/record');?>",
+					method:"POST",
+					data:{songsid:id,favorite:$(elem)[0].checked},
+					cache:false,
+					success:function(data){
+						if (!data) {
+							window.location = '<?php echo base_url().'sign_up'; ?>';
+						}
+						// 	show_popup('star',"Your selected song has been saved");
+						// } else {
+						// 	show_popup('star',"Cannot save your selected");
+						// }
+					}
+				});
+			<?php } ?>
 		}
 
 		function show_popup(type, msg) {

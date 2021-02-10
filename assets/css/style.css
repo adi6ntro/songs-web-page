@@ -437,41 +437,50 @@ p {
 }
 
 .dropdown {
-  float: left;
-  overflow: hidden;
+	float: left;
+	overflow: hidden;
 }
 
 .dropdown .logoarea {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #F4F7ED;
-  min-width: 160px;
-  box-shadow: 0px 2px 16px 7px rgba(0,0,0,0.4);
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #F4F7ED;
+	color: black;
+	z-index: 5;
+	min-width: 160px;
+	box-shadow: 0px 2px 16px 7px rgba(0,0,0,0.4);
+	padding: 10px;
 }
 
 .dropdown-content a {
 	float: none;
 	color: grey;
-	font-size: 17px;
-	font-weight: 600;
-	letter-spacing: 0.7px;
-	padding: 12px 20px;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.7px;
+	padding: 0px 5px 10px;
 	text-decoration: none;
 	display: block;
 	text-align: left;
 }
 
+.dropdown-content .hello {
+	font-weight: 700;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .dropdown-content a:hover {
-  background-color: #ddd;
+	background-color: #ddd;
 }
 
 .show {
-  display: block;
+	display: block;
 }
 
 .swal2-popup {
@@ -576,3 +585,49 @@ p {
     z-index: 2;
 }
 
+.header_menu_login_area_container {
+	padding: .5em;
+    text-align: center;
+    background: lightgrey;
+}
+
+.btn-menu-login, .btn-menu-login:active, .btn-menu-login:hover, .btn-menu-login:focus, .btn-menu-login:disabled {
+	background: white;
+    color: #9BBB59;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100px;
+    padding: 1px 1px;
+    border: 1px solid #9BBB59;
+    margin-right: 8px;
+}
+
+.btn-menu-signup, .btn-menu-signup:active, .btn-menu-signup:hover, .btn-menu-signup:focus, .btn-menu-signup:disabled {
+	background: #9BBB59;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100px;
+    padding: 1px 1px;
+    border: 1px solid #506228;
+    margin-left: 8px;
+}
+
+.btn-loadmore, .btn-loadmore:active, .btn-loadmore:hover, .btn-loadmore:focus, .btn-loadmore:disabled {
+	position: relative;
+    width: 20em;
+	background: white;
+    color: #9BBB59;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 3px;
+    border: 1px solid #9BBB59;
+}
+
+.btn-loadmore .fa-caret-down {
+	position: absolute;
+    left: 10px;
+    top: 2px;
+    font-size: 25px;
+    color: #9BBB59;
+}

@@ -54,11 +54,15 @@ class Auth extends CI_Controller {
 	}
 
 	function verify(){
-		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('username', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 		if($this->form_validation->run() == FALSE){
-			$this->session->set_flashdata('result_signup', validation_errors());
-			$this->index();
+			if (form_error('username') != ""){
+				$this->session->set_flashdata('result_signup', form_error('username'));
+			} else {
+				$this->session->set_flashdata('result_signup', form_error('password'));
+			}
+			redirect('login', 'refresh');
 		}else{
 			redirect('/', 'refresh');
 		}
@@ -162,8 +166,15 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|matches[reemail]');
 		$this->form_validation->set_rules('reemail', 'Rewrite Email', 'required|valid_email');
 		if ($this->form_validation->run() == FALSE){
-			// $this->session->set_flashdata('result_error', validation_errors());
-			echo validation_errors();
+			if (form_error('username') != "") {
+				echo form_error('username');
+			} else if (form_error('email') != "") {
+				echo form_error('email');
+			} else if (form_error('reemail') != "") {
+				echo form_error('reemail');
+			} else {
+				echo validation_errors();
+			}
 		}else{
 			$rr = $this->auth_model->register();
 			if (strpos($rr, 'successfully') !== false) {

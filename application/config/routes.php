@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['search/language'] = 'home/search/language';
 $route['songs/(:num)'] = 'songs/detail/$1';
+$route['selected'] = 'songs/selected';
+$route['selected/record'] = 'songs/selected_save';
 $route['login'] = 'auth';
 $route['verify'] = 'auth/verify';
 $route['activate/(:any)'] = 'auth/activate/$1';
