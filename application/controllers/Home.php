@@ -72,12 +72,16 @@ class Home extends CI_Controller {
 
 	public function loadmore($type=null,$id=null)
 	{
-		if(isset($_POST["limit"], $_POST["start"]))
+		if(isset($_POST["limit"], $_POST["start"], $_POST["selected"]))
 		{
-			if($type == null)
-			$songs = $this->songs_model->get_all_songs($this->input->post('limit'),$this->input->post('start'));
-			else
-			$songs = $this->songs_model->get_by_param($type,$id,$this->input->post('limit'),$this->input->post('start'));
+			if ($this->input->post('selected') == 'selected') {
+				$songs=$this->songs_model->get_favorite($this->input->post('limit'),$this->input->post('start'));
+			} else {
+				if($type == null)
+				$songs = $this->songs_model->get_all_songs($this->input->post('limit'),$this->input->post('start'));
+				else
+				$songs = $this->songs_model->get_by_param($type,$id,$this->input->post('limit'),$this->input->post('start'));
+			}
 			$return = "";
 			foreach($songs as $row) {
 				$picture = $this->songs_model->get_songs_picture($row->id);
@@ -98,7 +102,11 @@ class Home extends CI_Controller {
 				}
 
 				$color = ($row->color != "")?' style="color:'.$row->color.'"':"";
+				$checked = '';
+				if ($this->session->userdata('logged_in'))
+					$checked = ($row->fav_status == 'active')?'checked':'';
 				
+
 				$return .= '<a href="#">
 					<div class="single_music_item">
 						<div class="image_box">
@@ -128,7 +136,7 @@ class Home extends CI_Controller {
 								</ul>
 							</div>
 							<div class="favorite_song">
-								<input class="star" type="checkbox" title="bookmark page">
+								<input class="star" type="checkbox" title="bookmark page" '.$checked.' onclick="set_favorite(this,'.$row->id.')">
 							</div>
 							<div class="song_main_language">
 								<h4>'.$row->language.'</h4>

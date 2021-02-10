@@ -58,12 +58,12 @@
 
 		<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'search'
 			|| $this->uri->segment(1) == 'selected'|| $this->uri->segment(1) == 'home'){ ?>
-		function load_more_songs(limit, start) {
+		function load_more_songs(tipe, limit, start) {
 				$('#load_data_message').html('<img src="<?php echo base_url();?>assets/img/Loading.gif" alt="Loading" height=100>');
 				$.ajax({
 					url:"<?php echo ($lang_id=="")?site_url('loadmore'):site_url('loadmore/'.$lang_id);?>",
 					method:"POST",
-					data:{limit:limit, start:start},
+					data:{limit:limit, start:start, selected:tipe},
 					cache:false,
 					success:function(data){
 						$('#load_data').append(data);
