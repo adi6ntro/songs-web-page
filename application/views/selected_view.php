@@ -72,9 +72,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</a>
 						<?php } ?>
 					</div>
+					<?php if ($is_load == 'yes') { ?>
 					<div id="load_data_message" style="text-align: center;margin-bottom: 10px;">
 						<a class='btn btn-loadmore' id="loadMore" onclick="load_more_songs('selected',<?php echo $limit; ?>,<?php echo $start_limit; ?>);"><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>
 					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>

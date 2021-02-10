@@ -2,9 +2,11 @@
 
 class Songs extends CI_Controller {
 
+	var $limit;
 	public function __construct()
 	{
 		parent::__construct();
+		$this->limit = 10;
 	}
 
 	public function detail($id)
@@ -29,11 +31,11 @@ class Songs extends CI_Controller {
 		if (!$this->session->userdata('logged_in')) {
 			redirect('login', 'refresh');
 		}
-		$limit = 10;
-		$data['songs']=$this->songs_model->get_favorite($limit);
+		$data['songs']=$this->songs_model->get_favorite($this->limit);
+		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
 		$data['lang_id']="";
-		$data['start_limit']=$limit;
-		$data['limit']=$limit;
+		$data['start_limit']=$this->limit;
+		$data['limit']=$this->limit;
 		$this->load->view('header',$data);
 		$this->load->view('selected_view',$data);
 		$this->load->view('footer',$data);

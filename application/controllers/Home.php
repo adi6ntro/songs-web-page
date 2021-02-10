@@ -3,19 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+	var $limit;
 	public function __construct()
 	{
 		parent::__construct();
+		$this->limit = 10;
 	}
 
 	public function index()
 	{
-		$limit = 10;
-		$data['songs']=$this->songs_model->get_all_songs($limit);
+		$data['songs']=$this->songs_model->get_all_songs($this->limit);
+		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
 		$data['lang']="ALL";
 		$data['lang_id']="";
-		$data['start_limit']=$limit;
-		$data['limit']=$limit;
+		$data['start_limit']=$this->limit;
+		$data['limit']=$this->limit;
 		$this->load->view('header',$data);
 		$this->load->view('home_view',$data);
 		$this->load->view('footer',$data);
@@ -50,7 +52,6 @@ class Home extends CI_Controller {
 		{
 			redirect('/', 'refresh');
 		}
-		$limit = 10;
 		$term = $this->db->escape_str(trim(preg_replace('/\s\s+/', ' ', $this->input->post('search'))));
 		if (empty($_POST['lang_id'])) {
 			$lang = $term;
@@ -62,9 +63,10 @@ class Home extends CI_Controller {
 			$data['lang']=$this->songs_model->get_by_id('language','id',$this->input->post('lang_id'))->name;
 			$data['lang_id']=$this->input->post('lang_id');
 		}
-		$data['songs']=$this->songs_model->get_by_param($type,$lang,$limit);
-		$data['start_limit']=$limit;
-		$data['limit']=$limit;
+		$data['songs']=$this->songs_model->get_by_param($type,$lang,$this->limit);
+		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
+		$data['start_limit']=$this->limit;
+		$data['limit']=$this->limit;
 		$this->load->view('header',$data);
 		$this->load->view('home_view',$data);
 		$this->load->view('footer',$data);
@@ -83,6 +85,8 @@ class Home extends CI_Controller {
 				$songs = $this->songs_model->get_by_param($type,$id,$this->input->post('limit'),$this->input->post('start'));
 			}
 			$return = "";
+			$count_limit = 0;
+			$is_load = (count($songs) <= 10) ? 'no':'yes';
 			foreach($songs as $row) {
 				$picture = $this->songs_model->get_songs_picture($row->id);
 				$list_picture = "";
@@ -144,8 +148,9 @@ class Home extends CI_Controller {
 						</div>
 					</div>
 				</a>';
+				if (++$count_limit == $this->limit) break;
 			}
-			echo $return;
+			echo $is_load.'|'.$return;
 		}
 	}
 }
