@@ -581,6 +581,7 @@ p {
     margin-left: -25px;
     margin-top: -27px;
     margin-right: 10px;
+	opacity: 0.6;
     position: relative;
     z-index: 2;
 }
