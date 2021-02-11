@@ -77,17 +77,17 @@ header('Content-Type: text/html; charset=utf-8');
 						<?php if ($this->session->userdata('logged_in')) { ?>
 						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i> Hello, <?php echo $this->session->userdata('logged_in')['username'];?></a>
 						<hr style="margin: 0px 0 7px;">
-						<a href="<?php echo base_url();?>">Home</a>
 						<a href="<?php echo base_url();?>myaccount">My Account</a>
-						<a href="<?php echo base_url();?>logout">Log out</a>
+						<a href="<?php echo base_url();?>logout">Log Out</a>
 						<hr style="margin: 0px 0 7px;">
-						<a href="<?php echo base_url();?>selected">Selected songs</a>
+						<a href="<?php echo base_url();?>">Home</a>
+						<a href="<?php echo base_url();?>selected">Selected Songs</a>
 						<?php } else { ?>
 						<a href="<?php echo base_url();?>">Home</a>
 						<hr style="margin: 0px 0 7px;">
 						<?php } ?>
 						<a href="<?php echo base_url();?>">Frequent Questions</a>
-						<a href="<?php echo base_url();?>">Contact us</a>
+						<a href="<?php echo base_url();?>">Contact Us</a>
 					</div>
 				</div>
 			</div>
