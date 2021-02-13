@@ -2,11 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 	<!-- start header search area -->
-	<section id="header_search_area">
+	<section id="detail_song_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="header_search_area_container">
+					<div class="detail_song_area_container">
 						<div class="single_music_item">
 							<div class="image_box">
 								<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
@@ -71,16 +71,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<!-- end header search area -->
 	<!-- start music list main area -->
-	<section id="music_list_main_area">
+	<section id="summary_area">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="music_list_main_area_container" id="load_data">
-						<div class="single_music_item">
+					<div class="summary_area_container">
 						<p><?php echo $row->lyrics; ?></p>
 						<button onclick="readmore()" id="readmore">Read more</button>
 						<a href="<?php echo $row->source_url_lyrics; ?>"><?php echo $row->source_name_lyrics; ?></a>
-						</div>
+					</div>
+					<div class="summary_area_container">
 					</div>
 				</div>
 			</div>
@@ -118,8 +118,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="filter_name_container text-center">
-						<p>OTHER SONGS OF THE ARTIST IN SPANISH</p>
+					<div class="filter_name_container text-center" style="padding:6px 10px 3px;">
+						<p style="font-size:12px">OTHER SONGS OF THE ARTIST <?php echo ($lang == '')?'':'IN '.strtoupper($lang); ?></p>
 					</div>
 				</div>
 			</div>
@@ -134,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
 						<?php foreach($songs as $row) { ?>
-						<a href="<?php echo base_url().'songs/'.$row->id;?>">
+						<a href="<?php echo base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song=artist';?>">
 							<div class="single_music_item">
 								<div class="image_box">
 									<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
@@ -186,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<?php if ($is_load == 'yes') { ?>
 					<div id="load_data_message" style="text-align: center;margin-bottom: 10px;">
-						<a class='btn btn-loadmore' id="loadMore" onclick="load_more_songs('all',<?php echo $limit; ?>,<?php echo $start_limit; ?>);"><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>
+						<a class='btn btn-loadmore' id="loadMore" onclick="load_more_songs('artist',<?php echo $limit; ?>,<?php echo $start_limit; ?>);"><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>
 					</div>
 					<?php } ?>
 				</div>
@@ -194,15 +194,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</section>
 	<!-- end music list main area -->
-	<section id="music_list_main_area">
+	<section id="filter_name">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-				<hr style="margin: 1rem 2rem;border-top: 3px solid rgba(0,0,0,.1);">
-					<div class="text-center mb-4">
-						<a href="<?php echo base_url(); ?>" class="btn btn-swal2-cancel">NEXT</a>
-						<a href="<?php echo base_url(); ?>" class="btn btn-swal2-cancel">BACK</a>
-						<a href="<?php echo base_url(); ?>" class="btn btn-swal2-cancel">HOME - SEARCH</a>
+					<div class="filter_name_container text-center" style="padding:6px 10px 3px;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="music_list_main_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mx-auto py-4">
+					<div class="text-center mb-2 mx-5">
+						<a href="<?php echo ($next == 0)?"javascript:void(0)":base_url().'songs/'.$next.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song); ?>" class="btn btn-direction-song">NEXT</a>
+						</div>
+						<div class="text-center mb-2 mx-5">
+						<a href="<?php echo ($prev == 0)?"javascript:void(0)":base_url().'songs/'.$prev.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song); ?>" class="btn btn-direction-song">BACK</a>
+						</div>
+						<div class="text-center mb-2 mx-5">
+						<a href="<?php echo base_url(); ?>" class="btn btn-direction-song">HOME - SEARCH</a>
 					</div>
 				</div>
 			</div>

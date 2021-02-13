@@ -51,6 +51,20 @@ header('Content-Type: text/html; charset=utf-8');
 			width: 80px;
 			padding-top: 1px;
 		}
+		.swiper-button-next, .swiper-button-prev {
+			border: 1px solid #999;
+			box-shadow: 2px 2px #999;
+		}
+		.swiper-button-next {
+			border-radius: 0 5px 5px 0;
+		}
+		.swiper-button-prev {
+			border-radius: 5px 0 0 5px;
+		}
+		.swiper-button-next:after, .swiper-button-prev:after {
+			font-size: unset;
+			color: black;
+		}
 		<?php } else { ?>
 		.swiper-wrapper {
 			width: 80px;

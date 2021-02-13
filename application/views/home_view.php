@@ -8,23 +8,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-12 mx-auto">
 					<div class="header_search_area_container">
 						<h3>Search language</h3>
-						<form method="post" action="<?php echo site_url('search/language/');?>" id>
+						<form method="post" action="<?php echo site_url('search/language');?>" id="searchLangForm">
 							<div id="simpleSearch">
-								<input type="hidden" name="lang_id" id="lang_id">
-								<input type="search" name="search" placeholder="Enter Language" autocapitalize="sentences" title="Cari di Wikipedia [ctrl-option-f]" accesskey="f" id="searchInput" autocomplete="off">
-								<input type="submit" name="go" value="Lanjut" title="Search by language" id="searchButton" class="searchButton">
+								<input type="hidden" name="lang_id" id="lang_id" value="<?php echo $lang_id;?>">
+								<input type="hidden" name="song_name" id="song_name_lang" value="<?php echo $song;?>">
+								<input type="search" name="search" placeholder="Enter Language" autocapitalize="sentences" value="<?php echo ($lang == 'ALL')?'':$lang;?>"
+								title="Search Language [ctrl-option-f]" accesskey="f" id="searchLang" autocomplete="off">
+								<input type="submit" name="go" value="Lanjut" title="Search by language" id="searchButtonLang" class="searchButtonLang">
 							</div>
 						</form>
 						<div class="style_name text-center">
 							<p>POPULAR</p>
 						</div>
 					</div>
+					<div class="header_search_area_container">
+						<h3>Search song</h3>
+						<form method="post" action="<?php echo site_url('search/song');?>" id="searchSongForm">
+							<div id="simpleSearch">
+								<input type="hidden" name="lang_id" id="lang_id_song" value="<?php echo $lang_id;?>">
+								<input type="hidden" name="song_name" id="song_name" value="<?php echo $song;?>">
+								<input type="search" name="search" placeholder="Enter Song Name" autocapitalize="sentences" value="<?php echo $song;?>"
+								title="Search Songs [ctrl-option-f]" accesskey="f" id="searchSong" autocomplete="off">
+								<input type="submit" name="go" value="Lanjut" title="Search by song name" id="searchButtonSong" class="searchButtonSong">
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!-- end header search area -->
-
 	<!-- start filter language name -->
 	<section id="filter_name">
 		<div class="container">
@@ -46,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
 						<?php foreach($songs as $row) { ?>
-						<a href="<?php echo base_url().'songs/'.$row->id;?>">
+						<a href="<?php echo base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song);?>">
 							<div class="single_music_item">
 								<div class="image_box">
 									<?php $picture = $this->songs_model->get_songs_picture($row->id);?>

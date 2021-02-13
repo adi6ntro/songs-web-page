@@ -9,11 +9,11 @@
 						<form method="post" action="<?php echo site_url('verify');?>" id="login">
 							<div class="form-group">
 								<label for="username">EMAIL</label>
-								<input type="text" name="username" placeholder="Enter Email" id="username" class="form-control" autocomplete="off">
+								<input type="text" name="username" placeholder="Enter Email" id="username" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label for="password">PASSWORD</label>
-								<input type="password" name="password" placeholder="Enter Password" id="password" class="form-control" autocomplete="off">
+								<input type="password" name="password" placeholder="Enter Password" id="password" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
 								<button type="submit" class="btn btn-swal2-confirm">SIGN IN</button>
@@ -27,7 +27,7 @@
 						<form method="post" action="<?php echo site_url('forgot');?>" id="forgot">
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input type="email" name="email" placeholder="Enter Email" id="email" class="form-control" autocomplete="off">
+								<input type="email" name="email" placeholder="Enter Email" id="email" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
 								<button type="button" onclick="reset_password()" class="btn btn-swal2-confirm" id="forgotbtn">SEND MY PASSWORD</button>

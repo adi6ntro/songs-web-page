@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
 						<?php if (count($songs) > 0) { foreach($songs as $row) { ?>
-						<a href="<?php echo base_url().'songs/'.$row->id;?>">
+						<a href="<?php echo base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song);?>">
 							<div class="single_music_item">
 								<div class="image_box">
 									<?php $picture = $this->songs_model->get_songs_picture($row->id);?>

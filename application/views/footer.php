@@ -30,16 +30,57 @@
 				var h = window.innerHeight-333;
 				$(".music_list_main_area_container").css("height", h+"px");
 			}
-            $( "#searchInput" ).autocomplete({
-				source: "<?php echo site_url('language/autocomplete');?>",
+            $( "#searchLang" ).autocomplete({
+				source: function( request, response ) {
+					$.ajax({
+						url: "<?php echo site_url('autocomplete/language');?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							term: request.term,song:$( "#song_name_lang" ).val()
+						},
+						success: function( data ) {
+							response( data );
+						}
+					});
+				},
+				// source: "<?php echo site_url('autocomplete/language');?>",
 				select: function(event, ui){
-					$('#lang_id').val(ui.item.lang_id);
-					$('#searchInput').val(ui.item.lang_name);
-					$("form").submit();
+					$('#lang_id').val(ui.item.id);
+					$('#lang_id_song').val(ui.item.name);
+					$('#searchLang').val(ui.item.name);
+					$("#searchLangForm").submit();
 				},
 				focus: function(event, ui){
-					$('#lang_id').val(ui.item.lang_id);
-					$('#searchInput').val(ui.item.lang_name);
+					$('#lang_id').val(ui.item.id);
+					$('#searchLang').val(ui.item.name);
+				}
+            });
+
+            $( "#searchSong" ).autocomplete({
+				source: function( request, response ) {
+					$.ajax({
+						url: "<?php echo site_url('autocomplete/song');?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							term: request.term,lang_id:$( "#lang_id_song" ).val()
+						},
+						success: function( data ) {
+							response( data );
+						}
+					});
+				},
+				// source: "<?php echo site_url('autocomplete/song');?>",
+				select: function(event, ui){
+					$('#song_name').val(ui.item.name);
+					$('#song_name_lang').val(ui.item.name);
+					$('#searchSong').val(ui.item.name);
+					$("#searchSongForm").submit();
+				},
+				focus: function(event, ui){
+					$('#song_id').val(ui.item.id);
+					$('#searchSong').val(ui.item.name);
 				}
             });
 
@@ -57,23 +98,33 @@
 			});
 		});
 
-		<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'search'
-			|| $this->uri->segment(1) == 'selected'|| $this->uri->segment(1) == 'home'){ ?>
+		function cancelEnter(event){
+			if (event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		}
+
+		<?php if (in_array($this->uri->segment(1), array('','search','selected','home','songs'))){ ?>
 		function load_more_songs(tipe, limit, start) {
+				<?php // tipe ('selected','all','artist') ?>
 				$('#load_data_message').html('<img src="<?php echo base_url();?>assets/img/Loading.gif" alt="Loading" height=100>');
+				var song = (tipe == 'artist')?'<?php echo $artist;?>':'<?php echo $song;?>';
 				$.ajax({
-					url:"<?php echo ($lang_id=="")?site_url('loadmore'):site_url('loadmore/'.$lang_id);?>",
+					url:"<?php echo site_url('loadmore');?>",
 					method:"POST",
-					data:{limit:limit, start:start, selected:tipe},
+					data:{limit:limit, start:start, selected:tipe, song:song, lang: '<?php echo $lang_id;?>'},
 					cache:false,
 					success:function(data){
 						var res = data.split("|");
-						$('#load_data').append(res[1]);
+						if (typeof image_array !== 'undefined' && image_array.length > 0) {
+							$('#load_data').append(res[1]);
+						}
 						if(res[0] == 'no'){
 							$('#load_data_message').css("display","none");
 						}else{
 							start = start + limit;
-							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
+							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+tipe+","+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
 						}
 					}
 				});
@@ -269,7 +320,7 @@
 			slidesPerView: 1,
 			spaceBetween: 30,
 			centeredSlides: true,
-			loop: true,
+			// loop: true,
 			pagination: {
 				el: '.swiper-pagination',
 				clickable: true,

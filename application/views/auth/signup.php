@@ -17,15 +17,15 @@
 						<form method="post" id="signup">
 							<div class="form-group">
 								<label for="username">USERNAME</label>
-								<input type="text" name="username" placeholder="Enter Username" id="username" class="form-control" autocomplete="off">
+								<input type="text" name="username" placeholder="Enter Username" id="username" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label for="email">EMAIL</label>
-								<input type="email" name="email" placeholder="Enter Email" id="email" class="form-control" autocomplete="off">
+								<input type="email" name="email" placeholder="Enter Email" id="email" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div class="form-group">
 								<label for="reemail">REWRITE EMAIL</label>
-								<input type="email" name="reemail" placeholder="Enter Rewrite Email" id="reemail" class="form-control" autocomplete="off">
+								<input type="email" name="reemail" placeholder="Enter Rewrite Email" id="reemail" onkeydown="cancelEnter(event)" class="form-control" autocomplete="off">
 							</div>
 							<div style="text-align:center">
 								<button type="button" onclick="register()" id="send" class="btn btn-swal2-confirm">SEND</button><br><br>
