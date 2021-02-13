@@ -262,7 +262,7 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container {
-	padding: 10px 30px;
+	padding: 10px 30px 20px;
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item {
@@ -288,8 +288,9 @@ p {
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
-	font-weight: 800;
-	font-size: 16px;
+	font-weight: 600;
+	font-size: 17px;
+	font-family: 'Lato', sans-serif;
 	color: #000000;
 }
 
@@ -356,7 +357,7 @@ p {
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_main_language h4 {
 	text-transform: uppercase;
 	font-weight: 700;
-	font-size: 15px;
+	font-size: 17px;
 	color: #5B5E60;
 	text-align: center;
 }
@@ -580,6 +581,7 @@ p {
     margin-left: -25px;
     margin-top: -27px;
     margin-right: 10px;
+	opacity: 0.6;
     position: relative;
     z-index: 2;
 }

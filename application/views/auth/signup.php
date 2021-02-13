@@ -9,7 +9,7 @@
 							<?php echo ($cek == 'cek')?'You need to have an account':'Having an account will allow you'; ?>
 							<br>to save your selected songs
 						</h3>
-						<h3 style="text-transform:none;font-weight:400">
+						<h3 style="text-transform:none;font-weight:400;margin-top:10px;margin-bottom:20px">
 							To create an account just enter<br>
 							a username and an email<br>
 							to send you a password:

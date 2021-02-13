@@ -57,10 +57,11 @@
         width: 77px;
     }
     #music_list_main_area .music_list_main_area_container {
-        padding: 8px 8px 9px;
+        padding: 8px 8px 15px;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .song_name h4 {
-        font-size: 16px;
+        font-size: 17px;
+        font-family: 'Lato', sans-serif;
     }
     #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners {
         margin-top: 0px;
