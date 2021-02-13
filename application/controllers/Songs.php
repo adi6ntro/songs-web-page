@@ -11,7 +11,10 @@ class Songs extends CI_Controller {
 
 	public function detail($id)
 	{
-		$data['songs'] = $this->songs_model->get_by_param('songs.id',$id,1);
+		$data['row'] = $this->songs_model->get_songs($id);
+		$data['songs'] = $this->songs_model->get_all_songs(4);
+		// $data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
+		$data['is_load']='no';
 		$this->load->view('header',$data);
 		$this->load->view('song_view',$data);
 		$this->load->view('footer',$data);

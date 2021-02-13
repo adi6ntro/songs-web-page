@@ -20,6 +20,7 @@
 	<script src="<?php echo base_url();?>assets/js/bootstrap.bundle.min.js"></script>
 	<script src="<?php echo base_url().'assets/js/vendor/jquery-ui.js'?>" type="text/javascript"></script>
 	<script src="<?php echo base_url().'assets/js/swiper-bundle.min.js'?>"></script>
+	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.all.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/custom.js?v=2021"></script>
@@ -79,6 +80,21 @@
 		};
 		<?php } ?>
 
+		function readmore() {
+			var dots = document.getElementById("dots");
+			var moreText = document.getElementById("more");
+			var btnText = document.getElementById("readmore");
+
+			if (dots.style.display === "none") {
+				dots.style.display = "inline";
+				btnText.innerHTML = "Read more"; 
+				moreText.style.display = "none";
+			} else {
+				dots.style.display = "none";
+				btnText.innerHTML = "Read less"; 
+				moreText.style.display = "inline";
+			}
+		}
 
 		function set_favorite(elem,id) {
 			console.log(id);
@@ -109,12 +125,6 @@
 				// title: 'username',
 				html: msg,
 				confirmButtonText: 'CLOSE',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',
 					cancelButton: 'btn btn-swal2-cancel-darker'
@@ -144,6 +154,7 @@
 					$('#chuserbtn').removeAttr('disabled');
 					if (data == 'yes') {
 						$('#hisusername').html($('#username').val());
+						$('#h-username').html($('#username').val());
 						$('#username').val('');
 						show_popup('username',"Your <b>username</b><br>has been successfully changed");
 					} else {
@@ -193,12 +204,6 @@
 							showCancelButton: true,
 							confirmButtonText: 'YES, SEND MY PASSWORD',
 							cancelButtonText: 'CANCEL',
-							showClass: {
-								popup: 'animate__animated animate__fadeInDown'
-							},
-							hideClass: {
-								popup: 'animate__animated animate__fadeOutUp'
-							},
 							customClass: {
 								confirmButton: 'btn btn-swal2-confirm',
 								cancelButton: 'btn btn-swal2-cancel-dark'
@@ -259,15 +264,41 @@
 			show_popup('show result',`<?php echo $this->session->flashdata('result_signup');?>`);
 		<?php } ?>
 
+		<?php if ($this->uri->segment(1) == 'songs') { ?>
+		var swiper1 = new Swiper('.swiper1', {
+			slidesPerView: 1,
+			spaceBetween: 30,
+			centeredSlides: true,
+			loop: true,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+		});
+		var swiper2 = new Swiper('.swiper2', {
+			spaceBetween: 0,
+			width: 100,
+			centeredSlides: true,
+			autoplay: {
+				delay: 5500,
+				disableOnInteraction: false,
+			},
+		});
+		<?php } else { ?>
 		var swiper = new Swiper('.swiper-container', {
 			spaceBetween: 0,
 			width: 100,
 			centeredSlides: true,
 			autoplay: {
-			delay: 5500,
-			disableOnInteraction: false,
+				delay: 5500,
+				disableOnInteraction: false,
 			},
 		});
+		<?php } ?>
 
 		function delete_account(){
 			Swal.fire({
@@ -277,12 +308,6 @@
 				reverseButtons: true,
 				confirmButtonText: 'Yes, delete my account',
 				cancelButtonText: 'No, please keep my account',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',
 					cancelButton: 'btn btn-swal2-cancel-darker'
@@ -311,12 +336,6 @@
 					if (!value) {
 						return 'You need to input your password!'
 					}
-				},
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
 				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',

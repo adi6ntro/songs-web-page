@@ -20,7 +20,7 @@ class Songs_model extends CI_Model
 		if ($this->session->userdata('logged_in')) {
 			$this->db->join('favorite', "songs_id = songs.id and user_id = ".$this->session->userdata('logged_in')['id'], 'left');
 		}
-		$this->db->order_by('songs.id', 'ASC');
+		$this->db->order_by('songs.seq_order', 'ASC');
 		if($limit != null)
 			$this->db->limit($limit+1, $offset);
 		$query=$this->db->get();
@@ -55,12 +55,33 @@ class Songs_model extends CI_Model
 			$this->db->join('favorite', 'songs_id = songs.id and user_id = '.$this->session->userdata('logged_in')['id'], 'left');
 		}
 		$this->db->where($column,$value);
-		$this->db->order_by('songs.id', 'ASC');
+		$this->db->order_by('songs.seq_order', 'ASC');
 		if($limit != null)
 			$this->db->limit($limit+1, $offset);
 		$query=$this->db->get();
 
 		return $query->result();
+	}
+
+	public function get_songs($id)
+    {
+		$fav_status = ($this->session->userdata('logged_in'))?',fav_status,note':'';
+		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,
+		country.name as country_name,year,style,instrument,language.name as language_name,
+		lyrics,source_name_lyrics,source_url_lyrics'.$fav_status);
+		$this->db->from('songs');
+		$this->db->join('artist', 'songs.artist = artist.artist');
+		$this->db->join('genre', 'songs.genre = genre.name');
+		$this->db->join('country', 'artist.country = country.id');
+		$this->db->join('language', 'language.id = songs.language');
+		if ($this->session->userdata('logged_in')) {
+			$this->db->join('favorite', 'favorite.songs_id = songs.id and favorite.user_id = '.$this->session->userdata('logged_in')['id'], 'left');
+			$this->db->join('notes', 'notes.songs_id = songs.id and notes.user_id = '.$this->session->userdata('logged_in')['id'], 'left');
+		}
+		$this->db->where('songs.id',$id);
+		$query=$this->db->get();
+
+		return $query->row();
 	}
 
 	public function get_favorite($limit=null,$offset=0)
@@ -118,11 +139,22 @@ class Songs_model extends CI_Model
         // return $this->db->get()->result();
     }
 
-	public  function get_songs_picture($id)
+	public function get_songs_picture($id)
     {
 		$this->db->where('songs_id',$id);
 		$this->db->order_by('id', 'ASC');
 		$query=$this->db->get('picture');
+
+		return $query->result();
+    }
+
+	public function get_source($id)
+    {
+		$this->db->select('songs_source_external.source_name,source_url,picture');
+		$this->db->join('source_external', 'songs_source_external.source_name = source_external.source_name');
+		$this->db->where('songs_id',$id);
+		$this->db->order_by('seq_order', 'ASC');
+		$query=$this->db->get('songs_source_external');
 
 		return $query->result();
     }

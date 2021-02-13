@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
-						<?php foreach($songs as $row) { ?>
+						<?php if (count($songs) > 0) { foreach($songs as $row) { ?>
 						<a href="<?php echo base_url().'songs/'.$row->id;?>">
 							<div class="single_music_item">
 								<div class="image_box">
@@ -70,6 +70,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 							</div>
 						</a>
+						<?php }} else { ?>
+							<div class="single_music_item text-center">
+								No Selected Songs
+							</div>
 						<?php } ?>
 					</div>
 					<?php if ($is_load == 'yes') { ?>

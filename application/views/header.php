@@ -32,6 +32,7 @@ header('Content-Type: text/html; charset=utf-8');
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/responsive.css?v=2021">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/swiper-bundle.min.css">
+	<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
 	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.min.css'>
 	<!-- this is for mordanizar js link -->
 	<script src="<?php echo base_url();?>assets/js/vendor/modernizr-3.6.0.min.js"></script>
@@ -39,10 +40,23 @@ header('Content-Type: text/html; charset=utf-8');
 
 <body>
 	<style>
+		<?php if ($this->uri->segment(1) == 'songs') { ?>
+		#more {display: none;}
+		.pic-songs-shadow {
+			-moz-box-shadow:    7px 3px 18px 5px #ccc;
+			-webkit-box-shadow: 7px 3px 18px 5px #ccc;
+			box-shadow:         7px 3px 18px 5px #ccc;
+		}
+		.swiper-wrapper-custom {
+			width: 80px;
+			padding-top: 1px;
+		}
+		<?php } else { ?>
 		.swiper-wrapper {
 			width: 80px;
 			padding-top: 1px;
 		}
+		<?php } ?>
 		<?php if ($this->uri->segment(1) == 'signup') { ?>
 		.swal2-popup {
 			width: 25em !important;
@@ -75,7 +89,7 @@ header('Content-Type: text/html; charset=utf-8');
 					</div>
 					<div class="dropdown-content" id="myDropdown">
 						<?php if ($this->session->userdata('logged_in')) { ?>
-						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i> Hello, <?php echo $this->session->userdata('logged_in')['username'];?></a>
+						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i> Hello, <span id="h-username"><?php echo $this->session->userdata('logged_in')['username'];?></span></a>
 						<hr style="margin: 0px 0 7px;">
 						<a href="<?php echo base_url();?>">Home</a>
 						<a href="<?php echo base_url();?>myaccount">My Account</a>
