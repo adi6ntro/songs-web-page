@@ -65,6 +65,12 @@ header('Content-Type: text/html; charset=utf-8');
 			font-size: unset;
 			color: black;
 		}
+		.ck-editor {
+			display: none;
+		}
+		.ck-editor__editable_inline {
+			height: 200px;
+		}
 		<?php } else { ?>
 		.swiper-wrapper {
 			width: 80px;
@@ -122,7 +128,6 @@ header('Content-Type: text/html; charset=utf-8');
 		</div>
 	</header>
 	<!-- end header top area -->
-	<div class="open-menu">
 	<?php if (!$this->session->userdata('logged_in')) { ?>
 	<section id="header_menu_login_area">
 		<div class="container">

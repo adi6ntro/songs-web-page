@@ -165,6 +165,30 @@ class Songs_model extends CI_Model
 		return 'yes';
 	}
 
+	function update_note($songs_id,$note){
+		$array = array(
+			'user_id' => $this->session->userdata('logged_in')['id'], 
+			'songs_id' => $songs_id
+		);
+		$this->db->where($array);
+		$query=$this->db->get('notes');
+		if($query->num_rows()==0){
+			$insert_data = array(
+				'user_id' => $this->session->userdata('logged_in')['id'],
+				'songs_id' => $songs_id,
+				'note' => $note
+			);
+			$this->db->insert('notes',$insert_data);
+		} else {
+			$insert_data = array(
+				'note' => $note
+			);
+			$this->db->where($array);
+			$this->db->update('notes', $insert_data);
+		}
+		return 'yes';
+	}
+
 	function search_language($title,$sess){
 		$query = $this->db->query("select id,name from language where name like '%$title%' limit 5");
 		if ($sess != "") {
