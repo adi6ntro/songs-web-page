@@ -653,3 +653,21 @@ p {
     font-size: 25px;
     color: #9BBB59;
 }
+
+#detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star {
+	visibility:hidden;
+	font-size:35px;
+	cursor:pointer;
+}
+#detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star:before {
+	content: "\2606";
+	position: absolute;
+	visibility: visible;
+	color: #a3a3a3;
+	font-weight: 900;
+}
+#detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star:checked:before {
+	content: "\2605";
+	position: absolute;
+	color: gold;
+}

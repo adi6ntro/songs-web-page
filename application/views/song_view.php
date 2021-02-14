@@ -1,15 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-	<!-- start header search area -->
-	<section id="detail_song_area">
+	<section id="detail_song_area" style="
+		padding: 10px 0px 10px 0px;
+		background: #fff;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="detail_song_area_container">
+					<div class="detail_song_area_container" style="padding: 13px 30px;">
 						<div class="single_music_item">
 							<div class="image_box">
-								<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
+							<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
 								<div class="swiper-container swiper1">
 									<div class="swiper-wrapper">
 										<?php if(!empty($picture)) { foreach($picture as $pic) { ?>
@@ -30,33 +31,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 							</div>
 							<div class="content_box">
-								<div class="song_name">
+								<div class="song_name" style="
+									text-align: center;
+									margin-top: 10px;
+								">
 									<h4><?php echo $row->song; ?></h4>
 								</div>
-								<div class="geners">
-									<ul>
-										<li <?php if($row->color != "") { ?> 
+								<!-- <div class="song_summary" style="
+									text-align: center;
+									margin-top: 10px;
+								">
+								</div> -->
+								<div class="geners" style="
+									text-align: center;
+									margin-top: 10px;
+								">
+									<p <?php if($row->color != "") { ?> 
 										style="color:<?php echo $row->color; ?>" <?php } ?> >
 										<?php echo $row->genre; ?>
-										</li>
-									</ul>
+									</p>
 								</div>
-								<div class="song_details">
+								<div class="song_details" style="
+									text-align: center;
+									margin-top: 10px;
+								">
 									<p><?php echo $row->artist; ?> <span>(<?php echo $row->country; ?>)</span></p>
 								</div>
-								<div class="year_instoment">
-									<ul>
-										<li class="year_song"><?php echo $row->year; ?></li>
-										<li class="instoment_song"><?php echo $row->instrument; ?></li>
-									</ul>
+								<div class="row year_instoment">
+									<div class="col-6">
+										<p class="year_song" style="float: right;"><?php echo $row->year; ?></p>
+									</div>
+									<div class="col-6">
+										<p class="instoment_song"><?php echo $row->instrument; ?></p>
+									</div>
 								</div>
-								<div class="favorite_song">
+								<div class="row song_main_language">
+									<div class="col-6">
+										<h4 style="float: right;">EN</h4>
+									</div>
+									<div class="col-6">
+										<p class="count_song">(20 songs)</p>
+									</div>
+								</div>
+								<div class="favorite_song" style="text-align: center;margin-bottom: 35px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>
-								<div class="song_main_language">
-									<h4><?php echo $row->language; ?></h4>
-								</div>
-								<div class="song_source">
+								<div class="song_source" style="text-align: center;">
 									<?php $source = $this->songs_model->get_source($row->id);?>
 									<?php foreach($source as $web) { ?>
 									<a href="<?php echo $web->source_url; ?>"><img style="height: 40px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
@@ -71,16 +91,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<!-- end header search area -->
 	<!-- start music list main area -->
-	<section id="summary_area">
+	<section id="summary_area" style="padding: 10px 0px 10px 0px;background: #fff;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="summary_area_container">
-						<p><?php echo $row->lyrics; ?></p>
-						<button onclick="readmore()" id="readmore">Read more</button>
-						<a href="<?php echo $row->source_url_lyrics; ?>"><?php echo $row->source_name_lyrics; ?></a>
-					</div>
-					<div class="summary_area_container">
+					<div class="summary_area_container" style="padding: 5px 20px;">
+						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid gray;">
+							<p><?php echo $row->lyrics; ?> </p>
+							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More</a>
+							<br>
+							<a href="<?php echo $row->source_url_lyrics; ?>"
+							style="color: #0056b3;text-decoration: none;font-weight:700;font-size:16px"><?php echo $row->source_name_lyrics; ?></a>
+						</div>
+						<div class="info" style="padding: 10px 20px;border-top: 1px solid gray;">
+							<!-- <?php echo $row->info; ?> -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -98,14 +123,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 		</div>
 	</section>
-	<section id="music_list_main_area">
+	<section id="notes_area" style="padding: 10px 0px 10px 0px;background: #fff;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="music_list_main_area_container" id="load_data">
-						<div class="single_music_item">
-						<p><?php echo $row->note; ?></p>
-						<a href="<?php echo base_url(); ?>" class="btn btn-swal2-cancel">CREATE NEW</a>
+					<div class="notes_area_container" style="padding: 10px 30px 20px;">
+						<div class="notes" style="padding: 8px 8px 9px;">
+							<p id="note" <?php echo ($row->note == '')?'style="display:none;"':'';?>>
+							<?php echo $row->note; ?></p>
+							<!-- <div id="note"></div> -->
+							<textarea name="note" id="noteeditor" cols="30" rows="10" style="display:none;width:100%">
+							<?php echo $row->note; ?></textarea>
+							<br>
+						</div>
+						<div class="text-center">
+							<a class="btn btn-notes" onclick="updatenotes()" style="color: #0056b3;
+							background-color: white;border: 1px solid #0056b3;" id="updatenotes">
+							<?php echo ($row->note == '')?'CREATE NEW':'EDIT';?></a>
+							<a class="btn btn-notes" onclick="savenotes()" style="display:none;color: #0056b3;
+							background-color: white;border: 1px solid #0056b3;" id="savenotes">SAVE</a>
 						</div>
 					</div>
 				</div>

@@ -53,6 +53,7 @@ $route['default_controller'] = 'home';
 $route['search/(:any)'] = 'home/search/$1';
 $route['songs/(:num)'] = 'songs/detail/$1';
 $route['selected'] = 'songs/selected';
+$route['savenote'] = 'songs/savenote';
 $route['selected/record'] = 'songs/selected_save';
 $route['login'] = 'auth';
 $route['verify'] = 'auth/verify';

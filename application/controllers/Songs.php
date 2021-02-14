@@ -47,6 +47,16 @@ class Songs extends CI_Controller {
 		}
 	}
 
+	public function savenote() {
+		if (!$this->session->userdata('logged_in')) {
+			echo false;
+		} else {
+			$rr = $this->songs_model->update_note($this->db->escape_str($this->input->post('song_id')),$this->db->escape_str($this->input->post('note')));
+			// $this->session->set_flashdata('result', $rr);
+			echo $rr;
+		}
+	}
+
 	public function selected() {
 		if (!$this->session->userdata('logged_in')) {
 			redirect('login', 'refresh');

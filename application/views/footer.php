@@ -13,7 +13,6 @@
 			</div>
 		</div>
 	</footer>
-</div> <!-- div open menu -->
 	<!-- start main footer -->
 	<!-- all javascript load here -->
 	<script src="<?php echo base_url();?>assets/js/vendor/jquery-3.3.1.min.js"></script>
@@ -22,6 +21,7 @@
 	<script src="<?php echo base_url().'assets/js/swiper-bundle.min.js'?>"></script>
 	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.all.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/custom.js?v=2021"></script>
 	<script type="text/javascript">
@@ -105,6 +105,42 @@
 			}
 		}
 
+		<?php if ($this->uri->segment(1) == 'songs'){ ?>
+		let note;
+		ClassicEditor.create( document.querySelector( '#noteeditor' ) )
+			.then( editor => {
+				note = editor;
+			} )
+			.catch( error => {
+				console.error( error );
+			} );
+		
+		function updatenotes() {
+			$('#updatenotes').hide();
+			$('#savenotes').show();
+			$('#note').hide();
+			// $('#noteeditor').show();
+			$('.ck-editor').show();
+		}
+		function savenotes() {
+			$('#updatenotes').show();
+			$('#savenotes').hide();
+			$.ajax({
+				url:"<?php echo site_url('savenote');?>",
+				method:"POST",
+				data:{note:note.getData(),song_id:<?php echo $row->id; ?>},
+				cache:false,
+				success:function(data){
+					if(data){
+						$('#note').html(note.getData());
+					}
+				}
+			});
+			$('#note').show();
+			$('.ck-editor').hide();
+		}
+		<?php } ?>
+
 		<?php if (in_array($this->uri->segment(1), array('','search','selected','home','songs'))){ ?>
 		function load_more_songs(tipe, limit, start) {
 				<?php // tipe ('selected','all','artist') ?>
@@ -138,11 +174,11 @@
 
 			if (dots.style.display === "none") {
 				dots.style.display = "inline";
-				btnText.innerHTML = "Read more"; 
+				btnText.innerHTML = "More"; 
 				moreText.style.display = "none";
 			} else {
 				dots.style.display = "none";
-				btnText.innerHTML = "Read less"; 
+				btnText.innerHTML = "Less"; 
 				moreText.style.display = "inline";
 			}
 		}
@@ -239,20 +275,6 @@
 			}
 		}
 
-		Swal.fire({
-							html: `Are you sure you<br>want to <b>delete</b><br>your account?<br>
-							<div style='margin-top:10px;color: #C00100;font-weight:700;font-size:12px'>
-							This can't be undone<br>and you will lose<br>all your saved data<br>and preferences</div>`,
-							showCancelButton: true,
-							confirmButtonText: 'YES, SEND MY PASSWORD',
-							cancelButtonText: 'CANCEL',
-							customClass: {
-								confirmButton: 'btn btn-swal2-confirm',
-								cancelButton: 'btn btn-swal2-cancel-dark'
-							},
-							buttonsStyling: false,
-							allowOutsideClick: false,
-						});
 		function register() {
 			$('#send').attr('disabled','true');
 			$.ajax({
