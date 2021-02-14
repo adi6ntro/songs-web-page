@@ -54,6 +54,7 @@ class Songs extends CI_Controller {
 		$data['songs']=$this->songs_model->get_favorite($this->limit);
 		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
 		$data['lang']="ALL";
+		$data['lang_id']="";
 		$data['song']="selected";
 		$data['artist']="";
 		$data['start_limit']=$this->limit;

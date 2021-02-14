@@ -226,36 +226,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<?php if (!$this->session->userdata('logged_in')) { ?>
-					<a href="<?php echo base_url().'signup'; ?>">
-						<div class="footer_top_container">
-							<div class="footer_top_content text-center">
+					<div class="footer_top_container">
+						<?php if (!$this->session->userdata('logged_in')) { ?>
+						<a href="<?php echo base_url().'signup'; ?>">
+							<div class="footer_top_content">
 								<h3>Create Account</h3>
 							</div>
-						</div>
-					</a>
-					<?php } ?>
-					<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
-						<div class="footer_top_container" id="select-song-menu">
-							<div class="footer_top_content text-center">
+						</a>
+						<?php } ?>
+						<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
+							<div class="footer_top_content">
 								<h3>Selected Songs</h3>
 							</div>
-						</div>
-					</a>
-					<a href="#">
-					<div class="footer_top_container">
-						<div class="footer_top_content text-center">
-							<h3>Frequent Questions</h3>
-						</div>
+						</a>
+						<a href="javascript:void(0)">
+							<div class="footer_top_content">
+								<h3>Frequent Questions</h3>
+							</div>
+						</a>
+						<a href="javascript:void(0)">
+							<div class="footer_top_content">
+								<h3>Contact</h3>
+							</div>
+						</a>
 					</div>
-					</a>
-					<a href="#">
-					<div class="footer_top_container">
-						<div class="footer_top_content text-center">
-							<h3>Contact</h3>
-						</div>
-					</div>
-					</a>
 				</div>
 			</div>
 		</div>

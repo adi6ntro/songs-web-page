@@ -239,6 +239,20 @@
 			}
 		}
 
+		Swal.fire({
+							html: `Are you sure you<br>want to <b>delete</b><br>your account?<br>
+							<div style='margin-top:10px;color: #C00100;font-weight:700;font-size:12px'>
+							This can't be undone<br>and you will lose<br>all your saved data<br>and preferences</div>`,
+							showCancelButton: true,
+							confirmButtonText: 'YES, SEND MY PASSWORD',
+							cancelButtonText: 'CANCEL',
+							customClass: {
+								confirmButton: 'btn btn-swal2-confirm',
+								cancelButton: 'btn btn-swal2-cancel-dark'
+							},
+							buttonsStyling: false,
+							allowOutsideClick: false,
+						});
 		function register() {
 			$('#send').attr('disabled','true');
 			$.ajax({
@@ -250,8 +264,8 @@
 					$('#send').removeAttr('disabled');
 					if (data == 'email') {
 						Swal.fire({
-							html: 'The email <b>'+$('#email').val()+'</b> is already being used in an account.<br><br>'+
-								'If the account and email are yours, we can send you your password to this same email.',
+							html: `The email <b>${$('#email').val()}</b><br>is already being used in an account.<br><br>'+
+								'If the account and email<br>are yours, we can send you<br>your password to this same email.`,
 							showCancelButton: true,
 							confirmButtonText: 'YES, SEND MY PASSWORD',
 							cancelButtonText: 'CANCEL',
@@ -270,8 +284,8 @@
 									cache:false,
 									success:function(data){
 										if (data == 'yes') {
-											show_popup('register','We have sent your last <b>password</b> to your email<br>'+
-												'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
+											show_popup('register',`We have sent your last <b>password</b> to your email<br>'+
+												'<b style="color:darkred">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 										} else {
 											show_popup('reset password',data);
 										}
@@ -301,8 +315,8 @@
 				success:function(data){
 					$('#forgotbtn').removeAttr('disabled');
 					if (data == 'yes') {
-						show_popup('reset password','We have sent your last <b>password</b> to your email<br>'+
-				'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
+						show_popup('reset password',`We have sent your last <b>password</b> to your email<br>'+
+				'<b style="color:#C00100">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 						$('#email').val('');
 					} else {
 						show_popup('reset password',data);
@@ -353,8 +367,9 @@
 
 		function delete_account(){
 			Swal.fire({
-				html: "Are you sure you want to <b>delete</b> your account?<br>"+
-					"<span style='color: #C00100;font-weight:700;font-size:12px'>This can't be undone and you will lose all your saved data and preferences</span>",
+				html: `Are you sure you<br>want to <b>delete</b><br>your account?<br>
+					<div style='margin-top:10px;color: #C00100;font-weight:700;font-size:12px'>
+					This can't be undone<br>and you will lose<br>all your saved data<br>and preferences</div>`,
 				showCancelButton: true,
 				reverseButtons: true,
 				confirmButtonText: 'Yes, delete my account',
@@ -403,7 +418,7 @@
 					cache:false,
 					success:function(data){
 						if (data == 'yes') {
-							show_popup('delete-account','Your Account has been deleted!<br>You cannot access your account anymore!');
+							show_popup('delete-account',`Your Account has been deleted!<br>You cannot access your account anymore!`);
 						} else {
 							show_popup('password',data);
 						}

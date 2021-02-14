@@ -125,17 +125,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
-						<div class="footer_top_container" id="select-song-menu">
-							<div class="footer_top_content text-center">
+					<div class="footer_top_container">
+						<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
+							<div class="footer_top_content">
 								<h3>Selected Songs</h3>
 							</div>
-						</div>
-					</a>
-					<div class="footer_top_container">
-						<div class="footer_top_content text-center">
-							<h3>Frequent Questions</h3>
-						</div>
+						</a>
+						<a href="javascript:void(0)">
+							<div class="footer_top_content">
+								<h3>Frequent Questions</h3>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div>

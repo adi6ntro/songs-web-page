@@ -421,8 +421,13 @@ p {
 }
 
 #footer_top .footer_top_container {
-	padding: 10px 30px;
 	background: #85925C;
+	border: 1px solid #85925C;
+}
+
+#footer_top .footer_top_container .footer_top_content {
+	padding: 10px 30px;
+    text-align: center;
 }
 
 #footer_top .footer_top_container .footer_top_content h3 {
@@ -492,7 +497,7 @@ p {
 .swal2-popup {
 	border: 5px solid #7f7f7f !important;
 	border-radius: unset !important;
-	width: 15em !important;
+	width: auto !important;
 }
 
 .swal2-content {
@@ -500,6 +505,7 @@ p {
 }
 
 .swal2-actions {
+	flex-direction: column;
 	padding: 0px 0.6em !important;
 }
 

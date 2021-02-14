@@ -55,9 +55,11 @@
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="footer_top_container">
-						<div class="footer_top_content text-center">
-							<h3>Frequent Questions</h3>
-						</div>
+						<a href="javascript:void(0)">
+							<div class="footer_top_content">
+								<h3>Frequent Questions</h3>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div>
