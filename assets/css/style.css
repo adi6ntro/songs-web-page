@@ -4,7 +4,7 @@
 	margin: 0;
 	padding: 0;
 	outline: 0;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 .row, .col-12 {
@@ -15,14 +15,14 @@
 ul {
 	margin: 0;
 	padding: 0;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 ul li {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 a {
@@ -41,19 +41,19 @@ a:hover {
 h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 	padding: 0;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 body {
 	position: relative;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 p {
 	margin: 0;
 	padding: 0;
 	color: #323232;
-	font-family: "Roboto",sans-serif;
+	font-family: "Lato",sans-serif;
 }
 
 #header_top .header_top_container {
@@ -656,7 +656,7 @@ p {
 
 #detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star {
 	visibility:hidden;
-	font-size:35px;
+	font-size:30px;
 	cursor:pointer;
 }
 #detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star:before {

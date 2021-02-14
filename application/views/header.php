@@ -45,7 +45,7 @@ header('Content-Type: text/html; charset=utf-8');
 		.pic-songs-shadow {
 			-moz-box-shadow:    7px 3px 18px 5px #ccc;
 			-webkit-box-shadow: 7px 3px 18px 5px #ccc;
-			box-shadow:         7px 3px 18px 5px #ccc;
+			box-shadow:         3px 3px 9px 1px rgb(0 0 0 / 20%);
 		}
 		.swiper-wrapper-custom {
 			width: 80px;
@@ -53,7 +53,7 @@ header('Content-Type: text/html; charset=utf-8');
 		}
 		.swiper-button-next, .swiper-button-prev {
 			border: 1px solid #999;
-			box-shadow: 2px 2px #999;
+			box-shadow: 3px 2px 5px 0px rgb(0 0 0 / 20%);
 		}
 		.swiper-button-next {
 			border-radius: 0 5px 5px 0;
@@ -63,7 +63,7 @@ header('Content-Type: text/html; charset=utf-8');
 		}
 		.swiper-button-next:after, .swiper-button-prev:after {
 			font-size: unset;
-			color: black;
+			color: #B5B6B9;
 		}
 		.ck-editor {
 			display: none;
@@ -109,7 +109,7 @@ header('Content-Type: text/html; charset=utf-8');
 					</div>
 					<div class="dropdown-content" id="myDropdown">
 						<?php if ($this->session->userdata('logged_in')) { ?>
-						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i> Hello, <span id="h-username"><?php echo $this->session->userdata('logged_in')['username'];?></span></a>
+						<a href="javascript:void(0)" class="hello"><i class="fa fa-user-alt" aria-hidden="true"></i>&nbsp&nbsp<span id="h-username"><?php echo $this->session->userdata('logged_in')['username'];?></span></a>
 						<hr style="margin: 0px 0 7px;">
 						<a href="<?php echo base_url();?>myaccount">My Account</a>
 						<a href="<?php echo base_url();?>logout">Log Out</a>
