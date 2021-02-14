@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="year_instoment">
 										<ul>
 											<li class="year_song"><?php echo $row->year; ?></li>
-											<li class="instoment_song"><?php echo $row->instrument; ?></li>
+											<li class="instoment_song">&nbsp<?php echo $row->instrument; ?></li>
 										</ul>
 									</div>
 									<div class="favorite_song">

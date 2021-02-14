@@ -34,16 +34,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<div class="song_name" style="
 									text-align: center;
 									margin-top: 7px;
-									font-weight: 700;
+									font-weight: 800;
 									font-size: 20px
 								">
 									<?php echo $row->song; ?>
 								</div>
-								<!-- <div class="song_summary" style="
-									text-align: center;
-									margin-top: 10px;
-								">
-								</div> -->
+								<div class="song_subname" style="
+									text-align:center;
+									margin-top: 2px;
+									font-size:12px">
+									<p style="color: #7E8083;">RISING UP, BACK ON THE STREETS, DID MY TIME ...</p>
+								</div>								
 								<div class="geners" style="
 									text-align: center;
 									margin-top: 3px;
@@ -57,30 +58,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="song_details" style="
 									text-align: center;
-									margin-top: 2px;
+									margin-top: 1px;
 									font-size: 18px;
 									font-weight: 300;
 								">
-									<p><?php echo $row->artist; ?> <span>(<?php echo $row->country; ?>)</span></p>
+									<p><?php echo $row->artist; ?> 
+									<span style="color: green;font-size:12px;font-weight:600;">&nbsp(<?php echo $row->country; ?>)</span>
+									</p>
 								</div>
-								<div class="row year_instoment">										
-									<div class="col-6">
-										<p class="year_song" style="
-										float: right;
-										margin-top: 2px;">
-										<?php echo $row->year; ?></p>
-									</div>
-									<div class="col-6">
-										<p class="instoment_song"><?php echo $row->instrument; ?></p>
-									</div>
+								<div class="year_instrument" style=" 										
+									text-align: center;
+									margin-top: 2px;
+									font-size: 14px;
+									font-weight: 600;
+								">
+									<p><?php echo $row->year; ?>
+									<span style="color: orange;">&nbsp&nbsp&nbsp<?php echo $row->instrument; ?></span>
+									</p>									
 								</div>
-								<div class="row song_main_language">
-									<div class="col-6">
-										<h4 style="text-align: center;margin-top: 2px;">EN</h4>
-									</div>
-									<div class="col-6">
-										<p class="count_song"></p>
-									</div>
+								<div class="song_main_language_2" style=" 										
+									text-align: center;
+									margin-top: 2px;
+									font-size: 18px;
+									font-weight: 600;
+								">
+									<p>English
+									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(35 songs)<span>
+									</p>								
 								</div>
 								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
@@ -222,7 +226,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<li class="year_song"><?php echo $row->year; ?></li>
 											<li class="instoment_song"><?php echo $row->instrument; ?></li>
 										</ul>
-									</div>
+									</div>								
 									<div class="favorite_song">
 										<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 									</div>

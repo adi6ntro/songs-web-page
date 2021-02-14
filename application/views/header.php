@@ -45,14 +45,14 @@ header('Content-Type: text/html; charset=utf-8');
 		.pic-songs-shadow {
 			-moz-box-shadow:    7px 3px 18px 5px #ccc;
 			-webkit-box-shadow: 7px 3px 18px 5px #ccc;
-			box-shadow:         3px 3px 9px 1px rgb(0 0 0 / 20%);
+			box-shadow:         5px 3px 6px 0px rgb(0 0 0 / 20%);
 		}
 		.swiper-wrapper-custom {
 			width: 80px;
 			padding-top: 1px;
 		}
 		.swiper-button-next, .swiper-button-prev {
-			border: 1px solid #999;
+			border: 1px solid #B5B6B9;
 			box-shadow: 3px 2px 5px 0px rgb(0 0 0 / 20%);
 		}
 		.swiper-button-next {
