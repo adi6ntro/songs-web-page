@@ -153,7 +153,7 @@
 					cache:false,
 					success:function(data){
 						var res = data.split("|");
-						if (typeof image_array !== 'undefined' && image_array.length > 0) {
+						if (typeof res[1] !== 'undefined' && res[1].length > 0) {
 							$('#load_data').append(res[1]);
 						}
 						if(res[0] == 'no'){
@@ -286,8 +286,8 @@
 					$('#send').removeAttr('disabled');
 					if (data == 'email') {
 						Swal.fire({
-							html: `The email <b>${$('#email').val()}</b><br>is already being used in an account.<br><br>'+
-								'If the account and email<br>are yours, we can send you<br>your password to this same email.`,
+							html: `The email <b>${$('#email').val()}</b><br>is already being used in an account.<br><br>
+								If the account and email<br>are yours, we can send you<br>your password to this same email.`,
 							showCancelButton: true,
 							confirmButtonText: 'YES, SEND MY PASSWORD',
 							cancelButtonText: 'CANCEL',
@@ -306,8 +306,8 @@
 									cache:false,
 									success:function(data){
 										if (data == 'yes') {
-											show_popup('register',`We have sent your last <b>password</b> to your email<br>'+
-												'<b style="color:darkred">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
+											show_popup('register',`We have sent your last <b>password</b> to your email<br>
+												<b style="color:darkred">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 										} else {
 											show_popup('reset password',data);
 										}
@@ -337,8 +337,8 @@
 				success:function(data){
 					$('#forgotbtn').removeAttr('disabled');
 					if (data == 'yes') {
-						show_popup('reset password',`We have sent your last <b>password</b> to your email<br>'+
-				'<b style="color:#C00100">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
+						show_popup('reset password',`We have sent your last <b>password</b> to your email<br>
+							<b style="color:#C00100">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 						$('#email').val('');
 					} else {
 						show_popup('reset password',data);

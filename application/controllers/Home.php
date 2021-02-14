@@ -188,7 +188,7 @@ class Home extends CI_Controller {
 						$checked = ($row->fav_status == 'active')?'checked':'';
 					
 
-					$return .= '<a href="'.base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song).'">
+					$return .= '<a href="'.base_url().'songs/'.$row->id.'?lang='.rawurlencode($this->input->post('lang')).'&song='.rawurlencode($this->input->post('song')).'">
 						<div class="single_music_item">
 							<div class="image_box">
 								<div class="swiper-container">

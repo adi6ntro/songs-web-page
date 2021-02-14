@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="summary_area_container" style="padding: 0px 10px;">
 						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid gray;">
 							<p><?php echo $row->lyrics; ?></p>
-							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a>							
+							<?php if ($row->lyrics != "") { ?><a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a><?php } ?>							
 							<br>
 							<a href="<?php echo $row->source_url_lyrics; ?>"
 							style="color: #0056b3;text-decoration: none;font-weight:700;font-size:16px"><?php echo $row->source_name_lyrics; ?></a>
