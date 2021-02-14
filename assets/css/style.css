@@ -356,7 +356,7 @@ p {
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	width: 20px;
+	width: 40px;
 	height: 20px;
 }
 
@@ -365,7 +365,7 @@ p {
 	font-weight: 700;
 	font-size: 17px;
 	color: #5B5E60;
-	text-align: center;
+	text-align: right;
 }
 
 #music_list_main_area .music_list_main_area_container .single_music_item .content_box .favorite_song {
