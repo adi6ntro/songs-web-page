@@ -84,8 +84,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
-								</div>
-								<div class="song_source" style="text-align: center;padding: 10px 20px 0px;border-top: 1px solid gray;">
+								</div>						
+								<div class="song_source" style="text-align: center;padding: 2px 20px 0px;border-top: 1px solid #dadada;">
+									<div class="more_information" style="padding: 1px 0px 7px;font-size:9px">
+										<p style="color: #9FA1A4;">MORE INFORMATION:</p>
+									</div>
 									<?php $source = $this->songs_model->get_source($row->id);?>
 									<?php foreach($source as $web) { ?>
 									<a href="<?php echo $web->source_url; ?>"><img style="height: 33px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
@@ -105,10 +108,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="summary_area_container" style="padding: 0px 10px;">
-						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid gray;">
+						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid #dadada;">
 							<p><?php echo $row->lyrics; ?></p>
 							<?php if ($row->lyrics != "") { ?><a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a><?php } ?>							
 							<br>
+						</div>
+						<div class="info" style="padding: 5px 20px;border-top: 1px solid #dadada;">
 							<a href="<?php echo $row->source_url_lyrics; ?>"
 							style="color: #0056b3;text-decoration: none;font-weight:700;font-size:16px"><?php echo $row->source_name_lyrics; ?></a>
 						</div>
