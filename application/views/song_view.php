@@ -46,7 +46,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div> -->
 								<div class="geners" style="
 									text-align: center;
-									margin-top: 5px;
+									margin-top: 3px;
 									font-weight: 700;
 									font-size: 12px;
 								">
@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<div class="song_source" style="text-align: center;padding: 10px 20px 0px;border-top: 1px solid gray;">
 									<?php $source = $this->songs_model->get_source($row->id);?>
 									<?php foreach($source as $web) { ?>
-									<a href="<?php echo $web->source_url; ?>"><img style="height: 35px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
+									<a href="<?php echo $web->source_url; ?>"><img style="height: 33px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
 									<?php } ?>
 								</div>
 							</div>
@@ -104,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="summary_area_container" style="padding: 5px 10px;">
+					<div class="summary_area_container" style="padding: 0px 10px;">
 						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid gray;">
 							<p><?php echo $row->lyrics; ?></p>
 							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a>							
