@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 	<section id="detail_song_area" style="
-		padding: 10px 0px 10px 0px;
+		padding: 10px 0px 0px 0px;
 		background: #fff;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="detail_song_area_container" style="padding: 13px 30px;">
+					<div class="detail_song_area_container" style="padding: 13px 10px 0px;">
 						<div class="single_music_item">
 							<div class="image_box">
 							<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
@@ -15,17 +15,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<div class="swiper-wrapper">
 										<?php if(!empty($picture)) { foreach($picture as $pic) { ?>
 										<div class="swiper-slide text-center">
-											<img class="img-fluid pic-songs-shadow" style="height: 250px;width: 250px;"
+											<img class="img-fluid pic-songs-shadow" style="height: 209px;width: 209px;"
 											src="<?php if (strpos($pic->url_path, 'http') !== false) echo $pic->url_path; else echo base_url().'assets/img/'.$pic->url_path; ?>" alt="<?php echo $pic->pic_name; ?>">
 										</div>
 										<?php }} else { ?>
 										<div class="swiper-slide text-center">
-											<img class="img-fluid pic-songs-shadow" style="height: 250px;width: 250px;" 
+											<img class="img-fluid pic-songs-shadow" style="height: 209px;width: 209px;" 
 											src="https://www.kindpng.com/picc/m/623-6236350_profile-icon-png-white-clipart-png-download-windows.png" alt="No Image">
 										</div>
 										<?php } ?>
 									</div>
-									<div class="swiper-pagination" style="position: unset;margin-top: 20px;"></div>
+									<div class="swiper-pagination" style="position: unset;margin-top: 3px;"></div>
 									<div class="swiper-button-prev"></div>
 									<div class="swiper-button-next"></div>
 								</div>
@@ -33,9 +33,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="content_box">
 								<div class="song_name" style="
 									text-align: center;
-									margin-top: 10px;
+									margin-top: 7px;
+									font-weight: 700;
+									font-size: 20px
 								">
-									<h4><?php echo $row->song; ?></h4>
+									<?php echo $row->song; ?>
 								</div>
 								<!-- <div class="song_summary" style="
 									text-align: center;
@@ -44,7 +46,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div> -->
 								<div class="geners" style="
 									text-align: center;
-									margin-top: 10px;
+									margin-top: 5px;
+									font-weight: 700;
+									font-size: 12px;
 								">
 									<p <?php if($row->color != "") { ?> 
 										style="color:<?php echo $row->color; ?>" <?php } ?> >
@@ -53,13 +57,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="song_details" style="
 									text-align: center;
-									margin-top: 10px;
+									margin-top: 2px;
+									font-size: 18px;
+									font-weight: 300;
 								">
 									<p><?php echo $row->artist; ?> <span>(<?php echo $row->country; ?>)</span></p>
 								</div>
-								<div class="row year_instoment">
+								<div class="row year_instoment">										
 									<div class="col-6">
-										<p class="year_song" style="float: right;"><?php echo $row->year; ?></p>
+										<p class="year_song" style="
+										float: right;
+										margin-top: 2px;">
+										<?php echo $row->year; ?></p>
 									</div>
 									<div class="col-6">
 										<p class="instoment_song"><?php echo $row->instrument; ?></p>
@@ -67,19 +76,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 								<div class="row song_main_language">
 									<div class="col-6">
-										<h4 style="float: right;">EN</h4>
+										<h4 style="text-align: center;margin-top: 2px;">EN</h4>
 									</div>
 									<div class="col-6">
-										<p class="count_song">(20 songs)</p>
+										<p class="count_song"></p>
 									</div>
 								</div>
-								<div class="favorite_song" style="text-align: center;margin-bottom: 35px;">
+								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>
-								<div class="song_source" style="text-align: center;">
+								<div class="song_source" style="text-align: center;padding: 10px 20px 0px;border-top: 1px solid gray;">
 									<?php $source = $this->songs_model->get_source($row->id);?>
 									<?php foreach($source as $web) { ?>
-									<a href="<?php echo $web->source_url; ?>"><img style="height: 40px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
+									<a href="<?php echo $web->source_url; ?>"><img style="height: 35px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
 									<?php } ?>
 								</div>
 							</div>
@@ -91,19 +100,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</section>
 	<!-- end header search area -->
 	<!-- start music list main area -->
-	<section id="summary_area" style="padding: 10px 0px 10px 0px;background: #fff;">
+	<section id="summary_area" style="padding: 0px 0px 10px 0px;background: #fff;">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="summary_area_container" style="padding: 5px 20px;">
+					<div class="summary_area_container" style="padding: 5px 10px;">
 						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid gray;">
-							<p><?php echo $row->lyrics; ?> </p>
-							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More</a>
+							<p><?php echo $row->lyrics; ?></p>
+							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a>							
 							<br>
 							<a href="<?php echo $row->source_url_lyrics; ?>"
 							style="color: #0056b3;text-decoration: none;font-weight:700;font-size:16px"><?php echo $row->source_name_lyrics; ?></a>
 						</div>
-						<div class="info" style="padding: 10px 20px;border-top: 1px solid gray;">
+						<div class="info" style="padding: 0px 20px;border-top: 1px solid white;">
 							<!-- <?php echo $row->info; ?> -->
 						</div>
 					</div>
@@ -127,8 +136,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<div class="notes_area_container" style="padding: 10px 30px 20px;">
-						<div class="notes" style="padding: 8px 8px 9px;">
+					<div class="notes_area_container" style="padding: 0px 20px 4px;">
+						<div class="notes" style="padding: 0px 10px 9px;">
 							<p id="note" <?php echo ($row->note == '')?'style="display:none;"':'';?>>
 							<?php echo $row->note; ?></p>
 							<!-- <div id="note"></div> -->
@@ -138,10 +147,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 						<div class="text-center">
 							<a class="btn btn-notes" onclick="updatenotes()" style="color: #0056b3;
-							background-color: white;border: 1px solid #0056b3;" id="updatenotes">
+							background-color: white;border: 1px solid #0056b3;padding: 4px 18px 1px;" id="updatenotes">
 							<?php echo ($row->note == '')?'CREATE NEW':'EDIT';?></a>
 							<a class="btn btn-notes" onclick="savenotes()" style="display:none;color: #0056b3;
-							background-color: white;border: 1px solid #0056b3;" id="savenotes">SAVE</a>
+							background-color: white;border: 1px solid #0056b3;padding: 4px 18px 1px;" id="savenotes">SAVE</a>
 						</div>
 					</div>
 				</div>
