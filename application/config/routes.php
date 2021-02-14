@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'home';
-$route['search/language'] = 'home/search/language';
+$route['search/(:any)'] = 'home/search/$1';
 $route['songs/(:num)'] = 'songs/detail/$1';
 $route['selected'] = 'songs/selected';
 $route['selected/record'] = 'songs/selected_save';
@@ -67,7 +67,7 @@ $route['change/username'] = 'auth/change_username';
 $route['change/password'] = 'auth/change_password';
 $route['delete-account'] = 'auth/delete_account';
 $route['loadmore'] = 'home/loadmore';
-$route['loadmore/(:any)'] = 'home/loadmore/language/$1';
-$route['language/autocomplete'] = 'home/get_autocomplete';
+$route['autocomplete/language'] = 'home/get_autocomplete/language';
+$route['autocomplete/song'] = 'home/get_autocomplete/song';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

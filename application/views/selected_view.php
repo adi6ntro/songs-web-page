@@ -21,8 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
-						<?php foreach($songs as $row) { ?>
-						<a href="<?php echo base_url().'songs/'.$row->id;?>">
+						<?php if (count($songs) > 0) { foreach($songs as $row) { ?>
+						<a href="<?php echo base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song='.rawurlencode($song);?>">
 							<div class="single_music_item">
 								<div class="image_box">
 									<?php $picture = $this->songs_model->get_songs_picture($row->id);?>
@@ -70,6 +70,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 							</div>
 						</a>
+						<?php }} else { ?>
+							<div class="single_music_item justify-content-center text-center">
+							You have have no songs selected.<br>To select one just click on its star (☆)
+							</div>
 						<?php } ?>
 					</div>
 					<?php if ($is_load == 'yes') { ?>
@@ -88,17 +92,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
-					<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
-						<div class="footer_top_container" id="select-song-menu">
-							<div class="footer_top_content text-center">
+					<div class="footer_top_container">
+						<a href="<?php echo ($this->session->userdata('logged_in'))?base_url().'selected':base_url().'login';?>">
+							<div class="footer_top_content">
 								<h3>Selected Songs</h3>
 							</div>
-						</div>
-					</a>
-					<div class="footer_top_container">
-						<div class="footer_top_content text-center">
-							<h3>Frequent Questions</h3>
-						</div>
+						</a>
+						<a href="javascript:void(0)">
+							<div class="footer_top_content">
+								<h3>Frequent Questions</h3>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div>

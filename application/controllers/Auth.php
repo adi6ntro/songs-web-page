@@ -210,6 +210,7 @@ class Auth extends CI_Controller {
 
 	function change_username() {
 		$this->form_validation->set_rules('username', 'Username', 'required|max_length[250]|callback_uname');
+		$username = $this->db->escape_str($this->input->post('username'));
 		if ($this->form_validation->run() == FALSE) {
 			// $this->session->set_flashdata('result_error', validation_errors());
 			echo validation_errors();

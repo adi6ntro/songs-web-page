@@ -20,6 +20,7 @@
 	<script src="<?php echo base_url();?>assets/js/bootstrap.bundle.min.js"></script>
 	<script src="<?php echo base_url().'assets/js/vendor/jquery-ui.js'?>" type="text/javascript"></script>
 	<script src="<?php echo base_url().'assets/js/swiper-bundle.min.js'?>"></script>
+	<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.0/dist/sweetalert2.all.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/custom.js?v=2021"></script>
@@ -29,16 +30,57 @@
 				var h = window.innerHeight-333;
 				$(".music_list_main_area_container").css("height", h+"px");
 			}
-            $( "#searchInput" ).autocomplete({
-				source: "<?php echo site_url('language/autocomplete');?>",
+            $( "#searchLang" ).autocomplete({
+				source: function( request, response ) {
+					$.ajax({
+						url: "<?php echo site_url('autocomplete/language');?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							term: request.term,song:$( "#song_name_lang" ).val()
+						},
+						success: function( data ) {
+							response( data );
+						}
+					});
+				},
+				// source: "<?php echo site_url('autocomplete/language');?>",
 				select: function(event, ui){
-					$('#lang_id').val(ui.item.lang_id);
-					$('#searchInput').val(ui.item.lang_name);
-					$("form").submit();
+					$('#lang_id').val(ui.item.id);
+					$('#lang_id_song').val(ui.item.name);
+					$('#searchLang').val(ui.item.name);
+					$("#searchLangForm").submit();
 				},
 				focus: function(event, ui){
-					$('#lang_id').val(ui.item.lang_id);
-					$('#searchInput').val(ui.item.lang_name);
+					$('#lang_id').val(ui.item.id);
+					$('#searchLang').val(ui.item.name);
+				}
+            });
+
+            $( "#searchSong" ).autocomplete({
+				source: function( request, response ) {
+					$.ajax({
+						url: "<?php echo site_url('autocomplete/song');?>",
+						type: 'post',
+						dataType: "json",
+						data: {
+							term: request.term,lang_id:$( "#lang_id_song" ).val()
+						},
+						success: function( data ) {
+							response( data );
+						}
+					});
+				},
+				// source: "<?php echo site_url('autocomplete/song');?>",
+				select: function(event, ui){
+					$('#song_name').val(ui.item.name);
+					$('#song_name_lang').val(ui.item.name);
+					$('#searchSong').val(ui.item.name);
+					$("#searchSongForm").submit();
+				},
+				focus: function(event, ui){
+					$('#song_id').val(ui.item.id);
+					$('#searchSong').val(ui.item.name);
 				}
             });
 
@@ -56,29 +98,54 @@
 			});
 		});
 
-		<?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'search'
-			|| $this->uri->segment(1) == 'selected'|| $this->uri->segment(1) == 'home'){ ?>
+		function cancelEnter(event){
+			if (event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		}
+
+		<?php if (in_array($this->uri->segment(1), array('','search','selected','home','songs'))){ ?>
 		function load_more_songs(tipe, limit, start) {
+				<?php // tipe ('selected','all','artist') ?>
 				$('#load_data_message').html('<img src="<?php echo base_url();?>assets/img/Loading.gif" alt="Loading" height=100>');
+				var song = (tipe == 'artist')?'<?php echo $artist;?>':'<?php echo $song;?>';
 				$.ajax({
-					url:"<?php echo ($lang_id=="")?site_url('loadmore'):site_url('loadmore/'.$lang_id);?>",
+					url:"<?php echo site_url('loadmore');?>",
 					method:"POST",
-					data:{limit:limit, start:start, selected:tipe},
+					data:{limit:limit, start:start, selected:tipe, song:song, lang: '<?php echo $lang_id;?>'},
 					cache:false,
 					success:function(data){
 						var res = data.split("|");
-						$('#load_data').append(res[1]);
+						if (typeof image_array !== 'undefined' && image_array.length > 0) {
+							$('#load_data').append(res[1]);
+						}
 						if(res[0] == 'no'){
 							$('#load_data_message').css("display","none");
 						}else{
 							start = start + limit;
-							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
+							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+tipe+","+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
 						}
 					}
 				});
 		};
 		<?php } ?>
 
+		function readmore() {
+			var dots = document.getElementById("dots");
+			var moreText = document.getElementById("more");
+			var btnText = document.getElementById("readmore");
+
+			if (dots.style.display === "none") {
+				dots.style.display = "inline";
+				btnText.innerHTML = "Read more"; 
+				moreText.style.display = "none";
+			} else {
+				dots.style.display = "none";
+				btnText.innerHTML = "Read less"; 
+				moreText.style.display = "inline";
+			}
+		}
 
 		function set_favorite(elem,id) {
 			console.log(id);
@@ -109,12 +176,6 @@
 				// title: 'username',
 				html: msg,
 				confirmButtonText: 'CLOSE',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',
 					cancelButton: 'btn btn-swal2-cancel-darker'
@@ -144,6 +205,7 @@
 					$('#chuserbtn').removeAttr('disabled');
 					if (data == 'yes') {
 						$('#hisusername').html($('#username').val());
+						$('#h-username').html($('#username').val());
 						$('#username').val('');
 						show_popup('username',"Your <b>username</b><br>has been successfully changed");
 					} else {
@@ -177,6 +239,20 @@
 			}
 		}
 
+		Swal.fire({
+							html: `Are you sure you<br>want to <b>delete</b><br>your account?<br>
+							<div style='margin-top:10px;color: #C00100;font-weight:700;font-size:12px'>
+							This can't be undone<br>and you will lose<br>all your saved data<br>and preferences</div>`,
+							showCancelButton: true,
+							confirmButtonText: 'YES, SEND MY PASSWORD',
+							cancelButtonText: 'CANCEL',
+							customClass: {
+								confirmButton: 'btn btn-swal2-confirm',
+								cancelButton: 'btn btn-swal2-cancel-dark'
+							},
+							buttonsStyling: false,
+							allowOutsideClick: false,
+						});
 		function register() {
 			$('#send').attr('disabled','true');
 			$.ajax({
@@ -188,17 +264,11 @@
 					$('#send').removeAttr('disabled');
 					if (data == 'email') {
 						Swal.fire({
-							html: 'The email <b>'+$('#email').val()+'</b> is already being used in an account.<br><br>'+
-								'If the account and email are yours, we can send you your password to this same email.',
+							html: `The email <b>${$('#email').val()}</b><br>is already being used in an account.<br><br>'+
+								'If the account and email<br>are yours, we can send you<br>your password to this same email.`,
 							showCancelButton: true,
 							confirmButtonText: 'YES, SEND MY PASSWORD',
 							cancelButtonText: 'CANCEL',
-							showClass: {
-								popup: 'animate__animated animate__fadeInDown'
-							},
-							hideClass: {
-								popup: 'animate__animated animate__fadeOutUp'
-							},
 							customClass: {
 								confirmButton: 'btn btn-swal2-confirm',
 								cancelButton: 'btn btn-swal2-cancel-dark'
@@ -214,8 +284,8 @@
 									cache:false,
 									success:function(data){
 										if (data == 'yes') {
-											show_popup('register','We have sent your last <b>password</b> to your email<br>'+
-												'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
+											show_popup('register',`We have sent your last <b>password</b> to your email<br>'+
+												'<b style="color:darkred">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 										} else {
 											show_popup('reset password',data);
 										}
@@ -245,8 +315,8 @@
 				success:function(data){
 					$('#forgotbtn').removeAttr('disabled');
 					if (data == 'yes') {
-						show_popup('reset password','We have sent your last <b>password</b> to your email<br>'+
-				'<b style="color:darkred">'+$("#email").val()+'</b><br>so you can use it to <b>log in</b>.');
+						show_popup('reset password',`We have sent your last <b>password</b> to your email<br>'+
+				'<b style="color:#C00100">${$('#email').val()}</b><br>so you can use it to <b>log in</b>.`);
 						$('#email').val('');
 					} else {
 						show_popup('reset password',data);
@@ -259,30 +329,51 @@
 			show_popup('show result',`<?php echo $this->session->flashdata('result_signup');?>`);
 		<?php } ?>
 
+		<?php if ($this->uri->segment(1) == 'songs') { ?>
+		var swiper1 = new Swiper('.swiper1', {
+			slidesPerView: 1,
+			spaceBetween: 30,
+			centeredSlides: true,
+			// loop: true,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+		});
+		var swiper2 = new Swiper('.swiper2', {
+			spaceBetween: 0,
+			width: 100,
+			centeredSlides: true,
+			autoplay: {
+				delay: 5500,
+				disableOnInteraction: false,
+			},
+		});
+		<?php } else { ?>
 		var swiper = new Swiper('.swiper-container', {
 			spaceBetween: 0,
 			width: 100,
 			centeredSlides: true,
 			autoplay: {
-			delay: 5500,
-			disableOnInteraction: false,
+				delay: 5500,
+				disableOnInteraction: false,
 			},
 		});
+		<?php } ?>
 
 		function delete_account(){
 			Swal.fire({
-				html: "Are you sure you want to <b>delete</b> your account?<br>"+
-					"<span style='color: #C00100;font-weight:700;font-size:12px'>This can't be undone and you will lose all your saved data and preferences</span>",
+				html: `Are you sure you<br>want to <b>delete</b><br>your account?<br>
+					<div style='margin-top:10px;color: #C00100;font-weight:700;font-size:12px'>
+					This can't be undone<br>and you will lose<br>all your saved data<br>and preferences</div>`,
 				showCancelButton: true,
 				reverseButtons: true,
 				confirmButtonText: 'Yes, delete my account',
 				cancelButtonText: 'No, please keep my account',
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',
 					cancelButton: 'btn btn-swal2-cancel-darker'
@@ -312,12 +403,6 @@
 						return 'You need to input your password!'
 					}
 				},
-				showClass: {
-					popup: 'animate__animated animate__fadeInDown'
-				},
-				hideClass: {
-					popup: 'animate__animated animate__fadeOutUp'
-				},
 				customClass: {
 					confirmButton: 'btn btn-swal2-confirm',
 					cancelButton: 'btn btn-swal2-cancel-dark'
@@ -333,7 +418,7 @@
 					cache:false,
 					success:function(data){
 						if (data == 'yes') {
-							show_popup('delete-account','Your Account has been deleted!<br>You cannot access your account anymore!');
+							show_popup('delete-account',`Your Account has been deleted!<br>You cannot access your account anymore!`);
 						} else {
 							show_popup('password',data);
 						}

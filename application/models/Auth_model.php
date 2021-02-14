@@ -239,6 +239,19 @@ class Auth_model extends CI_Model
 			);
 			$this->db->where('id', $this->session->userdata('logged_in')['id']);
 			$this->db->update('users', $insert_data);
+			$que = "SELECT id, username, password, email, phone_number, user_status FROM users
+				WHERE username = ".$this->db->escape($insert_data['username'])."
+				ORDER BY id DESC LIMIT 1";
+			$query = $this->db->query($que);
+			foreach($query->result() as $row){
+				$sess_array = array(
+					'id' => $row->id,
+					'username' => $row->username,
+					'email' => $row->email,
+					'phone_number'=> ''
+				);
+				$this->session->set_userdata('logged_in', $sess_array);
+			}
 			return 'yes';
 		} else if ($type == 'deleted') {
 			$que = "SELECT id,password FROM users WHERE id = ".$this->db->escape($this->session->userdata('logged_in')['id']);
