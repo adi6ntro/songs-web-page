@@ -153,7 +153,7 @@
 					cache:false,
 					success:function(data){
 						var res = data.split("|");
-						if (typeof image_array !== 'undefined' && image_array.length > 0) {
+						if (typeof res[1] !== 'undefined' && res[1].length > 0) {
 							$('#load_data').append(res[1]);
 						}
 						if(res[0] == 'no'){
