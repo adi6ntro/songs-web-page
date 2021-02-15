@@ -654,10 +654,19 @@ p {
     color: #9BBB59;
 }
 
+.truncate {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
 #detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star {
 	visibility:hidden;
 	font-size:30px;
 	cursor:pointer;
+	position: relative;
 }
 #detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star:before {
 	content: "\2606";
@@ -665,6 +674,7 @@ p {
 	visibility: visible;
 	color: #a3a3a3;
 	font-weight: 900;
+	left: -8px;
 }
 #detail_song_area .detail_song_area_container .single_music_item .content_box .favorite_song .star:checked:before {
 	content: "\2605";

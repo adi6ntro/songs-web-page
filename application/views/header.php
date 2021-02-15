@@ -83,7 +83,7 @@ header('Content-Type: text/html; charset=utf-8');
 			padding-top: 1px;
 		}
 		<?php } ?>
-		<?php if ($this->uri->segment(1) == 'signup') { ?>
+		<?php if ($this->uri->segment(1) == 'signup' || $this->uri->segment(1) == 'sign_up') { ?>
 		.swal2-popup {
 			width: 25em !important;
 		}

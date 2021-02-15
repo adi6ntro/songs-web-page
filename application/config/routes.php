@@ -62,6 +62,7 @@ $route['logout'] = 'auth/logout';
 $route['myaccount'] = 'auth/myaccount';
 $route['sign_up'] = 'auth/signup/cek';
 $route['signup'] = 'auth/signup';
+$route['signup/createnote'] = 'auth/signup/createnote';
 $route['forgot'] = 'auth/forgot';
 $route['register'] = 'auth/register';
 $route['change/username'] = 'auth/change_username';

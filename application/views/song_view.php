@@ -66,25 +66,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<span style="color: green;font-size:12px;font-weight:600;">&nbsp(<?php echo $row->country; ?>)</span>
 									</p>
 								</div>
-								<div class="year_instrument" style=" 										
-									text-align: center;
+								<div class="year_instrument" style="
+									display: flex;
+									justify-content: center;
 									margin-top: 2px;
 									font-size: 14px;
 									font-weight: 600;
 								">
-									<?php echo $row->year; ?>
+									<div style="width: 100%;margin: 0 10px;text-align: <?php echo ($row->instrument != "")?'right':'center'; ?>;">
+										<?php echo $row->year; ?>
+									</div>
 									<?php if ($row->instrument != ""){ ?>
-									<span style="color: orange;padding-left:30px"><?php echo $row->instrument; ?></span>
+									<div style="color: orange;width: 100%;margin: 0 10px;">
+										<?php echo $row->instrument; ?>
+									</div>
 									<?php } ?>
 								</div>
 								<div class="song_main_language_2" style=" 										
-									text-align: center;
+									display: flex;
+									justify-content: center;
 									margin-top: 2px;
 									font-size: 18px;
 									font-weight: 600;
 								">
-									<?php echo $row->language_name; ?>
-									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(35 songs)<span>																	
+									<div style="width: 100%;margin: 0 10px;text-align: right;">
+										<?php echo $row->language_name; ?>
+									</div>
+									<div style="font-size: 12px;font-weight: 400;width: 100%;margin: 0 10px;align-self: center;">
+										(35 songs)
+									</div>																	
 								</div>
 								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
@@ -113,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="col-12 mx-auto">
 					<div class="summary_area_container" style="padding: 0px 10px;">
 						<div class="lyrics" style="padding: 10px 20px;border-top: 1px solid #dadada;">
-							<p><?php echo $row->lyrics; ?></p>
+							<p class="truncate" id="lyrics"><?php echo $row->lyrics; ?></p>
 							<?php if ($row->lyrics != "") { ?><a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">More...</a><?php } ?>							
 							<br>
 						</div>
@@ -129,7 +139,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 		</div>
 	</section>
-	<?php if ($this->session->userdata('logged_in')){ ?>
 	<section id="filter_name">
 		<div class="container">
 			<div class="row">
@@ -146,7 +155,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="notes_area_container" style="padding: 0px 20px 4px;">
-						<div class="notes" style="padding: 0px 10px 9px;">
+						<?php if ($this->session->userdata('logged_in')){ ?>
+						<div class="notes" id="notes" style="padding: 0px 10px 9px;<?php echo ($row->note == '')?'display:none;':'';?>">
 							<p id="note" <?php echo ($row->note == '')?'style="display:none;"':'';?>>
 							<?php echo $row->note; ?></p>
 							<!-- <div id="note"></div> -->
@@ -161,12 +171,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<a class="btn btn-notes" onclick="savenotes()" style="display:none;color: #0056b3;
 							background-color: white;border: 1px solid #0056b3;padding: 4px 18px 1px;" id="savenotes">SAVE</a>
 						</div>
+						<?php } else { ?>
+						<div class="text-center">
+							<a class="btn btn-notes" href="<?php echo base_url().'signup/createnote';?>" style="color: #0056b3;
+							background-color: white;border: 1px solid #0056b3;padding: 4px 18px 1px;">CREATE NEW</a>
+						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<?php } ?>
 	<!-- end music list main area -->
 	<section id="filter_name">
 		<div class="container">
@@ -187,7 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="music_list_main_area_container" id="load_data">
-						<?php foreach($songs as $row) { ?>
+						<?php if (count($songs) > 0) { foreach($songs as $row) { ?>
 						<a href="<?php echo base_url().'songs/'.$row->id.'?lang='.rawurlencode($lang_id).'&song=artist';?>">
 							<div class="single_music_item">
 								<div class="image_box">
@@ -236,6 +251,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div>
 							</div>
 						</a>
+						<?php }} else { ?>
+							<div class="single_music_item justify-content-center text-center">
+							No other songs for this artist.
+							</div>
 						<?php } ?>
 					</div>
 					<?php if ($is_load == 'yes') { ?>

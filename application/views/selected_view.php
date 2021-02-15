@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</a>
 						<?php }} else { ?>
 							<div class="single_music_item justify-content-center text-center">
-							You have have no songs selected.<br>To select one just click on its star (☆)
+							You have no songs selected.<br>To select one just click on its star (☆)
 							</div>
 						<?php } ?>
 					</div>
