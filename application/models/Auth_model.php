@@ -81,7 +81,9 @@ class Auth_model extends CI_Model
 			);
 			$url = site_url() . 'activate/' . $ciphertext;
 			$link = '<a href="' . $url . '">' . $url . '</a>';
-			$message = '<strong>Here is your account:</strong><br>';
+			$message = '<strong>Contratulations!</strong><br>';
+			$message .= '<strong>Here is your account:</strong><br>';
+			$message .= '<br>';
 			$message .= '<strong>Username: </strong>'. $insert_data['username'].'<br>';
 			$message .= '<strong>Password: </strong>'. $password.'<br>';
 			$message .= '<br><br><strong>Or click here to automatically sign in:</strong><br>'. $link;

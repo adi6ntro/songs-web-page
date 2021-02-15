@@ -68,38 +68,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<span style="color: green;font-size:12px;font-weight:600;">&nbsp(<?php echo $row->country; ?>)</span>
 								</div>
 								<div class="year_instrument" style="
-									display: flex;
+								
 									justify-content: center;
 									margin-top: 2px;
 									font-size: 14px;
 									font-weight: 600;
 								">
-									<div style="width: 100%;margin: 0 10px;text-align: <?php echo ($row->instrument != "")?'right':'center'; ?>;">
+									<div style="width: 100%;margin: 0 0px;font-size:14px;text-align:center;">
 										<?php echo $row->year; ?>
-									</div>
+					
 									<?php if ($row->instrument != ""){ ?>
 
-									<div style="color: orange;width: 100%;margin: 0 10px;">
-										<?php echo $row->instrument; ?>
-									</div>
+									<span style="color: orange;font-size: 12px;width: 100%;margin: 0 10px;">
+										<?php echo $row->instrument; ?></span>
+								
 									<?php } ?>
 								</div>
 								<div class="song_main_language_2" style=" 										
-									display: flex;
+									
 									justify-content: center;
 									margin-top: 2px;
 									font-size: 18px;
 									font-weight: 600;
 								">
 
-									<div style="width: 100%;margin: 0 10px;text-align: right;">
-										<?php echo $row->language_name; ?>
-									</div>
-									<div style="font-size: 12px;font-weight: 400;width: 100%;margin: 0 10px;align-self: center;">
-										(<?php echo $row->language_quantity; ?>)
+									<div style="width: 100%;margin: 0 0px;text-align: center;">
+										<?php echo $row->language_name; ?>									
+									<span style="font-size: 12px;font-weight: 400;width: 100%;margin: 0 5px;align-self: center;">
+										(<?php echo $row->language_quantity; ?>)</span>
 									</div>																	
 								</div>
-								<div class="favorite_song" style="text-align: center;margin: -8px 0px 25px 0px;">
+								<div class="favorite_song" style="text-align: center;margin: -8px -2px 25px 0px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>						
 								<div class="song_source" style="text-align: center;padding: 2px 20px 0px;border-top: 1px solid #dadada;">
@@ -160,8 +159,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="notes_area_container" style="padding: 0px 20px 4px;">
 						<?php if ($this->session->userdata('logged_in')){ ?>
 						<div class="notes" id="notes" style="padding: 0px 10px 9px;<?php echo ($row->note == '')?'display:none;':'';?>">
-							<p id="note" <?php echo ($row->note == '')?'style="display:none;"':'';?>>
-							<?php echo $row->note; ?></p>
+							<div id="note" <?php echo ($row->note == '')?'style="display:none;"':'';?>>
+							<?php echo $row->note; ?></div>
 							<!-- <div id="note"></div> -->
 							<textarea name="note" id="noteeditor" cols="30" rows="10" style="display:none;width:100%">
 							<?php echo $row->note; ?></textarea>

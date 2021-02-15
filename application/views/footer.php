@@ -183,9 +183,9 @@
 		function readmore() {
 			document.getElementById("lyrics").classList.toggle("truncate");
 			if(document.getElementById("lyrics").classList.contains('truncate')) {
-				document.getElementById("readmore").innerHTML = "Less"; 
+				document.getElementById("readmore").innerHTML = "More..."; 
 			} else {
-				document.getElementById("readmore").innerHTML = "More"; 
+				document.getElementById("readmore").innerHTML = "Less"; 
 			}
 		}
 

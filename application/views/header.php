@@ -105,9 +105,9 @@ header('Content-Type: text/html; charset=utf-8');
 								<div class="right_style_chose text-right">
 									<ul>
 										<li class="active"><a href="<?php echo base_url();?>">Popular</a></li>
-										<li>C</li>
-										<li>F</li>
-										<li>M</li>
+										<li><a style="color: white;" href="<?php echo base_url().'coming_soon';?>">C</a></li>
+										<li><a style="color: white;" href="<?php echo base_url().'coming_soon';?>">F</a></li>
+										<li><a style="color: white;" href="<?php echo base_url().'coming_soon';?>">M</a></li>
 									</ul>
 								</div>
 							</div>
