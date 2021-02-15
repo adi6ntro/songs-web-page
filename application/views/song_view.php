@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									text-align:center;
 									margin-top: 2px;
 									font-size:12px">
-									<p style="color: #7E8083;">RISING UP, BACK ON THE STREETS, DID MY TIME ...</p>
+									<p style="color: #7E8083;"><?php echo $row->subname; ?></p>
 								</div>								
 								<div class="geners" style="
 									text-align: center;
@@ -72,9 +72,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									font-size: 14px;
 									font-weight: 600;
 								">
-									<p><?php echo $row->year; ?>
-									<span style="color: orange;">&nbsp&nbsp&nbsp<?php echo $row->instrument; ?></span>
-									</p>									
+									<?php echo $row->year; ?>
+									<?php if ($row->instrument != ""){ ?>
+									<span style="color: orange;padding-left:30px"><?php echo $row->instrument; ?></span>
+									<?php } ?>
 								</div>
 								<div class="song_main_language_2" style=" 										
 									text-align: center;
@@ -82,9 +83,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									font-size: 18px;
 									font-weight: 600;
 								">
-									<p>English
-									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(35 songs)<span>
-									</p>								
+									<?php echo $row->language_name; ?>
+									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(35 songs)<span>																	
 								</div>
 								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</div>
 									<?php $source = $this->songs_model->get_source($row->id);?>
 									<?php foreach($source as $web) { ?>
-									<a href="<?php echo $web->source_url; ?>"><img style="height: 33px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
+									<a href="<?php echo $web->source_url; ?>" target="_blank"><img style="height: 33px;margin: 0px 3px 10px 3px;" src="<?php echo base_url().'assets/img/'.$web->picture; ?>"></a>
 									<?php } ?>
 								</div>
 							</div>

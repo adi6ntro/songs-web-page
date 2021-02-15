@@ -72,7 +72,7 @@ header('Content-Type: text/html; charset=utf-8');
 			height: 200px;
 		}
 		.swiper-pagination-bullet-active{
-			opacity:0.3;
+			opacity:0.3 !important;
 		}
 		.swiper-pagination-bullet{
 			opacity:0.1;
@@ -126,7 +126,7 @@ header('Content-Type: text/html; charset=utf-8');
 						<a href="<?php echo base_url();?>">Home</a>
 						<hr style="margin: 0px 0 7px;">
 						<?php } ?>
-						<a href="<?php echo base_url();?>">Frequent Questions</a>
+						<a href="<?php echo base_url();?>frequent_questions">Frequent Questions</a>
 						<a href="<?php echo base_url();?>">Contact Us</a>
 					</div>
 				</div>

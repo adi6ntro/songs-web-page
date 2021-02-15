@@ -370,20 +370,20 @@
 			spaceBetween: 0,
 			width: 100,
 			centeredSlides: true,
-			autoplay: {
+			/*autoplay: {
 				delay: 5500,
 				disableOnInteraction: false,
-			},
+			}, */
 		});
 		<?php } else { ?>
 		var swiper = new Swiper('.swiper-container', {
 			spaceBetween: 0,
 			width: 100,
 			centeredSlides: true,
-			autoplay: {
+			/*autoplay: {
 				delay: 5500,
 				disableOnInteraction: false,
-			},
+			}, */
 		});
 		<?php } ?>
 

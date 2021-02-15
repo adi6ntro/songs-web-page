@@ -131,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<h3>Selected Songs</h3>
 							</div>
 						</a>
-						<a href="javascript:void(0)">
+						<a href="<?php echo base_url();?>frequent_questions">
 							<div class="footer_top_content">
 								<h3>Frequent Questions</h3>
 							</div>

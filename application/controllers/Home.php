@@ -233,4 +233,12 @@ class Home extends CI_Controller {
 			}
 		}
 	}
+	function frequent_questions()
+	{
+		$data=[];
+		$this->load->view('header',$data);
+		$this->load->view('frequent_questions',$data);
+		$this->load->view('footer',$data);
+	}
+	
 }
