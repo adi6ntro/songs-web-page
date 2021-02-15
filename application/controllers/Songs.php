@@ -19,7 +19,7 @@ class Songs extends CI_Controller {
 		$lang = rawurldecode($this->input->get('lang'));
 		$song = rawurldecode($this->input->get('song'));
 
-		$arr_where = array('songs.artist'=>$data['row']->artist);
+		$arr_where = array('songs.artist'=>$data['row']->artist, 'songs.id <>'=>$id);
 		if ($lang != '')
 			$arr_where['language'] = $lang;
 		$data['songs']=$this->songs_model->get_by_param($arr_where,$this->limit);
@@ -62,7 +62,7 @@ class Songs extends CI_Controller {
 			redirect('login', 'refresh');
 		}
 		$data['songs']=$this->songs_model->get_favorite($this->limit);
-		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
+		$data['is_load']=(count($data['songs']) < $this->limit)?'no':'yes';
 		$data['lang']="ALL";
 		$data['lang_id']="";
 		$data['song']="selected";

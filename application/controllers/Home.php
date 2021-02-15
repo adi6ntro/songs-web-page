@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data['songs']=$this->songs_model->get_all_songs($this->limit);
-		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
+		$data['is_load']=(count($data['songs']) < $this->limit)?'no':'yes';
 		$data['lang']="ALL";
 		$data['song']="";
 		$data['lang_id']="";
@@ -120,7 +120,7 @@ class Home extends CI_Controller {
 			$data['songs']=$this->songs_model->get_all_songs($this->limit);
 		else
 			$data['songs']=$this->songs_model->get_by_param($arr_where,$this->limit,0,$like);
-		$data['is_load']=(count($data['songs']) <= $this->limit)?'no':'yes';
+		$data['is_load']=(count($data['songs']) < $this->limit)?'no':'yes';
 		$data['start_limit']=$this->limit;
 		$data['limit']=$this->limit;
 		$data['artist']="";
@@ -136,12 +136,13 @@ class Home extends CI_Controller {
 		{
 			$arr = array();
 			$results = array();
+			$limit = $this->input->post('limit')+1;
 			if (in_array($this->input->post('selected'), array('selected','all','artist'))){
 				if ($this->input->post('selected') == 'selected') {
-					$songs=$this->songs_model->get_favorite($this->input->post('limit'),$this->input->post('start'));
+					$songs=$this->songs_model->get_favorite($limit,$this->input->post('start'));
 				} else if ($this->input->post('selected') == 'all') {
 					if ($this->input->post('lang') == '' && $this->input->post('song') == '') {
-						$songs = $this->songs_model->get_all_songs($this->input->post('limit'),$this->input->post('start'));
+						$songs = $this->songs_model->get_all_songs($limit,$this->input->post('start'));
 					} else {
 						if ($this->input->post('lang') != ''){
 							$arr['language'] = $this->input->post('lang');
@@ -153,13 +154,13 @@ class Home extends CI_Controller {
 							$arr['song'] = implode('%',$results[0]);
 							$like = 'like|song';
 						}
-						$songs = $this->songs_model->get_by_param($arr,$this->input->post('limit'),$this->input->post('start'),$like);
+						$songs = $this->songs_model->get_by_param($arr,$limit,$this->input->post('start'),$like);
 					}
 				} else if ($this->input->post('selected') == 'artist') {
 					$arr['songs.artist'] = $this->input->post('song');
 					if ($lang != '')
 						$arr['language'] = $this->input->post('lang');
-					$songs = $this->songs_model->get_by_param($arr,$this->input->post('limit'),$this->input->post('start'));
+					$songs = $this->songs_model->get_by_param($arr,$limit,$this->input->post('start'));
 				}
 				$return = "";
 				$count_limit = 0;
@@ -227,7 +228,7 @@ class Home extends CI_Controller {
 					</a>';
 					if (++$count_limit == $this->input->post('limit')) break;
 				}
-				echo $is_load.'|'.$return;
+				echo $is_load.'|'.$return.'|'.count($songs).'|'.$this->input->post('limit');
 			} else {
 				echo 'no';
 			}

@@ -26,10 +26,6 @@
 	<script src="<?php echo base_url();?>assets/js/custom.js?v=2021"></script>
 	<script type="text/javascript">
         $(document).ready(function(){
-			if (!$(".music_list_main_area_container").has(".single_music_item").length) {
-				var h = window.innerHeight-333;
-				$(".music_list_main_area_container").css("height", h+"px");
-			}
             $( "#searchLang" ).autocomplete({
 				source: function( request, response ) {
 					$.ajax({
@@ -119,11 +115,11 @@
 			$('#updatenotes').hide();
 			$('#savenotes').show();
 			$('#note').hide();
+			$('#notes').show();
 			// $('#noteeditor').show();
 			$('.ck-editor').show();
 		}
 		function savenotes() {
-			$('#updatenotes').show();
 			$('#savenotes').hide();
 			$.ajax({
 				url:"<?php echo site_url('savenote');?>",
@@ -132,11 +128,21 @@
 				cache:false,
 				success:function(data){
 					if(data){
-						$('#note').html(note.getData());
+						if (note.getData() == ""){
+							console.log('hiding');
+							$('#updatenotes').html('CREATE NEW');
+							$('#note').hide();
+							$('#notes').hide();
+						} else {
+							console.log(note.getData());
+							$('#note').html(note.getData());
+							$('#updatenotes').html('EDIT');
+							$('#note').show();
+						}
 					}
 				}
 			});
-			$('#note').show();
+			$('#updatenotes').show();
 			$('.ck-editor').hide();
 		}
 		<?php } ?>
@@ -153,14 +159,21 @@
 					cache:false,
 					success:function(data){
 						var res = data.split("|");
+						console.log(limit);
+						console.log(res[2]);
+						console.log(res[3]);
 						if (typeof res[1] !== 'undefined' && res[1].length > 0) {
+							console.log('yes1');
 							$('#load_data').append(res[1]);
+						} else {
+							console.log('no1');
 						}
+						console.log(res[0]);
 						if(res[0] == 'no'){
 							$('#load_data_message').css("display","none");
 						}else{
 							start = start + limit;
-							$('#load_data_message').html("<a class='btn btn-loadmore' onclick='load_more_songs("+tipe+","+limit+","+start+")' id='loadMore'><i class='fa fa-caret-down' aria-hidden='true'></i> More Songs...</a>");
+							$('#load_data_message').html(`<a class="btn btn-loadmore" onclick="load_more_songs('${tipe}',${limit},${start})" id="loadMore"><i class="fa fa-caret-down" aria-hidden="true"></i> More Songs...</a>`);
 						}
 					}
 				});
@@ -168,18 +181,11 @@
 		<?php } ?>
 
 		function readmore() {
-			var dots = document.getElementById("dots");
-			var moreText = document.getElementById("more");
-			var btnText = document.getElementById("readmore");
-
-			if (dots.style.display === "none") {
-				dots.style.display = "inline";
-				btnText.innerHTML = "More"; 
-				moreText.style.display = "none";
+			document.getElementById("lyrics").classList.toggle("truncate");
+			if(document.getElementById("lyrics").classList.contains('truncate')) {
+				document.getElementById("readmore").innerHTML = "Less"; 
 			} else {
-				dots.style.display = "none";
-				btnText.innerHTML = "Less"; 
-				moreText.style.display = "inline";
+				document.getElementById("readmore").innerHTML = "More"; 
 			}
 		}
 
