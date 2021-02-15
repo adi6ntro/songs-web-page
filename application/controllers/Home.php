@@ -240,5 +240,19 @@ class Home extends CI_Controller {
 		$this->load->view('frequent_questions',$data);
 		$this->load->view('footer',$data);
 	}
+	function contact_us()
+	{
+		$data=[];
+		$this->load->view('header',$data);
+		$this->load->view('contact_us',$data);
+		$this->load->view('footer',$data);
+	}
+	function coming_soon()
+	{
+		$data=[];
+		$this->load->view('header',$data);
+		$this->load->view('coming_soon',$data);
+		$this->load->view('footer',$data);
+	}
 	
 }

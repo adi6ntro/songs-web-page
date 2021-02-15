@@ -42,8 +42,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<div class="song_subname" style="
 									text-align:center;
 									margin-top: 2px;
-									font-size:12px">
-									<p style="color: #7E8083;"><?php echo $row->subname; ?></p>
+									font-size:12px;
+									color: #7E8083;
+								">
+									<?php echo $row->subname; ?>
 								</div>								
 								<div class="geners" style="
 									text-align: center;
@@ -62,9 +64,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									font-size: 18px;
 									font-weight: 300;
 								">
-									<p><?php echo $row->artist; ?> 
+									<?php echo $row->artist; ?> 
 									<span style="color: green;font-size:12px;font-weight:600;">&nbsp(<?php echo $row->country; ?>)</span>
-									</p>
 								</div>
 								<div class="year_instrument" style=" 										
 									text-align: center;
@@ -74,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								">
 									<?php echo $row->year; ?>
 									<?php if ($row->instrument != ""){ ?>
-									<span style="color: orange;padding-left:30px"><?php echo $row->instrument; ?></span>
+									<span style="color: orange;padding-left:10px"><?php echo $row->instrument; ?></span>
 									<?php } ?>
 								</div>
 								<div class="song_main_language_2" style=" 										
@@ -84,9 +85,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									font-weight: 600;
 								">
 									<?php echo $row->language_name; ?>
-									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(35 songs)<span>																	
+									<span style="font-size: 12px;font-weight: 400;">&nbsp&nbsp(<?php echo $row->language_quantity; ?>)<span>																	
 								</div>
-								<div class="favorite_song" style="text-align: center;margin-bottom: 30px;">
+								<div class="favorite_song" style="text-align: center;margin: -8px 13px 25px 0px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>						
 								<div class="song_source" style="text-align: center;padding: 2px 20px 0px;border-top: 1px solid #dadada;">

@@ -107,7 +107,7 @@ class Songs_model extends CI_Model
 		$fav_status = ($this->session->userdata('logged_in'))?',fav_status,note':'';
 		$this->db->select('songs.id,song,songs.artist,genre,genre.color,language,country,
 		country.name as country_name,year,style,instrument,language.name as language_name,
-		lyrics,source_name_lyrics,source_url_lyrics,subname'.$fav_status);
+		lyrics,source_name_lyrics,source_url_lyrics,subname,language.quantity as language_quantity'.$fav_status);
 		$this->db->from('songs');
 		$this->db->join('artist', 'songs.artist = artist.artist');
 		$this->db->join('genre', 'songs.genre = genre.name');

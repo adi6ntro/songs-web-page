@@ -136,6 +136,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<h3>Frequent Questions</h3>
 							</div>
 						</a>
+						<a href="<?php echo base_url();?>contact_us">
+							<div class="footer_top_content">
+								<h3>Contact Us</h3>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div>

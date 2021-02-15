@@ -73,3 +73,4 @@ $route['autocomplete/song'] = 'home/get_autocomplete/song';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['frequent_questions'] = 'home/frequent_questions';
+$route['contact_us'] = 'home/contact_us';

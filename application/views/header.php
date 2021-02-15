@@ -127,7 +127,7 @@ header('Content-Type: text/html; charset=utf-8');
 						<hr style="margin: 0px 0 7px;">
 						<?php } ?>
 						<a href="<?php echo base_url();?>frequent_questions">Frequent Questions</a>
-						<a href="<?php echo base_url();?>">Contact Us</a>
+						<a href="<?php echo base_url();?>contact_us">Contact Us</a>
 					</div>
 				</div>
 			</div>
