@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										(<?php echo $row->language_quantity; ?>)
 									</div>																	
 								</div>
-								<div class="favorite_song" style="text-align: center;margin: -8px 13px 25px 0px;">
+								<div class="favorite_song" style="text-align: center;margin: -8px 0px 25px 0px;">
 									<input class="star" type="checkbox" title="bookmark page" <?php if ($this->session->userdata('logged_in')){ echo ($row->fav_status == 'active')?'checked':''; } ?> onclick="set_favorite(this,<?php echo $row->id;?>)">
 								</div>						
 								<div class="song_source" style="text-align: center;padding: 2px 20px 0px;border-top: 1px solid #dadada;">
